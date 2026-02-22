@@ -1,0 +1,831 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Essential Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Colors
+\definecolor{nlcblue}{RGB}{0,51,102}
+\definecolor{alertred}{RGB}{204,0,0}
+\definecolor{safgreen}{RGB}{0,128,0}
+\definecolor{conceptbox}{RGB}{240,248,255}
+\definecolor{examplebox}{RGB}{255,250,240}
+
+% Header/Footer
+\setlength{\headheight}{13.59999pt}
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{NLC STEM Club UAV Project}}
+\fancyhead[R]{\textbf{Circuit Fundamentals}}
+\fancyfoot[C]{\thepage}
+
+% Custom box styles
+\newtcolorbox{conceptbox}[1]{
+  colback=conceptbox,
+  colframe=nlcblue,
+  title=#1,
+  fonttitle=\bfseries,
+  arc=3mm
+}
+
+\newtcolorbox{examplebox}[1]{
+  colback=examplebox,
+  colframe=alertred!70,
+  title=#1,
+  fonttitle=\bfseries,
+  arc=3mm
+}
+
+\newtcolorbox{formulabox}{
+  colback=white,
+  colframe=nlcblue,
+  arc=2mm,
+  boxrule=2pt,
+  halign=center,
+  fontupper=\Large\bfseries
+}
+
+% Title
+\title{\Huge\textbf{Circuit Fundamentals Teaching Guide}\\
+\Large For NLC STEM Club UAV Electrical Team\\
+\large From Basic Concepts to Real System Calculations}
+\author{Electronics \& Power Team}
+\date{February 2026}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\section*{Purpose}
+
+This guide teaches the electrical theory and math we used to design the UAV power system. All examples are from OUR ACTUAL PROJECT.
+
+\textbf{Target Audience:} Beginners with little/no electrical experience
+
+\textbf{Teaching Approach:}
+\begin{enumerate}
+  \item Learn the fundamental concept
+  \item See the formula
+  \item Apply it to our UAV system
+  \item Try a practice problem
+\end{enumerate}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{The Big Three (Voltage, Current, Resistance)}
+
+Think of electricity like water flowing through pipes...
+
+\begin{conceptbox}{VOLTAGE (V) = Electrical Pressure}
+\begin{itemize}
+  \item \textbf{Measured in:} Volts (V)
+  \item \textbf{Water analogy:} Water pressure in the pipe
+  \item \textbf{Symbol:} V or E
+  \item \textbf{Example:} Our battery is 14.8V (pushes electrons with 14.8V of "pressure")
+\end{itemize}
+\end{conceptbox}
+
+\vspace{0.5cm}
+
+\begin{conceptbox}{CURRENT (I) = Flow Rate}
+\begin{itemize}
+  \item \textbf{Measured in:} Amperes or Amps (A), milliamps (mA)
+  \item \textbf{Water analogy:} How much water flows per second
+  \item \textbf{Symbol:} I
+  \item \textbf{Example:} Our flight controller uses 250mA = 0.25A (250 milliamps of electrons flowing through it)
+  \item \textbf{Conversion:} 1000 mA = 1 A
+\end{itemize}
+\end{conceptbox}
+
+\vspace{0.5cm}
+
+\begin{conceptbox}{RESISTANCE (R) = Opposition to Flow}
+\begin{itemize}
+  \item \textbf{Measured in:} Ohms ($\Omega$)
+  \item \textbf{Water analogy:} Narrow pipe restricts water flow
+  \item \textbf{Symbol:} R
+  \item \textbf{Example:} A resistor that limits current flow
+\end{itemize}
+\end{conceptbox}
+
+\section{Ohm's Law (The Most Important Formula)}
+
+Ohm's Law states the relationship between Voltage, Current, and Resistance:
+
+\begin{formulabox}
+$V = I \times R$
+\end{formulabox}
+
+Where:
+\begin{itemize}
+  \item V = Voltage (Volts)
+  \item I = Current (Amps)
+  \item R = Resistance (Ohms)
+\end{itemize}
+
+\subsection{Rearranged Forms}
+
+\begin{align*}
+I &= \frac{V}{R} \quad \text{(Find current if you know voltage and resistance)}\\
+R &= \frac{V}{I} \quad \text{(Find resistance if you know voltage and current)}
+\end{align*}
+
+\subsection{Memory Trick - Ohm's Law Triangle}
+
+Cover what you want to find, and you see the formula!
+\begin{itemize}
+  \item Cover V: You see $I \times R$ $\rightarrow$ $V = I \times R$
+  \item Cover I: You see $V / R$ $\rightarrow$ $I = V / R$
+  \item Cover R: You see $V / I$ $\rightarrow$ $R = V / I$
+\end{itemize}
+
+\subsection{Example from Our UAV}
+
+\begin{examplebox}{Servo Resistance Calculation}
+\textbf{Question:} If our servo draws 180mA when moving, and it's powered by 5V, what is its effective resistance?
+
+\textbf{Given:}
+\begin{itemize}
+  \item V = 5V
+  \item I = 180mA = 0.18A (convert to amps!)
+\end{itemize}
+
+\textbf{Find R:}
+\begin{align*}
+R &= \frac{V}{I}\\
+R &= \frac{5\text{V}}{0.18\text{A}}\\
+R &= 27.78~\Omega
+\end{align*}
+
+\textbf{Answer:} The servo has an effective resistance of $\sim$28$\Omega$ when moving.
+\end{examplebox}
+
+\subsection{Practice Problem 1}
+
+Our GPS module uses 60mA at 5V. What is its resistance?
+
+\textbf{Given:} V = \_\_\_\_\_, I = \_\_\_\_\_
+
+\textbf{Find:} $R = ?$
+
+$R = V / I = $ \_\_\_\_\_\_\_\_\_ $= $ \_\_\_\_\_\_\_\_\_
+
+\textbf{Answer:} \_\_\_\_\_\_\_\_\_ Ohms
+
+\section{Electrical Power (How Much Energy?)}
+
+Power measures how fast electrical energy is used or converted.
+
+\begin{formulabox}
+$P = V \times I$
+\end{formulabox}
+
+Where:
+\begin{itemize}
+  \item P = Power (Watts)
+  \item V = Voltage (Volts)
+  \item I = Current (Amps)
+\end{itemize}
+
+\subsection{Other Forms (Using Ohm's Law)}
+
+\begin{align*}
+P &= I^2 \times R\\
+P &= \frac{V^2}{R}
+\end{align*}
+
+\subsection{Why We Care}
+
+\begin{itemize}
+  \item Power tells us how much energy a component uses
+  \item Higher power = more battery drain
+  \item Higher power = more heat generation
+  \item We need to ensure our BECs can supply enough power
+\end{itemize}
+
+\subsection{Example from Our UAV - Motor Power}
+
+\begin{examplebox}{Motor Power at 50\% Throttle}
+\textbf{Question:} At 50\% throttle, our motor draws 10A from the 14.8V battery. How much power is it using?
+
+\textbf{Given:}
+\begin{itemize}
+  \item V = 14.8V
+  \item I = 10A
+\end{itemize}
+
+\textbf{Find P:}
+\begin{align*}
+P &= V \times I\\
+P &= 14.8\text{V} \times 10\text{A}\\
+P &= 148\text{ Watts}
+\end{align*}
+
+\textbf{Answer:} The motor uses 148W at 50\% throttle.
+\end{examplebox}
+
+\subsection{Example from Our UAV - BEC Capacity}
+
+\begin{examplebox}{BEC Maximum Power}
+\textbf{Question:} Our ESC has a 5V 3A BEC. What is the maximum power it can supply?
+
+\textbf{Given:}
+\begin{itemize}
+  \item V = 5V
+  \item I = 3A (max)
+\end{itemize}
+
+\textbf{Find P:}
+\begin{align*}
+P &= V \times I\\
+P &= 5\text{V} \times 3\text{A}\\
+P &= 15\text{ Watts}
+\end{align*}
+
+\textbf{Answer:} The BEC can supply up to 15W of power.
+
+\vspace{0.5cm}
+
+\textbf{This is WHY we calculated our system needs!}
+\begin{itemize}
+  \item Flight controller: $5\text{V} \times 0.25\text{A} = 1.25\text{W}$
+  \item GPS: $5\text{V} \times 0.06\text{A} = 0.3\text{W}$
+  \item Receiver: $5\text{V} \times 0.09\text{A} = 0.45\text{W}$
+  \item Servos (all moving): $5\text{V} \times 0.72\text{A} = 3.6\text{W}$
+  \item Arduino + Sensors: $5\text{V} \times 0.263\text{A} = 1.32\text{W}$
+  \item \textbf{TOTAL = 6.92W}
+\end{itemize}
+
+But $15\text{W} > 6.92\text{W}$, so we're safe, right?
+
+\textbf{WRONG!} Peak servo current can exceed 3A $\rightarrow$ BEC overload $\rightarrow$ WHY WE NEED DUAL-BEC!
+\end{examplebox}
+
+\subsection{Practice Problem 2}
+
+Our External UBEC supplies 5V at 6A. How many watts can it provide?
+
+\textbf{Given:} V = \_\_\_\_\_, I = \_\_\_\_\_
+
+\textbf{Find:} $P = ?$
+
+$P = V \times I = $ \_\_\_\_\_\_\_\_\_ $= $ \_\_\_\_\_\_\_\_\_
+
+\textbf{Answer:} \_\_\_\_\_\_\_\_\_ Watts
+
+\section{Battery Capacity (How Long Will It Last?)}
+
+Battery capacity tells us how much charge a battery can store.
+
+\textbf{Measured in:} Amp-Hours (Ah) or milliamp-hours (mAh)
+\begin{itemize}
+  \item 1 Ah = 1000 mAh
+  \item Our battery: 2200 mAh = 2.2 Ah
+\end{itemize}
+
+\textbf{Meaning:} The battery can supply 2200mA for 1 hour OR 1100mA for 2 hours OR 4400mA for 0.5 hours (30 minutes)
+
+\begin{formulabox}
+$\text{Runtime (hours)} = \frac{\text{Capacity (Ah)}}{\text{Current Draw (A)}}$
+\end{formulabox}
+
+\subsection{Example from Our UAV - Flight Time Calculation}
+
+\begin{examplebox}{Flight Time at Cruise Power}
+\textbf{Question:} Our motor draws 10A at cruise. Our battery is 2200mAh. How long can we fly?
+
+\textbf{Given:}
+\begin{itemize}
+  \item Battery Capacity = 2200 mAh = 2.2 Ah
+  \item Current Draw = 10A
+\end{itemize}
+
+\textbf{Find Runtime:}
+\begin{align*}
+\text{Runtime} &= \frac{\text{Capacity}}{\text{Current}}\\
+\text{Runtime} &= \frac{2.2\text{ Ah}}{10\text{A}}\\
+\text{Runtime} &= 0.22\text{ hours} = 13.2\text{ minutes}
+\end{align*}
+
+\textbf{BUT WAIT!} We should NEVER fully drain a LiPo battery!
+
+Safe limit: Use only 80\% of capacity\\
+Usable capacity: $2200\text{mAh} \times 0.8 = 1760\text{ mAh} = 1.76\text{ Ah}$
+
+\begin{align*}
+\text{Safe Runtime} &= \frac{1.76\text{ Ah}}{10\text{A}}\\
+&= 0.176\text{ hours} = 10.6\text{ minutes}
+\end{align*}
+
+\textbf{Answer:} Safe flight time is about 10-11 minutes at cruise power.
+\end{examplebox}
+
+\subsection{Converting Units}
+
+Our 5V system draws 1383mA typical. How long can it run on the battery?
+
+\textbf{Step 1:} Convert mA to A\\
+$1383\text{ mA} \div 1000 = 1.383\text{ A}$
+
+\textbf{Step 2:} BUT the battery is 14.8V, and the 5V system is after conversion! We need to account for efficiency losses ($\sim$85\% efficient)
+
+Power at 5V: $P = 5\text{V} \times 1.383\text{A} = 6.92\text{W}$\\
+Current from 14.8V battery: $I = 6.92\text{W} / 14.8\text{V} = 0.468\text{A}$
+
+\textbf{Step 3:} Calculate runtime\\
+$\text{Runtime} = 1.76\text{ Ah} / 0.468\text{A} = 3.76\text{ hours}$
+
+This is why the 5V electronics are NOT the limiting factor - the motor is!
+
+\subsection{Practice Problem 3}
+
+Our Arduino system draws 263mA at 5V. If we had a separate 2200mAh battery just for it, how long would it last? (Assume you can use 80\% of capacity)
+
+\textbf{Given:} Capacity = $2200\text{mAh} \times 0.8 = $ \_\_\_\_\_ mAh\\
+Current = \_\_\_\_\_ mA
+
+Runtime = Capacity / Current = \_\_\_\_\_\_\_\_\_ hours
+
+\textbf{Answer:} \_\_\_\_\_\_\_\_\_ hours = \_\_\_\_\_\_\_\_\_ minutes
+
+\section{Series vs Parallel Circuits}
+
+\subsection{Series: Components in a Single Line}
+
+\begin{conceptbox}{SERIES Configuration}
+Components in a single line (one path for current)
+
+\begin{itemize}
+  \item \textbf{Current} is THE SAME through all components
+  \item \textbf{Voltage} DIVIDES across components
+  \item \textbf{Total Resistance:} $R_{\text{total}} = R_1 + R_2 + R_3$
+\end{itemize}
+
+\textbf{Example:} Battery cells in series (4S LiPo)
+\begin{itemize}
+  \item Each cell: 3.7V
+  \item 4 in series: $3.7\text{V} + 3.7\text{V} + 3.7\text{V} + 3.7\text{V} = 14.8\text{V}$
+\end{itemize}
+\end{conceptbox}
+
+\subsection{Parallel: Components on Separate Branches}
+
+\begin{conceptbox}{PARALLEL Configuration}
+Components on separate branches (multiple paths)
+
+\begin{itemize}
+  \item \textbf{Voltage} is THE SAME across all components
+  \item \textbf{Current} DIVIDES among branches
+  \item \textbf{Total Resistance:} $\frac{1}{R_{\text{total}}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}$
+\end{itemize}
+
+\textbf{Example:} All our 5V components connected to BEC
+\begin{itemize}
+  \item Each device gets 5V
+  \item Total current = FC + GPS + RX + Arduino + Servos
+\end{itemize}
+\end{conceptbox}
+
+\subsection{Our UAV Power System is Parallel}
+
+\begin{verbatim}
+5V BEC ──┬──→ Flight Controller (250mA)
+(Rail 1) ├──→ GPS Module (60mA)
+         ├──→ ELRS Receiver (90mA)
+         └──→ Arduino System (263mA)
+
+Total Current = 250 + 60 + 90 + 263 = 663 mA
+\end{verbatim}
+
+ALL devices get 5V (parallel voltage rule)\\
+TOTAL current is the SUM (parallel current rule)
+
+\subsection{Practice Problem 4}
+
+Rail 2 powers 4 servos in parallel. Each servo draws 180mA when moving. What is the total current draw from Rail 2?
+
+\textbf{Given:} 4 servos, each 180mA
+
+Total Current = \_\_\_\_\_ + \_\_\_\_\_ + \_\_\_\_\_ + \_\_\_\_\_ = \_\_\_\_\_ mA
+
+\textbf{Answer:} \_\_\_\_\_\_\_\_\_ mA = \_\_\_\_\_\_\_\_\_ A
+
+\section{Wire Gauge \& Current Capacity}
+
+Wires have resistance! Thicker wire = less resistance = can carry more current.
+
+Wire sizes are measured in AWG (American Wire Gauge):
+\begin{itemize}
+  \item SMALLER number = THICKER wire = MORE current capacity
+  \item LARGER number = THINNER wire = LESS current capacity
+\end{itemize}
+
+\subsection{Wire Gauge Reference Table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccll}
+\toprule
+\textbf{AWG} & \textbf{Diameter} & \textbf{Max Current} & \textbf{Our Use} \\
+\midrule
+12 & 2.05mm & 25-30A & (too thick) \\
+14 & 1.63mm & 15-20A & Battery $\rightarrow$ ESC/UBEC \\
+16 & 1.29mm & 10-13A & Motor wires \\
+18 & 1.02mm & 7-10A & 5V Power Distribution \\
+20 & 0.81mm & 5A & Servo power \\
+22 & 0.64mm & 3A & Signal wires \\
+24 & 0.51mm & 2A & Sensor I2C \\
+26 & 0.40mm & 1A & UART/SPI \\
+\bottomrule
+\end{tabular}
+\caption{Wire Gauge Current Capacity}
+\end{table}
+
+\subsection{Why This Matters}
+
+If wire is too thin for the current:
+\begin{itemize}
+  \item Wire heats up ($I^2 \times R$ power dissipation)
+  \item Voltage drop occurs ($V_{\text{drop}} = I \times R_{\text{wire}}$)
+  \item Can cause fire!
+\end{itemize}
+
+If wire is too thick:
+\begin{itemize}
+  \item Wastes money
+  \item Adds unnecessary weight to UAV
+  \item Harder to work with (stiff, bulky)
+\end{itemize}
+
+\subsection{Example from Our UAV - Battery to ESC Wire}
+
+\begin{examplebox}{Wire Selection for High Current}
+\textbf{Question:} Our motor can draw up to 30A burst. What wire gauge do we need from battery to ESC?
+
+\textbf{Given:}
+\begin{itemize}
+  \item Max Current = 30A
+\end{itemize}
+
+\textbf{From table:}
+\begin{itemize}
+  \item 14 AWG can handle 15-20A (not enough!)
+  \item 12 AWG can handle 25-30A (just barely enough)
+\end{itemize}
+
+\textbf{Recommendation:} Use 12 AWG or 14 AWG with short run (Our ESC comes with XT60 and appropriate wire pre-attached)
+
+\textbf{Answer:} 12-14 AWG wire is appropriate.
+\end{examplebox}
+
+\subsection{Practice Problem 5}
+
+Our External UBEC supplies up to 6A to Rail 2 (servos). What is the minimum wire gauge we should use?
+
+\textbf{Given:} Max Current = \_\_\_\_\_ A
+
+From table: Look up wire gauge that can handle \_\_\_\_\_ A
+
+\textbf{Answer:} Use at least \_\_\_\_\_\_ AWG wire.
+
+\section{Voltage Regulation \& BECs}
+
+BEC = Battery Elimination Circuit
+\begin{itemize}
+  \item Takes high voltage input (14.8V from battery)
+  \item Outputs stable low voltage (5V for electronics)
+  \item Allows us to use ONE battery for everything
+\end{itemize}
+
+\subsection{Linear Regulator (Not Used in Our System)}
+
+\begin{conceptbox}{Linear Regulator}
+$14.8\text{V} \rightarrow [\text{Linear Reg}] \rightarrow 5\text{V}$
+
+\begin{itemize}
+  \item Simple, cheap
+  \item Wastes energy as heat: $P_{\text{wasted}} = (V_{\text{in}} - V_{\text{out}}) \times I$
+  \item Example: $(14.8\text{V} - 5\text{V}) \times 3\text{A} = 29.4\text{W}$ wasted as heat!
+  \item Efficiency: $\sim$40-60\%
+\end{itemize}
+\end{conceptbox}
+
+\subsection{Switching Regulator / UBEC (What We Use!)}
+
+\begin{conceptbox}{Switching Regulator / UBEC}
+$14.8\text{V} \rightarrow [\text{Switching Reg}] \rightarrow 5\text{V}$
+
+\begin{itemize}
+  \item More complex, more expensive
+  \item Efficient energy conversion
+  \item Efficiency: $\sim$85-95\%
+  \item Minimal heat generation
+\end{itemize}
+\end{conceptbox}
+
+\subsection{Power Conservation}
+
+In an ideal world: $P_{\text{in}} = P_{\text{out}}$ (energy is conserved)
+
+\begin{align*}
+P_{\text{in}} &= V_{\text{in}} \times I_{\text{in}}\\
+P_{\text{out}} &= V_{\text{out}} \times I_{\text{out}}
+\end{align*}
+
+For switching regulator (assume 85\% efficient):\\
+$P_{\text{out}} = P_{\text{in}} \times 0.85$
+
+\subsection{Example from Our UAV - BEC Current Calculation}
+
+\begin{examplebox}{BEC Input Current}
+\textbf{Question:} Our 5V system draws 3A. How much current does the BEC draw from the 14.8V battery? (Assume 85\% efficiency)
+
+\textbf{Step 1:} Calculate output power
+\begin{align*}
+P_{\text{out}} &= V_{\text{out}} \times I_{\text{out}}\\
+P_{\text{out}} &= 5\text{V} \times 3\text{A} = 15\text{W}
+\end{align*}
+
+\textbf{Step 2:} Calculate input power (accounting for losses)
+\begin{align*}
+P_{\text{in}} &= \frac{P_{\text{out}}}{\text{efficiency}}\\
+P_{\text{in}} &= \frac{15\text{W}}{0.85} = 17.65\text{W}
+\end{align*}
+
+\textbf{Step 3:} Calculate input current
+\begin{align*}
+I_{\text{in}} &= \frac{P_{\text{in}}}{V_{\text{in}}}\\
+I_{\text{in}} &= \frac{17.65\text{W}}{14.8\text{V}} = 1.19\text{A}
+\end{align*}
+
+\textbf{Answer:} The BEC draws 1.19A from the 14.8V battery to supply 3A at 5V.
+
+\textbf{KEY INSIGHT:} High voltage $\rightarrow$ Low current (that's why we use 14.8V battery!)
+\end{examplebox}
+
+\subsection{Practice Problem 6}
+
+Our External UBEC supplies 5V @ 6A to the servos. How much current does it draw from the 14.8V battery at full load? (Assume 85\% efficiency)
+
+\textbf{Step 1:} $P_{\text{out}} = $ \_\_\_\_\_ V $\times$ \_\_\_\_\_ A = \_\_\_\_\_ W
+
+\textbf{Step 2:} $P_{\text{in}} = $ \_\_\_\_\_ W / 0.85 = \_\_\_\_\_ W
+
+\textbf{Step 3:} $I_{\text{in}} = $ \_\_\_\_\_ W / 14.8V = \_\_\_\_\_ A
+
+\textbf{Answer:} \_\_\_\_\_\_\_\_\_ A from battery
+
+\section{Real System Design - Why Dual-BEC?}
+
+Now let's put it all together with OUR ACTUAL DESIGN DECISION.
+
+\subsection{Single-BEC Configuration (Original Plan - REJECTED)}
+
+\begin{verbatim}
+14.8V Battery
+   │
+   ▼
+40A ESC with 5V 3A BEC
+   │
+   ├───→ Motor (14.8V)
+   │
+   └───→ 5V Rail (3A max)
+          │
+          ├──→ Flight Controller (250mA)
+          ├──→ GPS (60mA)
+          ├──→ Receiver (90mA)
+          ├──→ Arduino + Sensors (263mA)
+          └──→ 4× Servos (720mA moving, 1200mA peak!)
+\end{verbatim}
+
+\textbf{PROBLEM CALCULATION:}
+\begin{itemize}
+  \item Typical: $250 + 60 + 90 + 263 + 720 = 1383\text{ mA}$ [OK] Under 3A limit
+  \item Peak: $250 + 60 + 90 + 263 + 1200 = 1863\text{ mA}$ [OK] Still under 3A
+\end{itemize}
+
+But what if ONE servo stalls (jammed control surface)?
+\begin{itemize}
+  \item One stalled servo: 650mA
+  \item Three moving servos: $3 \times 300\text{mA} = 900\text{mA}$
+  \item Other electronics: $250 + 60 + 90 + 263 = 663\text{mA}$
+  \item \textbf{TOTAL} = $650 + 900 + 663 = 2213\text{ mA}$ [OK] Still under 3A!
+\end{itemize}
+
+\textbf{SO WHY DID WE REJECT THIS?}
+\begin{enumerate}
+  \item NO SAFETY MARGIN - operating at 60-75\% of max continuously
+  \item BEC THERMAL STRESS - constant high current = heat = premature failure
+  \item VOLTAGE SAG - under heavy load, 5V drops to 4.8V $\rightarrow$ brownouts
+  \item SINGLE POINT OF FAILURE - if BEC fails, you lose EVERYTHING
+\end{enumerate}
+
+\subsection{Dual-BEC Configuration (Our Design - APPROVED)}
+
+\begin{verbatim}
+14.8V Battery
+   │
+   ▼
+XT60 Y-Harness Splitter
+   │
+   ├───→ 40A ESC with 5V 3A BEC
+   │      │
+   │      ├───→ Motor (14.8V)
+   │      │
+   │      └───→ Rail 1: Flight-Critical (3A available)
+   │             │
+   │             ├──→ Flight Controller (250mA)
+   │             ├──→ GPS (60mA)
+   │             ├──→ Receiver (90mA)
+   │             └──→ Arduino + Sensors (263mA)
+   │                   TOTAL: 663 mA (22% of 3A) [SAFE]
+   │
+   └───→ External 5V 6A UBEC
+          │
+          └───→ Rail 2: Servo Power (6A available)
+                 │
+                 └──→ 4× Servos (720mA typ, 1200mA peak)
+                       PEAK: 1200 mA (20% of 6A) [SAFE]
+\end{verbatim}
+
+\textbf{ADVANTAGES:}
+\begin{itemize}
+  \item[OK] Flight-critical systems isolated from servo current spikes
+  \item[OK] Each rail has 3$\times$ safety margin
+  \item[OK] If servo BEC fails, flight controller still powered $\rightarrow$ controlled landing
+  \item[OK] No voltage sag on critical systems
+  \item[OK] Professional aerospace-grade redundancy
+\end{itemize}
+
+\subsection{The Math That Proved We Needed Dual-BEC}
+
+ESC BEC Capacity: $5\text{V} \times 3\text{A} = 15\text{W}$ available
+
+\begin{itemize}
+  \item Flight Critical Load: $5\text{V} \times 0.663\text{A} = 3.3\text{W}$ (22\% utilization) [OK]
+  \item Servo Load (peak): $5\text{V} \times 1.2\text{A} = 6\text{W}$ (40\% utilization at peak) [OK]
+\end{itemize}
+
+Single-BEC Peak: $3.3\text{W} + 6\text{W} = 9.3\text{W}$ (62\% utilization) - Marginal!\\
+Dual-BEC Peak: Rail 1 = 3.3W (22\%), Rail 2 = 6W (20\%) - Excellent!
+
+\textbf{Cost Analysis:}
+\begin{itemize}
+  \item Cost of External UBEC: \$12-15
+  \item Cost of Dual-BEC Architecture: \$12-15 total (just the UBEC!)
+  \item Cost of crashing due to BEC failure: \$500+ (entire project)
+\end{itemize}
+
+\textbf{DECISION:} \$12 insurance policy $\rightarrow$ APPROVED!
+
+\section{Practice Problems - Full System Calculations}
+
+\subsection{Problem Set A: Current Calculations}
+
+\textbf{1.} The ELRS receiver uses 90mA. If powered by 5V, how much power does it use?\\
+$P = V \times I = $ \_\_\_\_\_ $\times$ \_\_\_\_\_ $= $ \_\_\_\_\_ W
+
+\textbf{2.} Our motor draws 18A at 75\% throttle from 14.8V. How much power?\\
+$P = $ \_\_\_\_\_ $\times$ \_\_\_\_\_ $= $ \_\_\_\_\_ W
+
+\textbf{3.} Three components draw 100mA, 250mA, and 80mA in parallel. What is total?\\
+$I_{\text{total}} = $ \_\_\_\_\_ + \_\_\_\_\_ + \_\_\_\_\_ $= $ \_\_\_\_\_ mA
+
+\subsection{Problem Set B: Battery Life}
+
+\textbf{4.} Battery: 2200mAh. Motor draws 14A. Flight time? (Use 80\% of capacity)\\
+Usable capacity: $2200\text{mAh} \times 0.8 = $ \_\_\_\_\_ mAh $= $ \_\_\_\_\_ Ah\\
+Runtime $= $ \_\_\_\_\_ Ah / \_\_\_\_\_ A $= $ \_\_\_\_\_ hours $= $ \_\_\_\_\_ minutes
+
+\textbf{5.} If we reduce motor current to 8A, what's the new flight time?\\
+Runtime $= $ \_\_\_\_\_ Ah / \_\_\_\_\_ A $= $ \_\_\_\_\_ hours $= $ \_\_\_\_\_ minutes
+
+\subsection{Problem Set C: System Design}
+
+\textbf{6.} You add an FPV camera (200mA) to Rail 1. What's the new total current?\\
+Original Rail 1: 663mA\\
+With camera: 663mA + \_\_\_\_\_mA $= $ \_\_\_\_\_ mA\\
+Is this under the 3A limit? \_\_\_\_\_
+
+\textbf{7.} Design check: Rail 2 has 4 servos. Each can stall at 650mA. If all four stall simultaneously (worst case), what current is drawn?\\
+$I_{\text{total}} = 4 \times $ \_\_\_\_\_ mA $= $ \_\_\_\_\_ mA $= $ \_\_\_\_\_ A\\
+UBEC capacity: 6A\\
+Margin: \_\_\_\_\_ A - \_\_\_\_\_ A $= $ \_\_\_\_\_ A remaining\\
+Is this safe? \_\_\_\_\_
+
+\subsection{Problem Set D: Efficiency \& Conversion}
+
+\textbf{8.} BEC converts 14.8V to 5V at 85\% efficiency. If output is 5V @ 2A, what power is drawn from the battery?\\
+$P_{\text{out}} = $ \_\_\_\_\_ V $\times$ \_\_\_\_\_ A $= $ \_\_\_\_\_ W\\
+$P_{\text{in}} = $ \_\_\_\_\_ W / 0.85 $= $ \_\_\_\_\_ W\\
+$I_{\text{in}} = $ \_\_\_\_\_ W / 14.8V $= $ \_\_\_\_\_ A
+
+\textbf{9.} If the BEC were only 70\% efficient (linear regulator), how much power would be wasted as heat?\\
+$P_{\text{in}} = 10\text{W} / 0.70 = $ \_\_\_\_\_ W\\
+$P_{\text{wasted}} = $ \_\_\_\_\_ W - 10W $= $ \_\_\_\_\_ W of heat!
+
+\section{Answer Key}
+
+\subsection{Practice Problems}
+
+\textbf{Practice Problem 1: GPS Resistance}\\
+$R = V / I = 5\text{V} / 0.06\text{A} = 83.33~\Omega$
+
+\textbf{Practice Problem 2: UBEC Power}\\
+$P = V \times I = 5\text{V} \times 6\text{A} = 30\text{ Watts}$
+
+\textbf{Practice Problem 3: Arduino Runtime}\\
+Capacity $= 2200\text{mAh} \times 0.8 = 1760\text{ mAh}$\\
+Runtime $= 1760\text{ mAh} / 263\text{ mA} = 6.69\text{ hours} \approx 6\text{ hours } 41\text{ minutes}$
+
+\textbf{Practice Problem 4: Servo Total Current}\\
+Total $= 180 + 180 + 180 + 180 = 720\text{ mA} = 0.72\text{ A}$
+
+\textbf{Practice Problem 5: Wire Gauge for 6A}\\
+Use at least 18 AWG wire (rated 7-10A)
+
+\textbf{Practice Problem 6: UBEC Battery Current}\\
+$P_{\text{out}} = 5\text{V} \times 6\text{A} = 30\text{W}$\\
+$P_{\text{in}} = 30\text{W} / 0.85 = 35.3\text{W}$\\
+$I_{\text{in}} = 35.3\text{W} / 14.8\text{V} = 2.38\text{ A}$
+
+\subsection{Problem Sets}
+
+\textbf{Problem Set A:}
+\begin{enumerate}
+  \item $P = 5\text{V} \times 0.09\text{A} = 0.45\text{W}$
+  \item $P = 14.8\text{V} \times 18\text{A} = 266.4\text{W}$
+  \item $I_{\text{total}} = 100 + 250 + 80 = 430\text{mA}$
+\end{enumerate}
+
+\textbf{Problem Set B:}
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item $1.76\text{ Ah} / 14\text{A} = 0.126\text{ hours} = 7.5\text{ minutes}$
+  \item $1.76\text{ Ah} / 8\text{A} = 0.22\text{ hours} = 13.2\text{ minutes}$
+\end{enumerate}
+
+\textbf{Problem Set C:}
+\begin{enumerate}
+  \setcounter{enumi}{5}
+  \item $663\text{mA} + 200\text{mA} = 863\text{mA}$ (Yes, under 3A)
+  \item $4 \times 650\text{mA} = 2600\text{mA} = 2.6\text{A}$; Margin: $6\text{A} - 2.6\text{A} = 3.4\text{A}$ (Yes, safe)
+\end{enumerate}
+
+\textbf{Problem Set D:}
+\begin{enumerate}
+  \setcounter{enumi}{7}
+  \item $P_{\text{out}} = 10\text{W}$; $P_{\text{in}} = 11.76\text{W}$; $I_{\text{in}} = 0.795\text{A}$
+  \item $P_{\text{in}} = 14.29\text{W}$; $P_{\text{wasted}} = 4.29\text{W}$
+\end{enumerate}
+
+\section{Teaching Tips}
+
+\subsection{For In-Person Sessions}
+\begin{enumerate}
+  \item Start with water analogy - everyone understands water pressure/flow
+  \item Use the Ohm's Law triangle - visual memory is powerful
+  \item Always use OUR UAV examples - makes it real, not abstract
+  \item Have students solve problems with their actual calculators
+  \item Show the consequences: "If we used 26 AWG for motor wire, it would literally catch fire. Let me show you the math..."
+\end{enumerate}
+
+\subsection{For Discord/Asynchronous}
+\begin{enumerate}
+  \item Post this guide as a PDF in OneDrive
+  \item Create a "Circuit Math Quiz" with 5 problems
+  \item Students submit answers $\rightarrow$ you review $\rightarrow$ clarify misunderstandings
+  \item Reference specific sections: "Check Section 4 about battery capacity"
+\end{enumerate}
+
+\subsection{Common Mistakes to Address}
+\begin{itemize}
+  \item Forgetting to convert mA to A (always convert units first!)
+  \item Mixing up series vs parallel rules
+  \item Not accounting for efficiency losses in BECs
+  \item Using 100\% battery capacity instead of 80\% safe limit
+\end{itemize}
+
+\subsection{Motivation}
+
+"We're not just building a toy plane. We're doing REAL aerospace electrical engineering. These are the EXACT same calculations that Boeing uses for 737s, SpaceX uses for rockets, and NASA uses for Mars rovers. You're learning professional-level skills right now."
+
+\section*{Conclusion}
+
+Use this guide to teach your team the fundamentals they need to understand WHY we made our design decisions, not just HOW to connect wires.
+
+Good luck!
+
+\end{document}
