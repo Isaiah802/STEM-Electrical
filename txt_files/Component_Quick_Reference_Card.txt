@@ -1,0 +1,656 @@
+═══════════════════════════════════════════════════════════════════════════
+   NLC STEM CLUB UAV PROJECT
+   COMPONENT QUICK REFERENCE CARD
+   Electrical Systems Team
+═══════════════════════════════════════════════════════════════════════════
+
+INSTRUCTIONS: Fill this out as components arrive. Keep printed copy at workbench!
+
+═══════════════════════════════════════════════════════════════════════════
+POWER SYSTEM
+═══════════════════════════════════════════════════════════════════════════
+
+BATTERY (LiPo)
+  Configuration: ___________  (e.g., 4S)
+  Voltage (Nominal): ___________ V
+  Voltage (Fully Charged): ___________ V  (4.2V per cell)
+  Voltage (Safe Minimum): ___________ V  (3.3V per cell)
+  Voltage (Storage): ___________ V  (3.8V per cell)
+  Capacity: ___________ mAh
+  C-Rating: ___________ C
+  Max Continuous Current: ___________ A  (Capacity × C-rating)
+  Connector Type: ___________
+  Weight: ___________ g
+  
+  Received Date: ___________
+  Tested OK: [ ]  Date: ___________
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+ELECTRONIC SPEED CONTROLLER (ESC)
+  Model: ___________
+  Current Rating: ___________ A continuous, ___________ A burst
+  Input Voltage Range: ___________ V to ___________ V
+  BEC Output: ___________ V @ ___________ A
+  BEC Type: [ ] Linear  [ ] Switching
+  PWM Frequency: ___________ Hz
+  Input Connector: ___________
+  Output Connector (to motor): ___________
+  Dimensions: ___________ mm × ___________ mm × ___________ mm
+  Weight: ___________ g
+  
+  ESC Programming:
+    Throttle Range: ___________ μs to ___________ μs
+    Brake: [ ] On  [ ] Off
+    Battery Cutoff Voltage: ___________ V
+  
+  Received Date: ___________
+  Tested OK: [ ]  Date: ___________
+  Calibrated: [ ]  Date: ___________
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+EXTERNAL UBEC
+  Model: ___________
+  Input Voltage Range: ___________ V to ___________ V
+  Output Voltage: ___________ V (adjustable: [ ] Yes  [ ] No)
+  Max Output Current: ___________ A
+  Efficiency: ___________ %
+  Input Connector: ___________
+  Output: [ ] Wire leads  [ ] Servo plug  [ ] Other: ___________
+  Weight: ___________ g
+  
+  Received Date: ___________
+  Tested OK: [ ]  Date: ___________
+  Output Voltage Verified: ___________ V (measured)
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+XT60 Y-HARNESS SPLITTER
+  Type: 1 Female to ___ Male
+  Wire Gauge: ___________ AWG
+  Wire Length: ___________ cm
+  Rated Current: ___________ A
+  
+  Received Date: ___________
+  Tested (Continuity): [ ]  Date: ___________
+  Notes: _________________________________
+
+═══════════════════════════════════════════════════════════════════════════
+MOTOR & PROPULSION
+═══════════════════════════════════════════════════════════════════════════
+
+BRUSHLESS MOTOR
+  Model: ___________
+  KV Rating: ___________ KV (RPM per volt)
+  Max Voltage: ___________ V
+  Max Current: ___________ A
+  Power: ___________ W
+  Shaft Diameter: ___________ mm
+  Weight: ___________ g
+  Connector: ___________
+  
+  Rotation Direction: [ ] CW  [ ] CCW  [ ] Reversible
+  
+  Operating Parameters (with our battery):
+    No-load RPM: ___________ × 14.8V = ___________ RPM
+    Expected Current at Cruise: ___________ A
+    Expected Current at Full Throttle: ___________ A
+  
+  Received Date: ___________
+  Tested (No prop): [ ]  Date: ___________
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+PROPELLER
+  Type: [ ] Fixed  [ ] Folding
+  Diameter: ___________ inches
+  Pitch: ___________ inches
+  Material: ___________
+  Rotation: [ ] Pusher  [ ] Tractor
+  Mounting: [ ] Spinner nut  [ ] Collet  [ ] Other: ___________
+  
+  Received Date: ___________
+  Inspected (No cracks): [ ]  Date: ___________
+  Balanced: [ ]  Date: ___________
+  Notes: _________________________________
+
+═══════════════════════════════════════════════════════════════════════════
+FLIGHT CONTROL SYSTEM
+═══════════════════════════════════════════════════════════════════════════
+
+FLIGHT CONTROLLER
+  Model: ___________
+  Firmware: ___________  Version: ___________
+  Processor: ___________
+  Operating Voltage: ___________ V
+  Current Draw: ___________ mA
+  
+  Interfaces:
+    [ ] Main Out (PWM channels: _______)
+    [ ] AUX Out (PWM channels: _______)
+    [ ] UART: ___________ ports
+    [ ] I2C: [ ] Yes  [ ] No
+    [ ] PPM Input
+    [ ] S.Bus Input
+  
+  Sensors Onboard:
+    [ ] Gyroscope  Model: ___________
+    [ ] Accelerometer  Model: ___________
+    [ ] Barometer  Model: ___________
+    [ ] Magnetometer: [ ] Yes  [ ] No
+  
+  Pinout:
+    Power (+5V): Pin _____  (Color: ______)
+    Ground: Pin _____  (Color: ______)
+    Motor/ESC: Pin _____
+    Servo 1: Pin _____  (Function: ____________)
+    Servo 2: Pin _____  (Function: ____________)
+    Servo 3: Pin _____  (Function: ____________)
+    Servo 4: Pin _____  (Function: ____________)
+    GPS (TX/RX): Pin _____ / _____
+    Telemetry: Pin _____
+  
+  Received Date: ___________
+  Tested (Powers on): [ ]  Date: ___________
+  Firmware Flashed: [ ]  Date: ___________
+  Calibrated: [ ]  Date: ___________
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+GPS MODULE
+  Model: ___________
+  Chipset: ___________
+  Operating Voltage: ___________ V
+  Current Draw: ___________ mA
+  Interface: [ ] UART  [ ] I2C  [ ] SPI
+  Baud Rate: ___________
+  Update Rate: ___________ Hz
+  
+  Features:
+    [ ] Built-in Compass (Magnetometer)
+    [ ] Active Antenna
+    [ ] Battery Backup
+  
+  Connector: ___________
+  Cable Length: ___________ cm
+  
+  Pinout:
+    VCC: Pin _____  (Color: ______)
+    GND: Pin _____  (Color: ______)
+    TX: Pin _____  (Color: ______)
+    RX: Pin _____  (Color: ______)
+    SCL (if I2C): Pin _____  (Color: ______)
+    SDA (if I2C): Pin _____  (Color: ______)
+  
+  Received Date: ___________
+  Tested (Gets satellite lock): [ ]  Date: ___________
+  Time to First Fix: ___________ minutes
+  Number of Satellites: ___________
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+RC RECEIVER
+  Model: ___________
+  Protocol: [ ] PPM  [ ] S.Bus  [ ] ELRS  [ ] Other: ___________
+  Frequency: ___________ GHz
+  Channels: ___________
+  Operating Voltage: ___________ V
+  Current Draw: ___________ mA
+  Range: ___________ m/km
+  Antenna Type: [ ] Linear  [ ] Diversity
+  
+  Binding Procedure:
+    ________________________________________________
+    ________________________________________________
+  
+  Channel Map:
+    CH1: ___________  (e.g., Aileron)
+    CH2: ___________  (e.g., Elevator)
+    CH3: ___________  (e.g., Throttle)
+    CH4: ___________  (e.g., Rudder)
+    CH5: ___________
+    CH6: ___________
+  
+  Failsafe Settings:
+    Mode: [ ] Hold  [ ] No Pulses  [ ] Custom
+    Throttle: ___________ %
+  
+  Received Date: ___________
+  Tested (Binds to TX): [ ]  Date: ___________
+  Range Tested: [ ]  Date: ___________
+  Notes: _________________________________
+
+═══════════════════════════════════════════════════════════════════════════
+SERVOS & CONTROL SURFACES
+═══════════════════════════════════════════════════════════════════════════
+
+SERVO SPECIFICATIONS (Complete for EACH servo)
+
+SERVO #1 (Function: ___________________)
+  Model: ___________
+  Type: [ ] Analog  [ ] Digital
+  Operating Voltage: ___________ V to ___________ V
+  Current Draw (Idle): ___________ mA
+  Current Draw (Moving): ___________ mA
+  Current Draw (Stall): ___________ mA
+  Torque @ 4.8V: ___________ kg·cm
+  Torque @ 6.0V: ___________ kg·cm
+  Speed @ 4.8V: ___________ sec/60°
+  PWM Range: ___________ μs to ___________ μs
+  Center Position: ___________ μs
+  Connector: ___________
+  Weight: ___________ g
+  
+  Received Date: ___________
+  Tested (Full range): [ ]  Date: ___________
+  Installed Position: ___________
+  Notes: _________________________________
+
+SERVO #2 (Function: ___________________)
+  [Same fields as above]
+
+SERVO #3 (Function: ___________________)
+  [Same fields as above]
+
+SERVO #4 (Function: ___________________)
+  [Same fields as above]
+
+───────────────────────────────────────────────────────────────────────────
+
+SERVO EXTENSION CABLES (if used)
+  Length: ___________ cm
+  Gauge: ___________ AWG
+  Type: [ ] Standard  [ ] Heavy-duty
+  Quantity Needed: ___________
+
+═══════════════════════════════════════════════════════════════════════════
+RESEARCH PAYLOAD (DATA COLLECTION)
+═══════════════════════════════════════════════════════════════════════════
+
+ARDUINO / MICROCONTROLLER
+  Model: ___________
+  Processor: ___________
+  Operating Voltage: ___________ V
+  Input Voltage Range: ___________ V to ___________ V
+  Current Draw: ___________ mA (typical)
+  Clock Speed: ___________ MHz
+  Flash Memory: ___________ KB
+  SRAM: ___________ KB
+  
+  I/O:
+    Digital Pins: ___________
+    Analog Pins: ___________
+    PWM Pins: ___________
+    UART: ___________
+    I2C: ___________
+    SPI: ___________
+  
+  Received Date: ___________
+  Tested (Uploads sketch): [ ]  Date: ___________
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+BME280 SENSOR (Temperature, Humidity, Pressure)
+  Operating Voltage: ___________ V
+  Current Draw: ___________ mA
+  Interface: [ ] I2C  [ ] SPI
+  I2C Address: 0x___________
+  
+  Range:
+    Temperature: ___________ °C to ___________ °C
+    Humidity: ___________ % to ___________ %
+    Pressure: ___________ hPa to ___________ hPa
+  
+  Accuracy:
+    Temperature: ± ___________ °C
+    Humidity: ± ___________ %
+    Pressure: ± ___________ hPa
+  
+  Pinout:
+    VCC: Pin _____
+    GND: Pin _____
+    SCL: Pin _____
+    SDA: Pin _____
+  
+  Received Date: ___________
+  Tested (Reads values): [ ]  Date: ___________
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+AIR QUALITY SENSOR
+  Model: ___________
+  Type: [ ] VOC  [ ] CO2  [ ] Both
+  Operating Voltage: ___________ V
+  Current Draw: ___________ mA
+  Interface: [ ] Analog  [ ] I2C  [ ] UART
+  Warm-up Time: ___________ seconds
+  
+  Range:
+    VOC: ___________ ppb to ___________ ppb
+    CO2: ___________ ppm to ___________ ppm
+  
+  Pinout:
+    VCC: Pin _____
+    GND: Pin _____
+    Signal/Data: Pin _____
+  
+  Received Date: ___________
+  Tested (Reads values): [ ]  Date: ___________
+  Notes: _________________________________
+
+───────────────────────────────────────────────────────────────────────────
+
+MICROSD CARD MODULE
+  Operating Voltage: ___________ V
+  Current Draw: ___________ mA
+  Interface: [ ] SPI
+  Max Card Size: ___________ GB
+  
+  Pinout:
+    VCC: Pin _____
+    GND: Pin _____
+    MISO: Pin _____
+    MOSI: Pin _____
+    SCK: Pin _____
+    CS: Pin _____
+  
+  MicroSD Card:
+    Size: ___________ GB
+    Speed Class: ___________
+    Format: [ ] FAT32  [ ] exFAT
+  
+  Received Date: ___________
+  Tested (Writes file): [ ]  Date: ___________
+  Notes: _________________________________
+
+═══════════════════════════════════════════════════════════════════════════
+WIRING & CONNECTORS
+═══════════════════════════════════════════════════════════════════════════
+
+WIRE INVENTORY
+
+14 AWG Silicone Wire
+  Color: Red - Length: ___________ m
+  Color: Black - Length: ___________ m
+  Use: Battery to Y-harness, high current paths
+
+18 AWG Silicone Wire
+  Color: Red - Length: ___________ m
+  Color: Black - Length: ___________ m
+  Use: 5V power distribution, BEC outputs
+
+20 AWG Wire
+  Color: Red - Length: ___________ m
+  Color: Black - Length: ___________ m
+  Use: Servo power
+
+22-24 AWG Multi-color
+  Colors: _________________________________
+  Total Length: ___________ m
+  Use: Signal wires, sensor connections
+
+───────────────────────────────────────────────────────────────────────────
+
+CONNECTOR INVENTORY
+
+XT60 Connectors
+  Male: ___________ qty
+  Female: ___________ qty
+  Use: Battery, ESC, UBEC high-current
+
+JST-XH Connectors (Balance plug)
+  5-pin: ___________ qty
+  Use: Battery balance connector
+
+JST-SH Connectors
+  Assorted: ___________ qty
+  Use: GPS, small sensors
+
+Dupont Connectors
+  Male pins: ___________ qty
+  Female pins: ___________ qty
+  Housings: ___________ qty
+  Use: Arduino connections
+
+3.5mm Bullet Connectors
+  Male: ___________ qty
+  Female: ___________ qty
+  Use: Motor connections
+
+Servo Plugs (Futaba-style)
+  Male: ___________ qty
+  Female: ___________ qty
+
+───────────────────────────────────────────────────────────────────────────
+
+HEAT SHRINK TUBING
+  Sizes: _________________________________
+  Colors: _________________________________
+  Quantity: ___________ m total
+
+───────────────────────────────────────────────────────────────────────────
+
+SOLDER & FLUX
+  Solder Type: [ ] Lead-free  [ ] 60/40 leaded
+  Diameter: ___________ mm
+  Flux: [ ] Included  [ ] Separate
+  Quantity: ___________ g
+
+═══════════════════════════════════════════════════════════════════════════
+TOOLS & EQUIPMENT
+═══════════════════════════════════════════════════════════════════════════
+
+MULTIMETER
+  Model: ___________
+  DC Voltage Range: ___________ V max
+  AC Voltage Range: ___________ V max
+  Current Range: ___________ A max
+  Resistance Range: ___________ Ω max
+  Features:
+    [ ] Continuity beeper
+    [ ] Diode test
+    [ ] Capacitance
+    [ ] Frequency
+  
+  Last Calibration: ___________
+  Battery Type: ___________
+
+───────────────────────────────────────────────────────────────────────────
+
+SOLDERING IRON
+  Model: ___________
+  Power: ___________ W
+  Temperature Range: ___________ °C to ___________ °C
+  Set Temperature: ___________ °C (for lead-free)
+  Tip Size/Type: ___________
+  
+  Last Tip Replacement: ___________
+
+───────────────────────────────────────────────────────────────────────────
+
+BATTERY CHARGER
+  Model: ___________
+  Type: [ ] Balance charger  [ ] Other: ___________
+  Input Voltage: ___________ V
+  Max Charge Current: ___________ A
+  Max Discharge Current: ___________ A
+  Cell Count: ___________ S max
+  
+  Charge Settings for Our Battery:
+    Mode: Balance Charge
+    Cell Count: ___________ S
+    Charge Current: ___________ A (1C = ____ A, use 0.5C-1C)
+    End Voltage: ___________ V (4.2V per cell)
+    
+  Storage Mode Settings:
+    Voltage per Cell: ___________ V (3.8V target)
+
+───────────────────────────────────────────────────────────────────────────
+
+POWER SUPPLY (Bench testing)
+  Model: ___________
+  Voltage Range: ___________ V to ___________ V
+  Max Current: ___________ A
+  
+  For 5V Testing: Set to ___________ V, Limit ___________ A
+  For 14.8V Simulation: Set to ___________ V, Limit ___________ A
+
+═══════════════════════════════════════════════════════════════════════════
+POWER RAIL ASSIGNMENTS
+═══════════════════════════════════════════════════════════════════════════
+
+RAIL 1 - FLIGHT CRITICAL (ESC BEC: 5V @ 3A)
+  Source: ESC Built-in BEC
+  Voltage: ___________ V (verify: _____ V measured)
+  Max Current: ___________ A
+  
+  Connected Devices:
+    1. Flight Controller - ___________ mA
+    2. GPS Module - ___________ mA
+    3. RC Receiver - ___________ mA
+    4. Arduino + Sensors - ___________ mA
+    5. _________________ - ___________ mA
+  
+  Total Current Draw: ___________ mA
+  Percentage of Capacity: ___________ %
+  Safety Margin: ___________ mA remaining
+
+───────────────────────────────────────────────────────────────────────────
+
+RAIL 2 - SERVO POWER (External UBEC: 5V @ 6A)
+  Source: External UBEC
+  Voltage: ___________ V (verify: _____ V measured)
+  Max Current: ___________ A
+  
+  Connected Devices:
+    1. Servo #1 - ___________ mA (peak: _____ mA)
+    2. Servo #2 - ___________ mA (peak: _____ mA)
+    3. Servo #3 - ___________ mA (peak: _____ mA)
+    4. Servo #4 - ___________ mA (peak: _____ mA)
+    5. _________________ - ___________ mA
+  
+  Total Current Draw (typical): ___________ mA
+  Total Current Draw (peak): ___________ mA
+  Percentage of Capacity: ___________ %
+  Safety Margin: ___________ mA remaining
+
+═══════════════════════════════════════════════════════════════════════════
+TESTING CHECKLIST
+═══════════════════════════════════════════════════════════════════════════
+
+COMPONENT TESTING (Before Installation)
+  [ ] Battery voltage measured: _____ V per cell
+  [ ] ESC powers on with battery
+  [ ] ESC BEC outputs correct voltage: _____ V
+  [ ] External UBEC outputs correct voltage: _____ V
+  [ ] Motor spins (no prop, low throttle)
+  [ ] Flight controller boots and shows status LED
+  [ ] GPS gets satellite lock (time: _____ min)
+  [ ] RC receiver binds to transmitter
+  [ ] All servos move through full range
+  [ ] Arduino uploads and runs test sketch
+  [ ] All sensors read valid data
+
+SYSTEM TESTING (After Assembly)
+  [ ] Continuity test: No shorts between power and ground
+  [ ] Rail 1 voltage under load: _____ V
+  [ ] Rail 2 voltage under load: _____ V
+  [ ] All components receive power simultaneously
+  [ ] Flight controller recognizes all inputs
+  [ ] Motor arms and responds to throttle (NO PROP!)
+  [ ] All servos respond to transmitter inputs
+  [ ] GPS maintains lock with system running
+  [ ] Data logging works for full 5-minute test
+  [ ] No excessive heat on any component
+  [ ] Battery voltage after 5-min test: _____ V
+
+PRE-FLIGHT TESTING (With Propeller, Secured)
+  [ ] Propeller installed correctly (direction, tightness)
+  [ ] Motor spins in correct direction
+  [ ] Control surfaces move in correct direction
+  [ ] Failsafe triggers when transmitter off
+  [ ] Range test passed: _____ meters
+  [ ] Center of gravity correct: _____ mm from nose
+  [ ] Full throttle current draw: _____ A (⚠️ watch for overload)
+
+═══════════════════════════════════════════════════════════════════════════
+QUICK CALCULATIONS
+═══════════════════════════════════════════════════════════════════════════
+
+FLIGHT TIME ESTIMATE
+  Battery Capacity: ___________ mAh × 0.8 = ___________ mAh usable
+  Motor Current (cruise): ___________ A = ___________ mA
+  
+  Flight Time = Usable Capacity / Current Draw
+  Flight Time = _________ mAh / _________ mA = _________ hours
+  Flight Time = _________ minutes
+
+───────────────────────────────────────────────────────────────────────────
+
+TOTAL POWER CONSUMPTION
+  Motor: _________ A × 14.8V = _________ W
+  Rail 1: _________ mA × 5V = _________ W
+  Rail 2: _________ mA × 5V = _________ W
+  
+  Total: _________ W
+
+───────────────────────────────────────────────────────────────────────────
+
+WIRE GAUGE CHECK
+  Current: _____ A  →  Minimum wire gauge: _____ AWG
+  (Use Wire Gauge table in Circuit Fundamentals guide)
+
+═══════════════════════════════════════════════════════════════════════════
+IMPORTANT CONTACTS & LINKS
+═══════════════════════════════════════════════════════════════════════════
+
+Team Lead: _________________________________
+Discord Channel: _________________________________
+OneDrive Link: _________________________________
+
+Component Datasheets Folder: _________________________________
+Wiring Diagram Location: _________________________________
+
+Emergency Contact: _________________________________
+
+Amazon Order Numbers:
+  Battery: _________________________________
+  ESC: _________________________________
+  UBEC: _________________________________
+  Other: _________________________________
+
+Last Updated: ___________________  By: ___________________
+
+═══════════════════════════════════════════════════════════════════════════
+NOTES / OBSERVATIONS / MODIFICATIONS
+═══════════════════════════════════════════════════════════════════════════
+
+Date: ___________
+_________________________________________________________________________
+_________________________________________________________________________
+_________________________________________________________________________
+
+Date: ___________
+_________________________________________________________________________
+_________________________________________________________________________
+_________________________________________________________________________
+
+Date: ___________
+_________________________________________________________________________
+_________________________________________________________________________
+_________________________________________________________________________
+
+═══════════════════════════════════════════════════════════════════════════
+END OF QUICK REFERENCE CARD
+Print this document and keep at your workbench!
+Update as you test and verify each component.
+═══════════════════════════════════════════════════════════════════════════

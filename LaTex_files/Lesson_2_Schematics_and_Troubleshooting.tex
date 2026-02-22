@@ -1,0 +1,1503 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Lesson 2: Schematics \& Troubleshooting}}
+\fancyhead[R]{\textbf{Page \thepage}}
+\renewcommand{\headrulewidth}{2pt}
+\setlength{\headheight}{14pt}
+
+\tcbuselibrary{skins,breakable}
+
+% Custom boxes
+\newtcolorbox{conceptbox}{
+  colback=blue!5,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  breakable,
+  enhanced jigsaw
+}
+
+\newtcolorbox{warningbox}{
+  colback=red!5,
+  colframe=red!75!black,
+  fonttitle=\bfseries,
+  title=WARNING,
+  breakable,
+  enhanced jigsaw
+}
+
+\newtcolorbox{examplebox}{
+  colback=green!5,
+  colframe=green!75!black,
+  fonttitle=\bfseries,
+  breakable,
+  enhanced jigsaw
+}
+
+\newtcolorbox{keyinsight}{
+  colback=yellow!10,
+  colframe=orange!80!black,
+  fonttitle=\bfseries,
+  title=KEY INSIGHT,
+  breakable,
+  enhanced jigsaw
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+
+\begin{center}
+{\Huge \textbf{LESSON 2}}\\[0.5em]
+{\LARGE \textbf{Reading Schematics, Datasheets, and}}\\
+{\LARGE \textbf{Practical Troubleshooting}}\\[0.5em]
+{\large NLC STEM Club UAV Project}\\
+{\large Electrical Systems Education Series}\\[0.5em]
+\rule{\textwidth}{2pt}
+\end{center}
+
+\begin{conceptbox}
+\textbf{PREREQUISITES:}
+\begin{itemize}[nosep]
+\item Completed Lesson 1: Circuit Fundamentals Teaching Guide
+\item Understanding of Ohm's Law, power calculations, and wire gauge selection
+\item Basic familiarity with your project components
+\end{itemize}
+\end{conceptbox}
+
+\begin{conceptbox}
+\textbf{LESSON OBJECTIVES:}
+
+By the end of this lesson, you will be able to:
+\begin{enumerate}[nosep]
+\item Read and interpret electrical schematics and wiring diagrams
+\item Extract critical information from component datasheets
+\item Use a multimeter to measure voltage, current, and continuity
+\item Understand PWM signals and how they control servos and ESCs
+\item Troubleshoot common electrical problems systematically
+\item Recognize and prevent grounding issues and electrical noise
+\item Apply these skills to debug your UAV electrical system
+\end{enumerate}
+\end{conceptbox}
+
+\newpage
+\section{Reading Electrical Schematics}
+
+\subsection{What is a Schematic?}
+
+A schematic is a symbolic representation of an electrical circuit that shows:
+\begin{itemize}
+\item How components are electrically connected
+\item The flow of current and signals
+\item Component values and part numbers
+\end{itemize}
+
+\textbf{KEY DIFFERENCE: Schematic vs Wiring Diagram}
+
+\begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+\hline
+\textbf{SCHEMATIC} & \textbf{WIRING DIAGRAM} \\
+\hline
+Shows ELECTRICAL connections (how electricity flows) & Shows PHYSICAL connections (which wire goes where) \\
+\hline
+Uses standardized symbols & Shows actual connectors and wire colors \\
+\hline
+Does NOT show physical layout & Shows spatial relationships between components \\
+\hline
+Used by engineers to design and analyze circuits & Used during assembly and troubleshooting \\
+\hline
+\end{tabular}
+
+\subsection{Common Schematic Symbols}
+
+\textbf{POWER SOURCES:}
+
+\begin{itemize}
+\item \textbf{Battery:} Two parallel lines (longer line is positive)
+\item \textbf{DC Power Supply:} Box with V+ and GND labels
+\end{itemize}
+
+\textbf{CONNECTIONS:}
+
+\begin{itemize}
+\item \textbf{Wire connection:} Dot indicates electrical connection
+\item \textbf{Wires crossing:} No dot = no connection, just crossing
+\item \textbf{Ground symbols:} Earth ground, chassis ground, signal/digital ground
+\end{itemize}
+
+\textbf{PASSIVE COMPONENTS:}
+
+\begin{itemize}
+\item \textbf{Resistor:} Zigzag line or rectangle
+\item \textbf{Capacitor:} Two parallel lines (electrolytic has + polarity)
+\item \textbf{Inductor:} Coil symbol
+\end{itemize}
+
+\textbf{ACTIVE COMPONENTS:}
+
+\begin{itemize}
+\item \textbf{Diode:} Triangle with line (current flows in arrow direction)
+\item \textbf{LED:} Diode with small arrows pointing out
+\item \textbf{Transistor (NPN):} Three terminals: Base, Collector, Emitter
+\item \textbf{Voltage Regulator:} Box with IN, OUT, and GND pins
+\end{itemize}
+
+\textbf{MOTORS \& MECHANICAL:}
+
+\begin{itemize}
+\item \textbf{Motor (DC):} Circle with M inside
+\item \textbf{Motor (Servo):} Box with mechanical coupling
+\end{itemize}
+
+\textbf{SWITCHES \& SENSORS:}
+
+\begin{itemize}
+\item \textbf{Switch:} SPST (Single Pole Single Throw)
+\item \textbf{Button:} Normally open pushbutton
+\end{itemize}
+
+\subsection{Reading a Schematic: Step-by-Step}
+
+\textbf{STEP 1: Identify the Power Sources}
+\begin{itemize}
+\item Look for battery symbols or ``V+'' labels
+\item Note the voltage level (e.g., 14.8V, 5V, 3.3V)
+\item Locate all ground symbols
+\end{itemize}
+
+\textbf{STEP 2: Follow the Power Rails}
+\begin{itemize}
+\item Trace from positive terminal through components to ground
+\item Identify parallel branches (components sharing same voltage)
+\item Identify series components (current flows through both)
+\end{itemize}
+
+\textbf{STEP 3: Identify Signal Paths}
+\begin{itemize}
+\item Find input signals (from sensors, receivers)
+\item Trace signal wires to processing units (Arduino, flight controller)
+\item Find output signals (to ESC, servos, LEDs)
+\end{itemize}
+
+\textbf{STEP 4: Note Component Values}
+\begin{itemize}
+\item Resistor values ($\Omega$)
+\item Capacitor values ($\mu$F, pF)
+\item Component part numbers or ratings
+\end{itemize}
+
+\begin{examplebox}
+\textbf{EXAMPLE - Simple LED Circuit:}
+
+Current flows: 5V $\rightarrow$ through R1 (220$\Omega$) $\rightarrow$ through LED $\rightarrow$ to GND
+
+\textbf{HOW TO READ THIS:}
+\begin{enumerate}[nosep]
+\item Power source: 5V
+\item Current flows from 5V through resistor through LED to ground
+\item Resistor limits current to safe level for LED
+\item Voltage drop: 5V - 2V (LED) = 3V across resistor
+\item Current: $I = V/R = 3V / 220\Omega = 13.6$ mA
+\end{enumerate}
+\end{examplebox}
+
+\subsection{UAV System Schematic Example}
+
+Let's analyze a simplified version of YOUR dual-BEC system:
+
+\begin{center}
+\texttt{[4S LiPo Battery: 14.8V]}\\
+$\downarrow$\\
+\texttt{XT60 Y-Harness}\\
+$\swarrow$ \hspace{3cm} $\searrow$\\
+\texttt{ESC} \hspace{3cm} \texttt{External UBEC}\\
+\texttt{5V @ 3A} \hspace{2.5cm} \texttt{5V @ 6A}\\
+\texttt{RAIL 1} \hspace{2.5cm} \texttt{RAIL 2}\\
+$\downarrow$ \hspace{4cm} $\downarrow$\\
+Flight Critical \hspace{1.5cm} Servos\\
+Components
+\end{center}
+
+\begin{keyinsight}
+This schematic answers ``WHY two BECs?''
+\begin{itemize}
+\item Total servo current could exceed ESC BEC rating
+\item Separating rails prevents servo noise from affecting flight controller
+\item If servos brown out Rail 2, Rail 1 stays stable
+\end{itemize}
+\end{keyinsight}
+
+\newpage
+\section{Reading Datasheets}
+
+\subsection{What is a Datasheet?}
+
+A datasheet is a technical document provided by the manufacturer that contains:
+\begin{itemize}
+\item Electrical specifications (voltage, current, power)
+\item Mechanical dimensions and pinouts
+\item Performance characteristics (speed, accuracy, range)
+\item Operating conditions (temperature, humidity)
+\item Application guidelines and example circuits
+\end{itemize}
+
+\textbf{DATASHEETS ARE ESSENTIAL FOR:}
+\begin{itemize}
+\item Verifying compatibility with your system
+\item Determining proper operating conditions
+\item Connecting components correctly (pinouts)
+\item Troubleshooting when things don't work
+\end{itemize}
+
+\subsection{Key Sections to Look For}
+
+\textbf{SECTION 1: ABSOLUTE MAXIMUM RATINGS}
+
+\begin{warningbox}
+CRITICAL - exceeding these can destroy the component!
+
+Example (from a typical voltage regulator datasheet):
+\begin{itemize}[nosep]
+\item Input Voltage: 4.5V to 40V
+\item Output Current: 3A continuous, 5A peak
+\item Operating Temperature: -40$^\circ$C to +125$^\circ$C
+\item Storage Temperature: -65$^\circ$C to +150$^\circ$C
+\end{itemize}
+
+If you apply 50V to this regulator = instant damage!
+\end{warningbox}
+
+\textbf{SECTION 2: RECOMMENDED OPERATING CONDITIONS}
+
+These are SAFE ranges for normal operation
+
+Example:
+\begin{itemize}
+\item Input Voltage: 7V to 30V (within absolute max)
+\item Output Current: 0 to 3A (with heatsink if $>$ 1.5A)
+\item Operating Temperature: 0$^\circ$C to 85$^\circ$C
+\end{itemize}
+
+Design your system to stay within these ranges!
+
+\textbf{SECTION 3: ELECTRICAL CHARACTERISTICS}
+
+Detailed performance specifications
+
+\begin{center}
+\begin{tabular}{|l|l|c|c|c|c|}
+\hline
+\textbf{Parameter} & \textbf{Condition} & \textbf{Min} & \textbf{Typ} & \textbf{Max} & \textbf{Unit} \\
+\hline
+Output Voltage & Vout = 5V & 4.9 & 5.0 & 5.1 & V \\
+\hline
+Line Regulation & Vin = 7V-30V & - & 10 & 50 & mV \\
+\hline
+Load Regulation & Iout = 0-3A & - & 20 & 100 & mV \\
+\hline
+Quiescent Current & No load & - & 10 & 15 & mA \\
+\hline
+Efficiency & Vin=12V, Iout=1A & - & 85 & - & \% \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{HOW TO READ THIS:}
+\begin{itemize}
+\item ``Typ'' = typical value (what you'll usually measure)
+\item ``Min/Max'' = guaranteed range (your unit will fall within this)
+\item Output voltage will be $5.0V \pm 0.1V$ (4.9V to 5.1V)
+\end{itemize}
+
+\textbf{SECTION 4: PIN CONFIGURATION (PINOUT)}
+
+Shows which pin does what
+
+\begin{warningbox}
+Connecting wrong pins = component destruction!
+\end{warningbox}
+
+\textbf{SECTION 5: APPLICATION CIRCUIT}
+
+Example schematic showing proper use. Often includes:
+\begin{itemize}
+\item Input/output capacitors (for stability)
+\item Protection diodes
+\item LED indicators
+\item Recommended wire gauges
+\end{itemize}
+
+\textbf{SECTION 6: PACKAGE INFORMATION}
+
+Physical dimensions, hole spacing, mounting
+
+\subsection{Real-World Datasheet Example: BME280 Sensor}
+
+Let's extract key information for YOUR air quality sensor project:
+
+\textbf{FROM THE BME280 DATASHEET:}
+
+\begin{tcolorbox}[title=ABSOLUTE MAXIMUM RATINGS]
+\begin{itemize}[nosep]
+\item Supply Voltage (Vdd): -0.3V to 4.25V
+\item ESD Tolerance: 2000V
+\end{itemize}
+$\rightarrow$ Connect to Arduino 3.3V output (NOT 5V!) to stay safe OR use a level shifter module
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=OPERATING CONDITIONS]
+\begin{itemize}[nosep]
+\item Supply Voltage: 1.71V to 3.6V
+\item Supply Current: 3.6 $\mu$A @ 1 Hz (typical), 714 $\mu$A @ 1 Hz (max)
+\end{itemize}
+$\rightarrow$ Very low power! Won't strain your Arduino power budget
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=MEASUREMENT RANGES \& ACCURACY]
+\begin{itemize}[nosep]
+\item Temperature: -40$^\circ$C to +85$^\circ$C ($\pm$1$^\circ$C accuracy)
+\item Humidity: 0\% to 100\% RH ($\pm$3\% accuracy)
+\item Pressure: 300 to 1100 hPa ($\pm$1 hPa accuracy)
+\end{itemize}
+$\rightarrow$ Perfect for your environmental monitoring mission!\\
+$\rightarrow$ Can detect altitude changes of $\sim$8 meters
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=I2C INTERFACE]
+\begin{itemize}[nosep]
+\item I2C Address: 0x76 or 0x77 (selectable)
+\item Clock Speed: Up to 3.4 MHz
+\item Logic Levels: VddIO (0.3 $\times$ Vdd to Vdd)
+\end{itemize}
+$\rightarrow$ Use Wire.begin() in Arduino code\\
+$\rightarrow$ Check address with I2C scanner if not responding
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=PINOUT (8-pin package)]
+\begin{itemize}[nosep]
+\item Pin 1: GND - Ground
+\item Pin 2: CSB - Chip Select (I2C: connect to Vdd)
+\item Pin 3: SDI - I2C Data (SDA)
+\item Pin 4: SCK - I2C Clock (SCL)
+\item Pin 5: SDO - Address select (GND=0x76, Vdd=0x77)
+\item Pin 6: Vdd - Power supply 1.71V-3.6V
+\item Pin 7: VddIO - Logic level reference (can = Vdd)
+\item Pin 8: GND - Ground
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{WIRING TO ARDUINO:}
+
+\begin{center}
+\begin{tabular}{ll}
+\textbf{BME280 Breakout Board} & \textbf{Arduino Nano} \\
+\hline
+VCC/Vin & 3.3V (NOT 5V!) \\
+GND & GND \\
+SDA & A4 (I2C Data) \\
+SCL & A5 (I2C Clock) \\
+\end{tabular}
+\end{center}
+
+\subsection{Practice: Extract Info from Your Component Datasheets}
+
+For EACH component in your system, find and record:
+
+\textbf{ESC DATASHEET:}
+\begin{enumerate}
+\item Continuous current rating: \underline{\hspace{2cm}} A
+\item Input voltage range: \underline{\hspace{2cm}} V to \underline{\hspace{2cm}} V
+\item BEC output voltage: \underline{\hspace{2cm}} V
+\item BEC output current: \underline{\hspace{2cm}} A
+\item PWM signal frequency: \underline{\hspace{2cm}} Hz
+\item Wiring: Red = \underline{\hspace{2cm}}, Black = \underline{\hspace{2cm}}, White/Yellow = \underline{\hspace{2cm}}
+\end{enumerate}
+
+\textbf{UBEC DATASHEET:}
+\begin{enumerate}
+\item Input voltage range: \underline{\hspace{2cm}} V to \underline{\hspace{2cm}} V
+\item Output voltage: \underline{\hspace{2cm}} V (adjustable? Y/N)
+\item Continuous output current: \underline{\hspace{2cm}} A
+\item Peak output current: \underline{\hspace{2cm}} A
+\item Efficiency at your voltage: \underline{\hspace{2cm}} \%
+\end{enumerate}
+
+\textbf{FLIGHT CONTROLLER (APM 2.8) DATASHEET:}
+\begin{enumerate}
+\item Input voltage: \underline{\hspace{2cm}} V (connect to which BEC?)
+\item PWM output voltage: \underline{\hspace{2cm}} V
+\item Number of output channels: \underline{\hspace{2cm}}
+\item GPS connector pinout: TX = pin \underline{\hspace{1cm}}, RX = pin \underline{\hspace{1cm}}
+\item Telemetry port: \underline{\hspace{3cm}}
+\end{enumerate}
+
+\newpage
+\section{Using a Multimeter}
+
+\subsection{Multimeter Basics}
+
+A multimeter measures three fundamental electrical properties:
+\begin{itemize}
+\item \textbf{VOLTAGE (V or VDC/VAC)} - Potential difference
+\item \textbf{CURRENT (A or mA)} - Flow of electrons
+\item \textbf{RESISTANCE ($\Omega$)} - Opposition to current
+\end{itemize}
+
+PLUS useful functions:
+\begin{itemize}
+\item \textbf{CONTINUITY TEST} (beep when connected)
+\item \textbf{DIODE TEST} (measures forward voltage drop)
+\end{itemize}
+
+\textbf{DIAL POSITIONS (typical multimeter):}
+\begin{itemize}
+\item \textbf{OFF} - Power off
+\item \textbf{V$\sim$ (ACV)} - AC voltage (wall outlets: 120V)
+\item \textbf{V- (DCV)} - DC voltage $\leftarrow$ YOU'LL USE THIS MOST
+\item \textbf{$\Omega$} - Resistance
+\item \textbf{Continuity} - Continuity test (beeper)
+\item \textbf{Diode} - Diode test
+\item \textbf{A} - Current (often separate jack!)
+\end{itemize}
+
+\textbf{PROBE PLACEMENT:}
+\begin{itemize}
+\item RED probe: Positive terminal, higher voltage point
+\item BLACK probe: Negative terminal, ground, lower voltage point
+\end{itemize}
+
+\subsection{Measuring Voltage}
+
+Voltage is measured IN PARALLEL (across a component)
+
+\textbf{PROCEDURE:}
+\begin{enumerate}
+\item Set dial to ``V-'' (DC voltage)
+\item Select range: 20V for most UAV measurements
+\item Touch RED probe to positive point
+\item Touch BLACK probe to ground/negative point
+\item Read the display
+\end{enumerate}
+
+\begin{examplebox}
+\textbf{EXAMPLE 1: Checking Battery Voltage}
+
+Battery terminals: (+) and (-)\\
+Place RED probe on (+), BLACK probe on (-)
+
+Expected reading: 16.8V (fully charged 4S)\\
+Safe minimum: 13.2V (3.3V per cell $\times$ 4)
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{EXAMPLE 2: Checking BEC Output}
+
+BEC output connector:\\
+Red wire (+5V) - RED probe\\
+Black wire (GND) - BLACK probe
+
+Expected reading: $5.0V \pm 0.1V$\\
+If reading $< 4.8V \rightarrow$ Problem! BEC may be overloaded or failing
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{EXAMPLE 3: Voltage Drop Across Wire}
+
+Sometimes you want to check if a wire has too much resistance:
+
+Battery (+) at Point A: 14.8V\\
+Component (+) at Point B: 14.5V\\
+Voltage drop: 0.3V $\leftarrow$ This is lost as heat in the wire!
+
+$\rightarrow$ If drop $>$ 0.5V, use thicker wire gauge
+\end{examplebox}
+
+\begin{warningbox}
+SAFETY NOTE: Never measure voltage with power off—it will read 0!
+\end{warningbox}
+
+\subsection{Measuring Current}
+
+\begin{warningbox}
+MOST DANGEROUS MEASUREMENT - CAN BLOW FUSE OR DAMAGE MULTIMETER!
+\end{warningbox}
+
+Current is measured IN SERIES (breaking the circuit)
+
+\textbf{PROCEDURE:}
+\begin{enumerate}
+\item Turn OFF power first!
+\item Move RED probe to ``A'' or ``10A'' jack (check meter's max current!)
+\item Set dial to ``A'' (current)
+\item BREAK the circuit at one point
+\item Connect multimeter IN the current path (multimeter completes the circuit)
+\item Turn power ON
+\item Current flows THROUGH the meter - read display
+\item Turn power OFF before disconnecting!
+\end{enumerate}
+
+\begin{warningbox}
+NEVER CONNECT MULTIMETER IN PARALLEL IN CURRENT MODE!
+
+This creates a short circuit $\rightarrow$ blown fuse or damaged meter
+\end{warningbox}
+
+\begin{examplebox}
+\textbf{EXAMPLE: Measuring Servo Current}
+
+You want to know how much current a servo draws:
+
+Original: UBEC (+5V) --- Servo Red Wire
+
+Modified: UBEC (+5V) --- Multimeter RED (A jack) --- Multimeter BLACK --- Servo Red Wire
+
+Ground connection unchanged: UBEC GND --- Servo Black Wire
+
+Turn on power, move servo through full range:
+\begin{itemize}[nosep]
+\item Reading @ rest: 50 mA
+\item Reading @ moving: 300 mA
+\item Reading @ stall: 800 mA $\leftarrow$ This is what you need for budgeting!
+\end{itemize}
+\end{examplebox}
+
+\textbf{SAFER ALTERNATIVE:} Use a ``current sensor module'' or ``power analyzer''
+\begin{itemize}
+\item Inline device that measures current without breaking circuit
+\item Safer for beginners
+\item Can log current over time
+\end{itemize}
+
+\subsection{Measuring Resistance (and Continuity)}
+
+Resistance is measured with POWER OFF
+
+\textbf{PROCEDURE:}
+\begin{enumerate}
+\item Disconnect component from circuit (or at least one end)
+\item Set dial to ``$\Omega$'' (ohms)
+\item Select range (200$\Omega$, 2k$\Omega$, 20k$\Omega$, etc.)
+\item Touch probes to component leads
+\item Read resistance value
+\end{enumerate}
+
+\textbf{WHY DISCONNECT FROM CIRCUIT?}\\
+Other components in parallel will affect the reading!
+
+\begin{examplebox}
+\textbf{EXAMPLE 1: Testing a Resistor}
+
+Resistor labeled ``220$\Omega$'':
+\begin{itemize}[nosep]
+\item Measured: 217$\Omega$ $\leftarrow$ Within tolerance (usually $\pm$5\%)
+\end{itemize}
+
+Resistor labeled ``1k$\Omega$'' (1000$\Omega$):
+\begin{itemize}[nosep]
+\item Measured: 1.02k$\Omega$ $\leftarrow$ Good!
+\end{itemize}
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{EXAMPLE 2: Testing Wire Continuity}
+
+Most useful multimeter function for UAV assembly!
+
+Set dial to continuity mode (beeper icon)
+
+Touch probes to both ends of a wire:
+\begin{itemize}[nosep]
+\item BEEP + Low resistance ($< 1\Omega$) $\rightarrow$ Good connection
+\item No beep + ``OL'' (overload) $\rightarrow$ Broken wire!
+\end{itemize}
+
+\textbf{PRACTICAL USE: After soldering connectors}
+\begin{itemize}[nosep]
+\item Touch RED to pin 1 on one connector
+\item Touch BLACK to pin 1 on other end
+\item Should beep $\rightarrow$ Verified connection
+\item Repeat for all pins
+\end{itemize}
+\end{examplebox}
+
+\begin{examplebox}
+\textbf{EXAMPLE 3: Checking for Short Circuits}
+
+BEFORE connecting battery:
+\begin{itemize}[nosep]
+\item Set multimeter to continuity mode
+\item Touch RED to battery (+) connector
+\item Touch BLACK to battery (-) connector
+\end{itemize}
+
+Should NOT beep! (Resistance should be high)
+
+If it beeps $\rightarrow$ SHORT CIRCUIT! Do not connect battery! Something is connecting (+) and (-) directly
+\end{examplebox}
+
+\subsection{Multimeter Troubleshooting Checklist}
+
+\textbf{PROBLEM: ``My flight controller won't turn on''}
+
+\textbf{Step 1:} Measure voltage AT the BEC output
+\begin{itemize}[nosep]
+\item Expected: $\sim$5.0V
+\item If 0V $\rightarrow$ BEC is dead or battery is dead
+\item If correct $\rightarrow$ Problem is downstream
+\end{itemize}
+
+\textbf{Step 2:} Measure voltage AT the flight controller power pins
+\begin{itemize}[nosep]
+\item Expected: $\sim$5.0V
+\item If 0V but BEC shows 5V $\rightarrow$ Bad wire or connector
+\item If correct $\rightarrow$ Flight controller is faulty
+\end{itemize}
+
+\textbf{Step 3:} Check current draw (advanced)
+\begin{itemize}[nosep]
+\item If BEC voltage drops under load $\rightarrow$ Overload or short circuit
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{PROBLEM: ``Servo twitches but won't move''}
+
+\textbf{Step 1:} Measure servo power supply voltage WHILE servo is moving
+\begin{itemize}[nosep]
+\item Expected: $\sim$5.0V
+\item If voltage drops to 4.0V $\rightarrow$ Insufficient current, UBEC overloaded
+\item If stable at 5.0V $\rightarrow$ Servo may be mechanically jammed
+\end{itemize}
+
+\textbf{Step 2:} Measure current draw during movement
+\begin{itemize}[nosep]
+\item If $>$ UBEC rating $\rightarrow$ Need higher-current UBEC
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{PROBLEM: ``GPS won't get satellite lock''}
+
+\textbf{Step 1:} Multimeter can't help much here, but check basics:
+\begin{itemize}[nosep]
+\item Voltage at GPS power pins: $\sim$5.0V
+\item Continuity of TX/RX signal wires from GPS to flight controller
+\end{itemize}
+
+Usually not electrical—check:
+\begin{itemize}[nosep]
+\item GPS has clear view of sky
+\item Antenna oriented correctly
+\item Wait 5+ minutes on first power-up
+\end{itemize}
+
+\newpage
+\section{Understanding PWM Signals}
+
+\subsection{What is PWM?}
+
+PWM = Pulse Width Modulation
+
+A digital signal that controls servos, ESCs, and other devices by varying the WIDTH of pulses, not the voltage level.
+
+\textbf{SERVO/ESC PWM SIGNAL CHARACTERISTICS:}
+\begin{itemize}
+\item Voltage: 5V (or 3.3V for some flight controllers)
+\item Frequency: 50 Hz (one pulse every 20 milliseconds)
+\item Pulse width: 1000 $\mu$s to 2000 $\mu$s (1 ms to 2 ms)
+\end{itemize}
+
+\textbf{VISUALIZING PWM:}
+
+\begin{verbatim}
+     ┌───┐                     ┌───┐                     ┌───┐
+     │   │                     │   │                     │   │
+5V ──┘   └─────────────────────┘   └─────────────────────┘   └────
+
+     ↑                         ↑
+     │←─ 1 ms ────→│          (Pulse repeats every 20 ms)
+     
+     Duty cycle = 1 ms / 20 ms = 5%
+\end{verbatim}
+
+\subsection{PWM Control Values}
+
+\textbf{SERVO POSITION:}
+
+\begin{center}
+\begin{tabular}{ll}
+\textbf{Pulse Width} & \textbf{Servo Position} \\
+\hline
+1000 $\mu$s & 0$^\circ$ (full left) \\
+1500 $\mu$s & 90$^\circ$ (center) \\
+2000 $\mu$s & 180$^\circ$ (full right) \\
+\end{tabular}
+\end{center}
+
+\textbf{THROTTLE/ESC:}
+
+\begin{center}
+\begin{tabular}{ll}
+\textbf{Pulse Width} & \textbf{Throttle} \\
+\hline
+1000 $\mu$s & 0\% (motor off) \\
+1500 $\mu$s & 50\% throttle \\
+2000 $\mu$s & 100\% throttle (full power) \\
+\end{tabular}
+\end{center}
+
+\begin{warningbox}
+NOTE: Some ESCs use different ranges (e.g., 1100-1900 $\mu$s). Check your ESC datasheet and calibrate!
+\end{warningbox}
+
+\subsection{How to Measure PWM with Multimeter}
+
+\begin{warningbox}
+Regular multimeters CANNOT accurately measure PWM pulse width!
+\end{warningbox}
+
+However, you CAN verify signal presence:
+
+\begin{enumerate}
+\item Set multimeter to DC voltage
+\item Touch RED to signal wire, BLACK to ground
+\item Reading will show AVERAGE voltage
+
+Example:
+\begin{itemize}[nosep]
+\item 1 ms pulse / 20 ms period = 5\% duty cycle
+\item Average voltage = 5V $\times$ 0.05 = 0.25V
+\item 2 ms pulse / 20 ms period = 10\% duty cycle
+\item Average voltage = 5V $\times$ 0.10 = 0.5V
+\end{itemize}
+
+\item If you see $\sim$0.25V to 0.5V $\rightarrow$ PWM signal is present
+\item If you see 0V or 5V constantly $\rightarrow$ Problem!
+\end{enumerate}
+
+\textbf{TO ACCURATELY MEASURE PWM:}
+\begin{itemize}
+\item Use an oscilloscope (expensive!)
+\item Use a servo tester (cheap device that displays pulse width)
+\item Use Arduino sketch to read pulseIn() function
+\end{itemize}
+
+\subsection{PWM Troubleshooting}
+
+\textbf{PROBLEM: ``ESC won't arm / motor won't spin''}
+
+ESCs require a specific startup sequence:
+\begin{enumerate}[nosep]
+\item Throttle stick at minimum (1000 $\mu$s)
+\item Connect battery
+\item Wait for ESC beeps (indicates cells detected)
+\item Raise throttle slightly $\rightarrow$ Motor should spin
+\end{enumerate}
+
+If motor doesn't respond:
+\begin{itemize}[nosep]
+\item Check PWM signal wire is connected (usually white/yellow)
+\item Verify ESC is receiving power (check voltage)
+\item Calibrate ESC throttle range (see ESC manual)
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{PROBLEM: ``Servo jitters or moves erratically''}
+
+\textbf{CAUSES:}
+\begin{enumerate}
+\item \textbf{Electrical noise on signal wire}
+\begin{itemize}[nosep]
+\item Solution: Twist signal wire with ground wire
+\item Keep signal wires away from motor wires
+\end{itemize}
+
+\item \textbf{Insufficient power (voltage drop)}
+\begin{itemize}[nosep]
+\item Measure voltage at servo while it moves
+\item If drops below 4.5V $\rightarrow$ Need thicker power wires or higher-current BEC
+\end{itemize}
+
+\item \textbf{Bad connection}
+\begin{itemize}[nosep]
+\item Check continuity of all three servo wires
+\item Re-solder connectors
+\end{itemize}
+\end{enumerate}
+
+\newpage
+\section{Grounding and Electrical Noise}
+
+\subsection{Why Grounding Matters}
+
+GROUND = REFERENCE POINT for all voltages in your system
+
+Without a proper common ground:
+\begin{itemize}
+\item Voltages are undefined
+\item Signals won't be read correctly
+\item Electrical noise causes interference
+\item Components may be damaged
+\end{itemize}
+
+\begin{keyinsight}
+\textbf{GOLDEN RULE:}\\
+ALL COMPONENTS IN YOUR UAV MUST SHARE A COMMON GROUND!
+\end{keyinsight}
+
+\subsection{Ground Loops and Noise}
+
+\textbf{GROUND LOOP:} Multiple paths between grounds create circulating currents
+
+\textbf{EXAMPLE OF PROBLEM:}
+
+If Ground wire A has different resistance than Ground wire B, a small voltage difference exists between the two ``grounds''!
+
+This can cause:
+\begin{itemize}
+\item ADC reading errors on Arduino
+\item PWM signal corruption
+\item Random resets or glitches
+\end{itemize}
+
+\textbf{SOLUTION: Star grounding}
+
+All grounds connect to ONE central point (usually battery negative):
+
+\begin{center}
+Battery (-) $\leftarrow$ Central ground point\\
+$\downarrow$\\
+All components connect here
+\end{center}
+
+\subsection{Sources of Electrical Noise}
+
+\textbf{1. MOTOR/ESC NOISE}
+
+Brushless motors create high-frequency electrical noise
+
+Effects:
+\begin{itemize}
+\item Corrupts GPS reception
+\item Causes servo jitter
+\item Interferes with radio receiver
+\end{itemize}
+
+\textbf{SOLUTIONS:}
+\begin{itemize}
+\item Keep motor wires short
+\item Twist motor wires together (reduces electromagnetic radiation)
+\item Add capacitors across motor terminals (suppresses noise)
+\item Separate signal wires from motor wires (at least 5 cm apart)
+\end{itemize}
+
+\textbf{2. POWER SUPPLY NOISE}
+
+When servos move, they draw sudden current spikes\\
+This causes voltage ripple on power rails
+
+\textbf{SOLUTIONS:}
+\begin{itemize}
+\item Add capacitors near each component (decoupling capacitors)
+\begin{itemize}
+\item 100 $\mu$F electrolytic capacitor on BEC output
+\item 0.1 $\mu$F ceramic capacitor at each component's power pins
+\end{itemize}
+\item Use separate BECs for servos vs. flight-critical systems (ALREADY DOING THIS!)
+\end{itemize}
+
+\textbf{3. RADIO FREQUENCY INTERFERENCE (RFI)}
+
+Long wires act as antennas, picking up noise
+
+\textbf{SOLUTIONS:}
+\begin{itemize}
+\item Keep wires as short as practical
+\item Twist signal + ground pairs together
+\item Use shielded cable for sensitive signals (e.g., GPS antenna)
+\end{itemize}
+
+\subsection{Best Practices for Your UAV}
+
+\begin{itemize}
+\item CONNECT all component grounds to battery negative terminal (directly or through BECs that connect to battery)
+\item TWIST signal wires with their ground/return wires
+\begin{itemize}
+\item Reduces crosstalk between signals
+\item Minimizes antenna effect (noise pickup)
+\end{itemize}
+\item ROUTE motor wires AWAY from signal wires
+\begin{itemize}
+\item If they must cross, do so at 90$^\circ$ angle (minimizes coupling)
+\end{itemize}
+\item ADD a large capacitor (100-220 $\mu$F) across battery terminals
+\begin{itemize}
+\item Smooths voltage spikes when motor draws high current
+\end{itemize}
+\item TEST grounding by measuring voltage between grounds
+\begin{itemize}
+\item Connect multimeter BLACK to battery (-)
+\item Touch RED to ground pin of each component
+\item Should read 0.00V (or $< 0.01V$)
+\item If $> 0.1V \rightarrow$ Poor ground connection!
+\end{itemize}
+\end{itemize}
+
+\newpage
+\section{Systematic Troubleshooting Approach}
+
+\subsection{The Troubleshooting Mindset}
+
+When something doesn't work, DON'T just try random fixes!
+
+Follow this systematic approach:
+\begin{enumerate}
+\item \textbf{OBSERVE} - What exactly is wrong? Be specific.
+\item \textbf{ISOLATE} - Which component or connection is faulty?
+\item \textbf{VERIFY} - Use measurements (multimeter) to confirm your hypothesis
+\item \textbf{FIX} - Make ONE change at a time
+\item \textbf{TEST} - Did the fix work?
+\end{enumerate}
+
+\subsection{Power Troubleshooting Flowchart}
+
+\textbf{SYMPTOM: ``Nothing turns on''}
+
+\begin{enumerate}
+\item \textbf{Check battery voltage (with multimeter)}
+\begin{itemize}
+\item Is it $> 13.2V$? (3.3V/cell minimum)
+\item NO $\rightarrow$ Charge battery
+\item YES $\rightarrow$ Continue
+\end{itemize}
+
+\item \textbf{Check XT60 connector continuity}
+\begin{itemize}
+\item Are positive and negative both connected?
+\item NO $\rightarrow$ Resolder connector
+\item YES $\rightarrow$ Continue
+\end{itemize}
+
+\item \textbf{Measure voltage at ESC input (14.8V expected)}
+\begin{itemize}
+\item 0V $\rightarrow$ Bad Y-harness or connector
+\item 14.8V $\rightarrow$ Continue
+\end{itemize}
+
+\item \textbf{Measure voltage at ESC BEC output (5V expected)}
+\begin{itemize}
+\item 0V $\rightarrow$ ESC is dead or BEC damaged, try external UBEC alone
+\item 5V $\rightarrow$ Continue
+\end{itemize}
+
+\item \textbf{Measure voltage at component power pins}
+\begin{itemize}
+\item 0V $\rightarrow$ Bad wire from BEC to component, resolder
+\item 5V $\rightarrow$ Component is faulty
+\end{itemize}
+\end{enumerate}
+
+\subsection{Component-Specific Troubleshooting}
+
+\textbf{FLIGHT CONTROLLER WON'T BOOT:}
+\begin{enumerate}
+\item Verify 5V on power pins (multimeter)
+\item Check current draw (should be $\sim$100-200 mA)
+\begin{itemize}[nosep]
+\item If 0 mA $\rightarrow$ No power reaching flight controller
+\item If $> 500$ mA $\rightarrow$ Possible short circuit
+\end{itemize}
+\item Check USB connection (can it connect to computer?)
+\begin{itemize}[nosep]
+\item YES $\rightarrow$ Power issue, check external power supply
+\item NO $\rightarrow$ Flight controller may be bricked, reflash firmware
+\end{itemize}
+\end{enumerate}
+
+\textbf{GPS NO SATELLITE LOCK:}
+\begin{enumerate}
+\item Verify 5V on GPS power pins
+\item Check continuity of TX/RX wires to flight controller
+\item Verify GPS is configured for correct baud rate (usually 38400)
+\item Test outdoors with clear sky view (takes 5-15 min on first boot)
+\item Check for electrical noise:
+\begin{itemize}[nosep]
+\item Move GPS farther from motor/ESC
+\item Add aluminum foil shield under GPS (acts as ground plane)
+\end{itemize}
+\end{enumerate}
+
+\textbf{SERVO NOT RESPONDING:}
+\begin{enumerate}
+\item Verify 5V on servo power pins while it attempts to move
+\begin{itemize}[nosep]
+\item If drops $< 4.5V \rightarrow$ Insufficient current (upgrade UBEC)
+\end{itemize}
+\item Test servo with servo tester (bypass flight controller)
+\begin{itemize}[nosep]
+\item Works $\rightarrow$ Problem is flight controller or wiring
+\item Doesn't work $\rightarrow$ Servo is dead
+\end{itemize}
+\item Check PWM signal continuity from flight controller to servo
+\item Verify flight controller channel is configured correctly (transmitter mixer)
+\end{enumerate}
+
+\textbf{MOTOR WON'T SPIN:}
+\begin{enumerate}
+\item Verify 14.8V at ESC input
+\item Check ESC programming (throttle calibration)
+\item Test motor directly with servo tester (if 3-wire ESC)
+\item Verify motor isn't mechanically jammed (try spinning by hand)
+\item Check for loose motor wires (intermittent connection)
+\end{enumerate}
+
+\textbf{ARDUINO NOT LOGGING DATA:}
+\begin{enumerate}
+\item Verify 5V power at Arduino
+\item Test sensors individually (I2C scanner sketch)
+\item Check SD card:
+\begin{itemize}[nosep]
+\item Is it formatted FAT32?
+\item Is it inserted correctly?
+\item Test write with simple Arduino sketch
+\end{itemize}
+\item Add Serial.print() debugging to code to see where it fails
+\end{enumerate}
+
+\subsection{Common Mistakes to Avoid}
+
+\begin{enumerate}
+\item \textbf{MIXING UP VOLTAGE LEVELS}
+\begin{itemize}[nosep]
+\item Connecting 5V to 3.3V component $\rightarrow$ Damage!
+\item Check datasheet for EVERY component
+\end{itemize}
+
+\item \textbf{REVERSING POLARITY}
+\begin{itemize}[nosep]
+\item Connecting battery backwards $\rightarrow$ EXPLOSION (LiPo fire!)
+\item Double-check red = (+), black = (-) BEFORE connecting power
+\end{itemize}
+
+\item \textbf{FORGETTING COMMON GROUND}
+\begin{itemize}[nosep]
+\item Connecting only (+) and signal, forgetting ground wire
+\item Every component needs THREE connections: +, signal, ground
+\end{itemize}
+
+\item \textbf{OVERLOADING BEC}
+\begin{itemize}[nosep]
+\item Connecting too many servos to one BEC
+\item Calculate total current draw FIRST, compare to BEC rating
+\end{itemize}
+
+\item \textbf{MEASURING CURRENT IN PARALLEL}
+\begin{itemize}[nosep]
+\item Multimeter in current mode connected like a voltmeter $\rightarrow$ BOOM!
+\item Current is measured IN SERIES (break the circuit)
+\end{itemize}
+
+\item \textbf{TESTING WITH PROPELLER ATTACHED}
+\begin{itemize}[nosep]
+\item Motor spins unexpectedly $\rightarrow$ Injury!
+\item ALWAYS remove propeller during electrical testing
+\end{itemize}
+\end{enumerate}
+
+\newpage
+\section{Practical Exercises}
+
+\subsection*{EXERCISE 1: Datasheet Scavenger Hunt}
+
+Find datasheets for three components in your UAV system:
+\begin{enumerate}
+\item Your ESC
+\item Your Arduino/microcontroller
+\item One sensor (BME280, air quality sensor, etc.)
+\end{enumerate}
+
+For each datasheet, extract and record:
+\begin{itemize}
+\item Operating voltage range
+\item Current consumption (typical and maximum)
+\item Pinout diagram (draw it or save screenshot)
+\item I2C address (if applicable)
+\item One ``interesting fact'' from the datasheet you didn't know
+\end{itemize}
+
+\textbf{DUE DATE:} Before next meeting
+
+\subsection*{EXERCISE 2: Multimeter Practice}
+
+Perform these measurements and record results:
+
+\textbf{1. Battery voltage:}\\
+Measured: \underline{\hspace{3cm}} V\\
+Calculated per-cell voltage: \underline{\hspace{3cm}} V (divide by 4)\\
+Status: $\square$ Good ($>3.7V$/cell) \quad $\square$ Needs charge \quad $\square$ Dead
+
+\textbf{2. USB phone charger output:}\\
+Measured: \underline{\hspace{3cm}} V (should be $\sim$5V)
+
+\textbf{3. Resistance of 1-meter wire:}\\
+Wire gauge: \underline{\hspace{3cm}} AWG\\
+Measured: \underline{\hspace{3cm}} $\Omega$ (should be $< 1\Omega$ for short wires)
+
+\textbf{4. Continuity test on a homemade cable:}\\
+Wire 1: $\square$ Beeps (good) \quad $\square$ No beep (broken)\\
+Wire 2: $\square$ Beeps (good) \quad $\square$ No beep (broken)\\
+Wire 3: $\square$ Beeps (good) \quad $\square$ No beep (broken)
+
+\textbf{DUE DATE:} Complete during next lab session
+
+\subsection*{EXERCISE 3: Draw Your System Schematic}
+
+Create a schematic diagram of YOUR UAV electrical system showing:
+\begin{itemize}
+\item Battery (with voltage label)
+\item Y-harness
+\item ESC and external UBEC
+\item Both power rails (Rail 1 and Rail 2)
+\item All components: Flight controller, Arduino, GPS, RC receiver, servos
+\item Ground connections (common ground symbol)
+\end{itemize}
+
+You can draw by hand or use:
+\begin{itemize}
+\item Draw.io (free, online)
+\item Fritzing (beginner-friendly)
+\item KiCad (professional, but complex)
+\end{itemize}
+
+\textbf{HINT:} Reference the schematic example in Section 1.4
+
+\textbf{DUE DATE:} Before flight testing begins
+
+\subsection*{EXERCISE 4: PWM Investigation}
+
+Write a simple Arduino sketch that:
+\begin{enumerate}
+\item Reads PWM input from RC receiver on pin 2
+\item Prints the pulse width (in microseconds) to Serial Monitor
+\item Maps the pulse width to a percentage (1000 = 0\%, 2000 = 100\%)
+\end{enumerate}
+
+Use this to verify your RC receiver outputs correct PWM values.
+
+\textbf{TEST:}\\
+Throttle stick at minimum $\rightarrow$ Should read $\sim$1000 $\mu$s\\
+Throttle stick at center $\rightarrow$ Should read $\sim$1500 $\mu$s\\
+Throttle stick at maximum $\rightarrow$ Should read $\sim$2000 $\mu$s
+
+\textbf{Record actual measured values:}\\
+Minimum: \underline{\hspace{3cm}} $\mu$s\\
+Center: \underline{\hspace{3cm}} $\mu$s\\
+Maximum: \underline{\hspace{3cm}} $\mu$s
+
+\textbf{ARDUINO CODE HINT:}
+\begin{verbatim}
+int pulse = pulseIn(2, HIGH, 25000);  // Read pulse on pin 2
+Serial.println(pulse);
+\end{verbatim}
+
+\textbf{DUE DATE:} Whenever you receive your RC equipment
+
+\newpage
+\section{Advanced Topic - Decoupling Capacitors}
+
+\textit{(This section is OPTIONAL but highly recommended for understanding why some circuits include capacitors you didn't think were necessary!)}
+
+\subsection{Why Decoupling Capacitors?}
+
+When a component (like a servo or Arduino) suddenly draws current, the voltage on the power rail can temporarily drop. This is called a ``voltage sag'' or ``brownout.''
+
+\textbf{CAUSES OF VOLTAGE SAG:}
+\begin{enumerate}
+\item Wire resistance (even tiny amounts matter!)
+\item BEC can't respond instantly to current changes
+\item Inductance in long wires (resist changes in current)
+\end{enumerate}
+
+\textbf{SOLUTION:} Capacitor acts as a ``local battery''
+\begin{itemize}
+\item Stores charge near the component
+\item Supplies current during sudden demand
+\item Smooths voltage ripple
+\end{itemize}
+
+\textbf{ANALOGY: Water tower near your house}
+\begin{itemize}
+\item City water supply = BEC
+\item Pipes = Wires (have resistance)
+\item Water tower = Capacitor (local storage)
+\end{itemize}
+
+When you suddenly turn on all faucets, the water tower supplies water instantly while the city pumps catch up.
+
+\subsection{Types of Capacitors}
+
+\textbf{ELECTROLYTIC CAPACITOR (100 $\mu$F - 1000 $\mu$F)}
+\begin{itemize}
+\item Large capacitance
+\item Good for bulk energy storage
+\item Polarized (must connect (+) to (+), (-) to (-))
+\item Slower response time
+\end{itemize}
+
+\textbf{USE:} At BEC outputs, near power-hungry components
+
+\textbf{CERAMIC CAPACITOR (0.1 $\mu$F - 10 $\mu$F)}
+\begin{itemize}
+\item Small capacitance
+\item Very fast response time
+\item Not polarized (can connect either way)
+\item Physically small
+\end{itemize}
+
+\textbf{USE:} Right next to IC chips (flight controller, Arduino)
+
+\subsection{Where to Add Capacitors in Your UAV}
+
+\textbf{1. ACROSS BATTERY TERMINALS}
+\begin{itemize}
+\item 220 $\mu$F to 470 $\mu$F electrolytic
+\item Reduces voltage spikes when motor draws high current
+\item Protects ESC and BECs
+\end{itemize}
+
+\textbf{2. AT EACH BEC OUTPUT}
+\begin{itemize}
+\item 100 $\mu$F electrolytic + 0.1 $\mu$F ceramic
+\item Smooths BEC output ripple
+\item Place physically close to BEC
+\end{itemize}
+
+\textbf{3. AT EACH COMPONENT'S POWER PINS}
+\begin{itemize}
+\item 0.1 $\mu$F ceramic
+\item As close as possible to IC power pins
+\item Flight controller and Arduino especially benefit
+\end{itemize}
+
+\textbf{CONNECTION:}\\
+Always connect capacitor between (+) and (-) [or (+) and GND]
+
+\newpage
+\section{Preparing for Hands-On Assembly}
+
+\subsection{Pre-Assembly Checklist}
+
+BEFORE you start assembling:
+
+\begin{itemize}[label=$\square$]
+\item All components received and inspected
+\item Datasheets downloaded and key specs recorded in Quick Reference Card
+\item Multimeter tested and working (check battery, test on known voltage)
+\item Soldering iron heated and tip tinned
+\item Wiring diagram printed and accessible
+\item Safety Protocol reviewed (especially LiPo handling!)
+\item Work area clean and organized
+\item Fire extinguisher or water nearby (LiPo safety)
+\end{itemize}
+
+\subsection{Assembly Sequence (Recommended)}
+
+\textbf{PHASE 1: Power System (DO THIS FIRST)}
+\begin{enumerate}
+\item Install XT60 connectors on battery and Y-harness
+\item Test continuity of Y-harness
+\item Connect ESC and UBEC to Y-harness
+\item Power on (no other components connected yet)
+\item Verify ESC BEC outputs 5V
+\item Verify UBEC outputs 5V
+\item Measure current draw (should be very low, $\sim$10-50 mA)
+\end{enumerate}
+
+\begin{warningbox}
+DO NOT PROCEED if voltages are incorrect!
+\end{warningbox}
+
+\textbf{PHASE 2: Flight-Critical Components (RAIL 1)}
+\begin{enumerate}
+\item Connect flight controller to ESC BEC
+\item Verify flight controller boots (LEDs light up)
+\item Connect RC receiver
+\item Verify RC receiver binds to transmitter
+\item Connect GPS module
+\item Wait for GPS satellite lock
+\end{enumerate}
+
+\textbf{Test:} All components powered simultaneously, battery voltage $> 14V$
+
+\textbf{PHASE 3: Data Collection System}
+\begin{enumerate}
+\item Connect Arduino to RAIL 1
+\item Upload test sketch (blink LED or print to serial)
+\item Connect sensors one at a time
+\item Test each sensor individually
+\item Install SD card module and test data logging
+\end{enumerate}
+
+\textbf{Test:} Log data for 5 minutes, verify file saved correctly
+
+\textbf{PHASE 4: Servos (RAIL 2)}
+\begin{enumerate}
+\item Connect ONE servo to external UBEC
+\item Verify servo moves through full range
+\item Measure current draw at stall
+\item Connect remaining servos
+\item Test all servos simultaneously
+\item Verify UBEC voltage doesn't drop below 4.8V under load
+\end{enumerate}
+
+\textbf{Test:} All servos to full deflection at once, no brownouts
+
+\textbf{PHASE 5: Motor System (SAVE FOR LAST)}
+\begin{enumerate}
+\item Connect motor to ESC (NO PROP YET!)
+\item Connect ESC signal wire to flight controller
+\item Arm ESC (throttle low, then battery, wait for beeps)
+\item Test motor at 10\% throttle (should spin smoothly)
+\item Measure motor current
+\item If all good, install propeller (secured drone first!)
+\end{enumerate}
+
+\subsection{Testing Before Flight}
+
+\textbf{BENCH TEST (no propeller, secured):}
+\begin{itemize}[label=$\square$]
+\item All components powered on
+\item Flight controller boots and shows GPS lock
+\item RC transmitter controls all servos correctly
+\item Throttle stick moves (but ESC disarmed for safety)
+\item Data logging works continuously for 10 minutes
+\item Battery voltage after 10 min test: \underline{\hspace{2cm}} V
+\end{itemize}
+
+\textbf{GROUND TEST (propeller on, drone secured):}
+\begin{itemize}[label=$\square$]
+\item Arm ESC
+\item Slowly increase throttle to 50\%
+\item Verify motor spins in correct direction
+\item Check for vibrations (balance propeller if needed)
+\item Measure current draw: \underline{\hspace{2cm}} A
+\item Verify control surfaces respond correctly
+\item Test failsafe (turn off transmitter $\rightarrow$ motor stops)
+\end{itemize}
+
+\textbf{RANGE TEST:}
+\begin{itemize}[label=$\square$]
+\item Walk 50 meters away with transmitter
+\item Verify all controls still respond
+\item Repeat at 100 meters
+\item If control is lost, do NOT fly! Check antenna placement.
+\end{itemize}
+
+\newpage
+\section{Summary and Next Steps}
+
+\subsection*{What You Learned in This Lesson:}
+
+\begin{itemize}
+\item How to read electrical schematics and wiring diagrams
+\item How to extract critical information from component datasheets
+\item How to use a multimeter to measure voltage, current, and continuity
+\item How PWM signals work and how they control servos/ESCs
+\item Why grounding is critical and how to avoid ground loops
+\item Systematic troubleshooting approach for electrical problems
+\item Where to add capacitors to reduce noise and voltage sags
+\end{itemize}
+
+\subsection*{Skills You Can Now Apply:}
+
+\begin{itemize}
+\item Debug ``component won't turn on'' problems using multimeter
+\item Verify correct voltage at each point in your system
+\item Test continuity of all connections before powering on
+\item Identify and fix grounding issues
+\item Read your component datasheets to find pinouts and specs
+\item Systematically troubleshoot problems instead of guessing
+\end{itemize}
+
+\subsection*{What's Next? (Lesson 3 Preview)}
+
+The next lesson will cover:
+
+\textbf{LESSON 3: SOLDERING, CONNECTORS, AND PROFESSIONAL ASSEMBLY TECHNIQUES}
+
+Topics:
+\begin{itemize}
+\item How to solder properly (technique, temperature, inspection)
+\item Choosing the right connectors (XT60, JST, Dupont, bullet connectors)
+\item Crimping vs. soldering
+\item Heat shrink tubing and strain relief
+\item Wire management and cable routing
+\item Building a custom wiring harness
+\item Quality control and inspection
+\item Common soldering mistakes and how to fix them
+\end{itemize}
+
+\subsection*{Homework Before Next Lesson:}
+
+\begin{enumerate}
+\item Complete Exercise 1: Datasheet Scavenger Hunt
+\item Fill out Component Quick Reference Card (as components arrive)
+\item Practice with multimeter (Exercise 2)
+\item Review soldering safety videos online (search ``soldering basics'')
+\end{enumerate}
+
+\subsection*{Questions for Review:}
+
+Test your understanding:
+
+\begin{enumerate}
+\item You measure 5.2V at the BEC output, but only 4.5V at the flight controller. What is the most likely cause, and how do you fix it?
+
+\item Your servo twitches randomly. List three possible causes and how you would test for each one.
+
+\item Why is it dangerous to measure current with the multimeter set incorrectly?
+
+\item Your motor spins, but GPS won't get satellite lock. Could these be related? Explain.
+
+\item What is the purpose of connecting all grounds to a common point?
+\end{enumerate}
+
+(Answers will be discussed in next lesson)
+
+\vspace{2em}
+
+\begin{center}
+\rule{\textwidth}{2pt}
+\textbf{\Large CONGRATULATIONS!}\\[0.5em]
+\rule{\textwidth}{2pt}
+\end{center}
+
+You now have the foundational knowledge to read schematics, interpret datasheets, and troubleshoot electrical problems systematically.
+
+These skills will serve you throughout this project and in future electrical engineering work.
+
+\begin{center}
+\textbf{\Large REMEMBER: When in doubt, measure first, then act!}
+\end{center}
+
+\vspace{2em}
+
+\begin{center}
+\rule{\textwidth}{2pt}
+\textbf{END OF LESSON 2}\\
+\rule{\textwidth}{2pt}
+\end{center}
+
+\end{document}

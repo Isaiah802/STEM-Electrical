@@ -1,0 +1,791 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{NLC STEM - Component Quick Reference Card}}
+\fancyhead[R]{\textbf{Page \thepage}}
+\renewcommand{\headrulewidth}{2pt}
+\setlength{\headheight}{14pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+
+\begin{center}
+{\Huge \textbf{COMPONENT QUICK REFERENCE CARD}}\\[0.3em]
+{\Large NLC STEM Club UAV Project - Electrical Systems Team}\\[0.5em]
+\rule{\textwidth}{2pt}
+\end{center}
+
+\begin{tcolorbox}[colback=yellow!10, colframe=orange!80!black, title=\textbf{INSTRUCTIONS}]
+Fill this out as components arrive. Keep printed copy at workbench!\\
+Use this card during assembly, testing, and troubleshooting.
+\end{tcolorbox}
+
+\section*{POWER SYSTEM}
+
+\subsection*{Battery (LiPo)}
+\begin{tabularx}{\textwidth}{lX}
+Configuration: & \underline{\hspace{4cm}} (e.g., 4S) \\
+Voltage (Nominal): & \underline{\hspace{4cm}} V \\
+Voltage (Fully Charged): & \underline{\hspace{4cm}} V (4.2V per cell) \\
+Voltage (Safe Minimum): & \underline{\hspace{4cm}} V (3.3V per cell) \\
+Voltage (Storage): & \underline{\hspace{4cm}} V (3.8V per cell) \\
+Capacity: & \underline{\hspace{4cm}} mAh \\
+C-Rating: & \underline{\hspace{4cm}} C \\
+Max Continuous Current: & \underline{\hspace{4cm}} A (Capacity $\times$ C-rating) \\
+Connector Type: & \underline{\hspace{4cm}} \\
+Weight: & \underline{\hspace{4cm}} g \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested OK: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+
+\subsection*{Electronic Speed Controller (ESC)}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Current Rating: & \underline{\hspace{3cm}} A continuous, \underline{\hspace{3cm}} A burst \\
+Input Voltage Range: & \underline{\hspace{3cm}} V to \underline{\hspace{3cm}} V \\
+BEC Output: & \underline{\hspace{3cm}} V @ \underline{\hspace{3cm}} A \\
+BEC Type: & $\square$ Linear \quad $\square$ Switching \\
+PWM Frequency: & \underline{\hspace{4cm}} Hz \\
+Input Connector: & \underline{\hspace{4cm}} \\
+Output Connector (to motor): & \underline{\hspace{6cm}} \\
+Dimensions: & \underline{\hspace{2cm}} mm $\times$ \underline{\hspace{2cm}} mm $\times$ \underline{\hspace{2cm}} mm \\
+Weight: & \underline{\hspace{4cm}} g \\
+\end{tabularx}
+
+\textbf{ESC Programming:}
+\begin{tabularx}{\textwidth}{lX}
+Throttle Range: & \underline{\hspace{3cm}} $\mu$s to \underline{\hspace{3cm}} $\mu$s \\
+Brake: & $\square$ On \quad $\square$ Off \\
+Battery Cutoff Voltage: & \underline{\hspace{4cm}} V \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested OK: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Calibrated: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+
+\subsection*{External UBEC}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Input Voltage Range: & \underline{\hspace{3cm}} V to \underline{\hspace{3cm}} V \\
+Output Voltage: & \underline{\hspace{3cm}} V \quad (adjustable: $\square$ Yes $\square$ No) \\
+Max Output Current: & \underline{\hspace{4cm}} A \\
+Efficiency: & \underline{\hspace{4cm}} \% \\
+Input Connector: & \underline{\hspace{6cm}} \\
+Output: & $\square$ Wire leads $\square$ Servo plug $\square$ Other: \underline{\hspace{3cm}} \\
+Weight: & \underline{\hspace{4cm}} g \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested OK: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Output Voltage Verified: & \underline{\hspace{3cm}} V (measured) \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+
+\subsection*{XT60 Y-Harness Splitter}
+\begin{tabularx}{\textwidth}{lX}
+Type: & 1 Female to \underline{\hspace{2cm}} Male \\
+Wire Gauge: & \underline{\hspace{4cm}} AWG \\
+Wire Length: & \underline{\hspace{4cm}} cm \\
+Rated Current: & \underline{\hspace{4cm}} A \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Continuity): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\newpage
+
+\section*{MOTOR \& PROPULSION}
+
+\subsection*{Brushless Motor}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+KV Rating: & \underline{\hspace{4cm}} KV (RPM per volt) \\
+Max Voltage: & \underline{\hspace{4cm}} V \\
+Max Current: & \underline{\hspace{4cm}} A \\
+Power: & \underline{\hspace{4cm}} W \\
+Shaft Diameter: & \underline{\hspace{4cm}} mm \\
+Weight: & \underline{\hspace{4cm}} g \\
+Connector: & \underline{\hspace{6cm}} \\
+Rotation Direction: & $\square$ CW \quad $\square$ CCW \quad $\square$ Reversible \\
+\end{tabularx}
+
+\textbf{Operating Parameters (with our battery):}
+\begin{tabularx}{\textwidth}{lX}
+No-load RPM: & \underline{\hspace{3cm}} $\times$ 14.8V = \underline{\hspace{4cm}} RPM \\
+Expected Current at Cruise: & \underline{\hspace{4cm}} A \\
+Expected Current at Full Throttle: & \underline{\hspace{4cm}} A \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (No prop): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+
+\subsection*{Propeller}
+\begin{tabularx}{\textwidth}{lX}
+Type: & $\square$ Fixed \quad $\square$ Folding \\
+Diameter: & \underline{\hspace{4cm}} inches \\
+Pitch: & \underline{\hspace{4cm}} inches \\
+Material: & \underline{\hspace{6cm}} \\
+Rotation: & $\square$ Pusher \quad $\square$ Tractor \\
+Mounting: & $\square$ Spinner nut $\square$ Collet $\square$ Other: \underline{\hspace{3cm}} \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Inspected (No cracks): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Balanced: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\section*{FLIGHT CONTROL SYSTEM}
+
+\subsection*{Flight Controller}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Firmware: & \underline{\hspace{4cm}} \quad Version: \underline{\hspace{3cm}} \\
+Processor: & \underline{\hspace{6cm}} \\
+Operating Voltage: & \underline{\hspace{4cm}} V \\
+Current Draw: & \underline{\hspace{4cm}} mA \\
+\end{tabularx}
+
+\textbf{Interfaces:}
+\begin{itemize}[nosep]
+\item $\square$ Main Out (PWM channels: \underline{\hspace{2cm}})
+\item $\square$ AUX Out (PWM channels: \underline{\hspace{2cm}})
+\item $\square$ UART: \underline{\hspace{2cm}} ports
+\item $\square$ I2C: $\square$ Yes $\square$ No
+\item $\square$ PPM Input
+\item $\square$ S.Bus Input
+\end{itemize}
+
+\textbf{Sensors Onboard:}
+\begin{itemize}[nosep]
+\item $\square$ Gyroscope \quad Model: \underline{\hspace{4cm}}
+\item $\square$ Accelerometer \quad Model: \underline{\hspace{4cm}}
+\item $\square$ Barometer \quad Model: \underline{\hspace{4cm}}
+\item $\square$ Magnetometer: $\square$ Yes $\square$ No
+\end{itemize}
+
+\textbf{Pinout:}
+\begin{tabularx}{\textwidth}{lX}
+Power (+5V): & Pin \underline{\hspace{1cm}} (Color: \underline{\hspace{2cm}}) \\
+Ground: & Pin \underline{\hspace{1cm}} (Color: \underline{\hspace{2cm}}) \\
+Motor/ESC: & Pin \underline{\hspace{1cm}} \\
+Servo 1: & Pin \underline{\hspace{1cm}} (Function: \underline{\hspace{3cm}}) \\
+Servo 2: & Pin \underline{\hspace{1cm}} (Function: \underline{\hspace{3cm}}) \\
+Servo 3: & Pin \underline{\hspace{1cm}} (Function: \underline{\hspace{3cm}}) \\
+Servo 4: & Pin \underline{\hspace{1cm}} (Function: \underline{\hspace{3cm}}) \\
+GPS (TX/RX): & Pin \underline{\hspace{1cm}} / \underline{\hspace{1cm}} \\
+Telemetry: & Pin \underline{\hspace{1cm}} \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Powers on): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Firmware Flashed: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Calibrated: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\newpage
+
+\subsection*{GPS Module}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Chipset: & \underline{\hspace{6cm}} \\
+Operating Voltage: & \underline{\hspace{4cm}} V \\
+Current Draw: & \underline{\hspace{4cm}} mA \\
+Interface: & $\square$ UART $\square$ I2C $\square$ SPI \\
+Baud Rate: & \underline{\hspace{4cm}} \\
+Update Rate: & \underline{\hspace{4cm}} Hz \\
+\end{tabularx}
+
+\textbf{Features:}
+\begin{itemize}[nosep]
+\item $\square$ Built-in Compass (Magnetometer)
+\item $\square$ Active Antenna
+\item $\square$ Battery Backup
+\end{itemize}
+
+\begin{tabularx}{\textwidth}{lX}
+Connector: & \underline{\hspace{6cm}} \\
+Cable Length: & \underline{\hspace{4cm}} cm \\
+\end{tabularx}
+
+\textbf{Pinout:}
+\begin{tabularx}{\textwidth}{lX}
+VCC: & Pin \underline{\hspace{1cm}} (Color: \underline{\hspace{2cm}}) \\
+GND: & Pin \underline{\hspace{1cm}} (Color: \underline{\hspace{2cm}}) \\
+TX: & Pin \underline{\hspace{1cm}} (Color: \underline{\hspace{2cm}}) \\
+RX: & Pin \underline{\hspace{1cm}} (Color: \underline{\hspace{2cm}}) \\
+SCL (if I2C): & Pin \underline{\hspace{1cm}} (Color: \underline{\hspace{2cm}}) \\
+SDA (if I2C): & Pin \underline{\hspace{1cm}} (Color: \underline{\hspace{2cm}}) \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Gets satellite lock): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Time to First Fix: & \underline{\hspace{3cm}} minutes \\
+Number of Satellites: & \underline{\hspace{4cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+
+\subsection*{RC Receiver}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Protocol: & $\square$ PPM $\square$ S.Bus $\square$ ELRS $\square$ Other: \underline{\hspace{2cm}} \\
+Frequency: & \underline{\hspace{4cm}} GHz \\
+Channels: & \underline{\hspace{4cm}} \\
+Operating Voltage: & \underline{\hspace{4cm}} V \\
+Current Draw: & \underline{\hspace{4cm}} mA \\
+Range: & \underline{\hspace{4cm}} m/km \\
+Antenna Type: & $\square$ Linear $\square$ Diversity \\
+\end{tabularx}
+
+\textbf{Binding Procedure:}\\
+\underline{\hspace{\textwidth}}\\
+\underline{\hspace{\textwidth}}
+
+\textbf{Channel Map:}
+\begin{tabularx}{\textwidth}{lX}
+CH1: & \underline{\hspace{4cm}} (e.g., Aileron) \\
+CH2: & \underline{\hspace{4cm}} (e.g., Elevator) \\
+CH3: & \underline{\hspace{4cm}} (e.g., Throttle) \\
+CH4: & \underline{\hspace{4cm}} (e.g., Rudder) \\
+CH5: & \underline{\hspace{4cm}} \\
+CH6: & \underline{\hspace{4cm}} \\
+\end{tabularx}
+
+\textbf{Failsafe Settings:}
+\begin{tabularx}{\textwidth}{lX}
+Mode: & $\square$ Hold $\square$ No Pulses $\square$ Custom \\
+Throttle: & \underline{\hspace{4cm}} \% \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Binds to TX): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Range Tested: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\newpage
+
+\section*{SERVOS \& CONTROL SURFACES}
+
+\subsection*{Servo Specifications (Complete for EACH servo)}
+
+\textbf{SERVO \#1} (Function: \underline{\hspace{4cm}})
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Type: & $\square$ Analog $\square$ Digital \\
+Operating Voltage: & \underline{\hspace{2cm}} V to \underline{\hspace{2cm}} V \\
+Current Draw (Idle): & \underline{\hspace{3cm}} mA \\
+Current Draw (Moving): & \underline{\hspace{3cm}} mA \\
+Current Draw (Stall): & \underline{\hspace{3cm}} mA \\
+Torque @ 4.8V: & \underline{\hspace{3cm}} kg$\cdot$cm \\
+Torque @ 6.0V: & \underline{\hspace{3cm}} kg$\cdot$cm \\
+Speed @ 4.8V: & \underline{\hspace{3cm}} sec/60$^\circ$ \\
+PWM Range: & \underline{\hspace{2cm}} $\mu$s to \underline{\hspace{2cm}} $\mu$s \\
+Center Position: & \underline{\hspace{3cm}} $\mu$s \\
+Connector: & \underline{\hspace{6cm}} \\
+Weight: & \underline{\hspace{3cm}} g \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Full range): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Installed Position: & \underline{\hspace{6cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{1em}
+
+\textbf{SERVO \#2} (Function: \underline{\hspace{4cm}})
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Type: & $\square$ Analog $\square$ Digital \\
+Current Draw (Stall): & \underline{\hspace{3cm}} mA \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+\end{tabularx}
+
+\vspace{1em}
+
+\textbf{SERVO \#3} (Function: \underline{\hspace{4cm}})
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Current Draw (Stall): & \underline{\hspace{3cm}} mA \\
+Tested: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+\end{tabularx}
+
+\vspace{1em}
+
+\textbf{SERVO \#4} (Function: \underline{\hspace{4cm}})
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Current Draw (Stall): & \underline{\hspace{3cm}} mA \\
+Tested: & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+\end{tabularx}
+
+\subsection*{Servo Extension Cables (if used)}
+\begin{tabularx}{\textwidth}{lX}
+Length: & \underline{\hspace{3cm}} cm \\
+Gauge: & \underline{\hspace{3cm}} AWG \\
+Type: & $\square$ Standard $\square$ Heavy-duty \\
+Quantity Needed: & \underline{\hspace{3cm}} \\
+\end{tabularx}
+
+\newpage
+
+\section*{RESEARCH PAYLOAD (DATA COLLECTION)}
+
+\subsection*{Arduino / Microcontroller}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Processor: & \underline{\hspace{6cm}} \\
+Operating Voltage: & \underline{\hspace{4cm}} V \\
+Input Voltage Range: & \underline{\hspace{2cm}} V to \underline{\hspace{2cm}} V \\
+Current Draw: & \underline{\hspace{3cm}} mA (typical) \\
+Clock Speed: & \underline{\hspace{4cm}} MHz \\
+Flash Memory: & \underline{\hspace{4cm}} KB \\
+SRAM: & \underline{\hspace{4cm}} KB \\
+\end{tabularx}
+
+\textbf{I/O:}
+\begin{tabularx}{\textwidth}{lX}
+Digital Pins: & \underline{\hspace{3cm}} \\
+Analog Pins: & \underline{\hspace{3cm}} \\
+PWM Pins: & \underline{\hspace{3cm}} \\
+UART: & \underline{\hspace{3cm}} \\
+I2C: & \underline{\hspace{3cm}} \\
+SPI: & \underline{\hspace{3cm}} \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Uploads sketch): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+
+\subsection*{BME280 Sensor (Temperature, Humidity, Pressure)}
+\begin{tabularx}{\textwidth}{lX}
+Operating Voltage: & \underline{\hspace{4cm}} V \\
+Current Draw: & \underline{\hspace{4cm}} mA \\
+Interface: & $\square$ I2C $\square$ SPI \\
+I2C Address: & 0x\underline{\hspace{2cm}} \\
+\end{tabularx}
+
+\textbf{Range:}
+\begin{tabularx}{\textwidth}{lX}
+Temperature: & \underline{\hspace{2cm}} $^\circ$C to \underline{\hspace{2cm}} $^\circ$C \\
+Humidity: & \underline{\hspace{2cm}} \% to \underline{\hspace{2cm}} \% \\
+Pressure: & \underline{\hspace{2cm}} hPa to \underline{\hspace{2cm}} hPa \\
+\end{tabularx}
+
+\textbf{Accuracy:}
+\begin{tabularx}{\textwidth}{lX}
+Temperature: & $\pm$ \underline{\hspace{2cm}} $^\circ$C \\
+Humidity: & $\pm$ \underline{\hspace{2cm}} \% \\
+Pressure: & $\pm$ \underline{\hspace{2cm}} hPa \\
+\end{tabularx}
+
+\textbf{Pinout:}
+\begin{tabularx}{\textwidth}{lX}
+VCC: & Pin \underline{\hspace{1cm}} \\
+GND: & Pin \underline{\hspace{1cm}} \\
+SCL: & Pin \underline{\hspace{1cm}} \\
+SDA: & Pin \underline{\hspace{1cm}} \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Reads values): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+
+\subsection*{Air Quality Sensor}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Type: & $\square$ VOC $\square$ CO2 $\square$ Both \\
+Operating Voltage: & \underline{\hspace{4cm}} V \\
+Current Draw: & \underline{\hspace{4cm}} mA \\
+Interface: & $\square$ Analog $\square$ I2C $\square$ UART \\
+Warm-up Time: & \underline{\hspace{4cm}} seconds \\
+\end{tabularx}
+
+\textbf{Range:}
+\begin{tabularx}{\textwidth}{lX}
+VOC: & \underline{\hspace{2cm}} ppb to \underline{\hspace{2cm}} ppb \\
+CO2: & \underline{\hspace{2cm}} ppm to \underline{\hspace{2cm}} ppm \\
+\end{tabularx}
+
+\textbf{Pinout:}
+\begin{tabularx}{\textwidth}{lX}
+VCC: & Pin \underline{\hspace{1cm}} \\
+GND: & Pin \underline{\hspace{1cm}} \\
+Signal/Data: & Pin \underline{\hspace{1cm}} \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Reads values): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+
+\subsection*{MicroSD Card Module}
+\begin{tabularx}{\textwidth}{lX}
+Operating Voltage: & \underline{\hspace{4cm}} V \\
+Current Draw: & \underline{\hspace{4cm}} mA \\
+Interface: & $\square$ SPI \\
+Max Card Size: & \underline{\hspace{4cm}} GB \\
+\end{tabularx}
+
+\textbf{Pinout:}
+\begin{tabularx}{\textwidth}{lX}
+VCC: & Pin \underline{\hspace{1cm}} \\
+GND: & Pin \underline{\hspace{1cm}} \\
+MISO: & Pin \underline{\hspace{1cm}} \\
+MOSI: & Pin \underline{\hspace{1cm}} \\
+SCK: & Pin \underline{\hspace{1cm}} \\
+CS: & Pin \underline{\hspace{1cm}} \\
+\end{tabularx}
+
+\textbf{MicroSD Card:}
+\begin{tabularx}{\textwidth}{lX}
+Size: & \underline{\hspace{4cm}} GB \\
+Speed Class: & \underline{\hspace{4cm}} \\
+Format: & $\square$ FAT32 $\square$ exFAT \\[0.5em]
+Received Date: & \underline{\hspace{4cm}} \\
+Tested (Writes file): & $\square$ \quad Date: \underline{\hspace{3cm}} \\
+Notes: & \underline{\hspace{10cm}} \\
+\end{tabularx}
+
+\newpage
+
+\section*{WIRING \& CONNECTORS}
+
+\subsection*{Wire Inventory}
+
+\textbf{14 AWG Silicone Wire}
+\begin{tabularx}{\textwidth}{lX}
+Color: Red & Length: \underline{\hspace{3cm}} m \\
+Color: Black & Length: \underline{\hspace{3cm}} m \\
+Use: & Battery to Y-harness, high current paths \\
+\end{tabularx}
+
+\textbf{18 AWG Silicone Wire}
+\begin{tabularx}{\textwidth}{lX}
+Color: Red & Length: \underline{\hspace{3cm}} m \\
+Color: Black & Length: \underline{\hspace{3cm}} m \\
+Use: & 5V power distribution, BEC outputs \\
+\end{tabularx}
+
+\textbf{20 AWG Wire}
+\begin{tabularx}{\textwidth}{lX}
+Color: Red & Length: \underline{\hspace{3cm}} m \\
+Color: Black & Length: \underline{\hspace{3cm}} m \\
+Use: & Servo power \\
+\end{tabularx}
+
+\textbf{22-24 AWG Multi-color}
+\begin{tabularx}{\textwidth}{lX}
+Colors: & \underline{\hspace{8cm}} \\
+Total Length: & \underline{\hspace{3cm}} m \\
+Use: & Signal wires, sensor connections \\
+\end{tabularx}
+
+\subsection*{Connector Inventory}
+
+\begin{tabularx}{\textwidth}{lX}
+\textbf{XT60 Connectors} & \\
+Male: & \underline{\hspace{2cm}} qty \\
+Female: & \underline{\hspace{2cm}} qty \\
+Use: & Battery, ESC, UBEC high-current \\[1em]
+
+\textbf{JST-XH Connectors (Balance plug)} & \\
+5-pin: & \underline{\hspace{2cm}} qty \\
+Use: & Battery balance connector \\[1em]
+
+\textbf{JST-SH Connectors} & \\
+Assorted: & \underline{\hspace{2cm}} qty \\
+Use: & GPS, small sensors \\[1em]
+
+\textbf{Dupont Connectors} & \\
+Male pins: & \underline{\hspace{2cm}} qty \\
+Female pins: & \underline{\hspace{2cm}} qty \\
+Housings: & \underline{\hspace{2cm}} qty \\
+Use: & Arduino connections \\[1em]
+
+\textbf{3.5mm Bullet Connectors} & \\
+Male: & \underline{\hspace{2cm}} qty \\
+Female: & \underline{\hspace{2cm}} qty \\
+Use: & Motor connections \\[1em]
+
+\textbf{Servo Plugs (Futaba-style)} & \\
+Male: & \underline{\hspace{2cm}} qty \\
+Female: & \underline{\hspace{2cm}} qty \\
+\end{tabularx}
+
+\subsection*{Heat Shrink Tubing}
+\begin{tabularx}{\textwidth}{lX}
+Sizes: & \underline{\hspace{8cm}} \\
+Colors: & \underline{\hspace{8cm}} \\
+Quantity: & \underline{\hspace{3cm}} m total \\
+\end{tabularx}
+
+\subsection*{Solder \& Flux}
+\begin{tabularx}{\textwidth}{lX}
+Solder Type: & $\square$ Lead-free $\square$ 60/40 leaded \\
+Diameter: & \underline{\hspace{3cm}} mm \\
+Flux: & $\square$ Included $\square$ Separate \\
+Quantity: & \underline{\hspace{3cm}} g \\
+\end{tabularx}
+
+\newpage
+
+\section*{TOOLS \& EQUIPMENT}
+
+\subsection*{Multimeter}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+DC Voltage Range: & \underline{\hspace{3cm}} V max \\
+AC Voltage Range: & \underline{\hspace{3cm}} V max \\
+Current Range: & \underline{\hspace{3cm}} A max \\
+Resistance Range: & \underline{\hspace{3cm}} $\Omega$ max \\
+\end{tabularx}
+
+\textbf{Features:}
+\begin{itemize}[nosep]
+\item $\square$ Continuity beeper
+\item $\square$ Diode test
+\item $\square$ Capacitance
+\item $\square$ Frequency
+\end{itemize}
+
+\begin{tabularx}{\textwidth}{lX}
+Last Calibration: & \underline{\hspace{4cm}} \\
+Battery Type: & \underline{\hspace{4cm}} \\
+\end{tabularx}
+
+\subsection*{Soldering Iron}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Power: & \underline{\hspace{3cm}} W \\
+Temperature Range: & \underline{\hspace{2cm}} $^\circ$C to \underline{\hspace{2cm}} $^\circ$C \\
+Set Temperature: & \underline{\hspace{3cm}} $^\circ$C (for lead-free) \\
+Tip Size/Type: & \underline{\hspace{6cm}} \\[0.5em]
+Last Tip Replacement: & \underline{\hspace{4cm}} \\
+\end{tabularx}
+
+\subsection*{Battery Charger}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Type: & $\square$ Balance charger $\square$ Other: \underline{\hspace{3cm}} \\
+Input Voltage: & \underline{\hspace{3cm}} V \\
+Max Charge Current: & \underline{\hspace{3cm}} A \\
+Max Discharge Current: & \underline{\hspace{3cm}} A \\
+Cell Count: & \underline{\hspace{3cm}} S max \\
+\end{tabularx}
+
+\textbf{Charge Settings for Our Battery:}
+\begin{tabularx}{\textwidth}{lX}
+Mode: & Balance Charge \\
+Cell Count: & \underline{\hspace{3cm}} S \\
+Charge Current: & \underline{\hspace{2cm}} A (1C = \underline{\hspace{1cm}} A, use 0.5C-1C) \\
+End Voltage: & \underline{\hspace{3cm}} V (4.2V per cell) \\
+\end{tabularx}
+
+\textbf{Storage Mode Settings:}
+\begin{tabularx}{\textwidth}{lX}
+Voltage per Cell: & \underline{\hspace{3cm}} V (3.8V target) \\
+\end{tabularx}
+
+\subsection*{Power Supply (Bench testing)}
+\begin{tabularx}{\textwidth}{lX}
+Model: & \underline{\hspace{8cm}} \\
+Voltage Range: & \underline{\hspace{2cm}} V to \underline{\hspace{2cm}} V \\
+Max Current: & \underline{\hspace{3cm}} A \\[0.5em]
+For 5V Testing: & Set to \underline{\hspace{2cm}} V, Limit \underline{\hspace{2cm}} A \\
+For 14.8V Simulation: & Set to \underline{\hspace{2cm}} V, Limit \underline{\hspace{2cm}} A \\
+\end{tabularx}
+
+\newpage
+
+\section*{POWER RAIL ASSIGNMENTS}
+
+\subsection*{Rail 1 - Flight Critical (ESC BEC: 5V @ 3A)}
+\begin{tabularx}{\textwidth}{lX}
+Source: & ESC Built-in BEC \\
+Voltage: & \underline{\hspace{2cm}} V (verify: \underline{\hspace{2cm}} V measured) \\
+Max Current: & \underline{\hspace{2cm}} A \\
+\end{tabularx}
+
+\textbf{Connected Devices:}
+\begin{enumerate}[nosep]
+\item Flight Controller - \underline{\hspace{3cm}} mA
+\item GPS Module - \underline{\hspace{3cm}} mA
+\item RC Receiver - \underline{\hspace{3cm}} mA
+\item Arduino + Sensors - \underline{\hspace{3cm}} mA
+\item \underline{\hspace{4cm}} - \underline{\hspace{3cm}} mA
+\end{enumerate}
+
+\begin{tabularx}{\textwidth}{lX}
+Total Current Draw: & \underline{\hspace{3cm}} mA \\
+Percentage of Capacity: & \underline{\hspace{3cm}} \% \\
+Safety Margin: & \underline{\hspace{3cm}} mA remaining \\
+\end{tabularx}
+
+\subsection*{Rail 2 - Servo Power (External UBEC: 5V @ 6A)}
+\begin{tabularx}{\textwidth}{lX}
+Source: & External UBEC \\
+Voltage: & \underline{\hspace{2cm}} V (verify: \underline{\hspace{2cm}} V measured) \\
+Max Current: & \underline{\hspace{2cm}} A \\
+\end{tabularx}
+
+\textbf{Connected Devices:}
+\begin{enumerate}[nosep]
+\item Servo \#1 - \underline{\hspace{2cm}} mA (peak: \underline{\hspace{2cm}} mA)
+\item Servo \#2 - \underline{\hspace{2cm}} mA (peak: \underline{\hspace{2cm}} mA)
+\item Servo \#3 - \underline{\hspace{2cm}} mA (peak: \underline{\hspace{2cm}} mA)
+\item Servo \#4 - \underline{\hspace{2cm}} mA (peak: \underline{\hspace{2cm}} mA)
+\item \underline{\hspace{3cm}} - \underline{\hspace{2cm}} mA
+\end{enumerate}
+
+\begin{tabularx}{\textwidth}{lX}
+Total Current Draw (typical): & \underline{\hspace{3cm}} mA \\
+Total Current Draw (peak): & \underline{\hspace{3cm}} mA \\
+Percentage of Capacity: & \underline{\hspace{3cm}} \% \\
+Safety Margin: & \underline{\hspace{3cm}} mA remaining \\
+\end{tabularx}
+
+\section*{TESTING CHECKLIST}
+
+\subsection*{Component Testing (Before Installation)}
+\begin{itemize}[label=$\square$,nosep]
+\item Battery voltage measured: \underline{\hspace{2cm}} V per cell
+\item ESC powers on with battery
+\item ESC BEC outputs correct voltage: \underline{\hspace{2cm}} V
+\item External UBEC outputs correct voltage: \underline{\hspace{2cm}} V
+\item Motor spins (no prop, low throttle)
+\item Flight controller boots and shows status LED
+\item GPS gets satellite lock (time: \underline{\hspace{2cm}} min)
+\item RC receiver binds to transmitter
+\item All servos move through full range
+\item Arduino uploads and runs test sketch
+\item All sensors read valid data
+\end{itemize}
+
+\subsection*{System Testing (After Assembly)}
+\begin{itemize}[label=$\square$,nosep]
+\item Continuity test: No shorts between power and ground
+\item Rail 1 voltage under load: \underline{\hspace{2cm}} V
+\item Rail 2 voltage under load: \underline{\hspace{2cm}} V
+\item All components receive power simultaneously
+\item Flight controller recognizes all inputs
+\item Motor arms and responds to throttle (NO PROP!)
+\item All servos respond to transmitter inputs
+\item GPS maintains lock with system running
+\item Data logging works for full 5-minute test
+\item No excessive heat on any component
+\item Battery voltage after 5-min test: \underline{\hspace{2cm}} V
+\end{itemize}
+
+\subsection*{Pre-Flight Testing (With Propeller, Secured)}
+\begin{itemize}[label=$\square$,nosep]
+\item Propeller installed correctly (direction, tightness)
+\item Motor spins in correct direction
+\item Control surfaces move in correct direction
+\item Failsafe triggers when transmitter off
+\item Range test passed: \underline{\hspace{2cm}} meters
+\item Center of gravity correct: \underline{\hspace{2cm}} mm from nose
+\item Full throttle current draw: \underline{\hspace{2cm}} A (watch for overload)
+\end{itemize}
+
+\section*{QUICK CALCULATIONS}
+
+\subsection*{Flight Time Estimate}
+\begin{align*}
+\text{Battery Capacity:} & \quad \underline{\hspace{2cm}} \text{ mAh} \times 0.8 = \underline{\hspace{2cm}} \text{ mAh usable} \\
+\text{Motor Current (cruise):} & \quad \underline{\hspace{2cm}} \text{ A} = \underline{\hspace{2cm}} \text{ mA} \\
+\text{Flight Time} & = \frac{\text{Usable Capacity}}{\text{Current Draw}} \\
+\text{Flight Time} & = \frac{\underline{\hspace{2cm}} \text{ mAh}}{\underline{\hspace{2cm}} \text{ mA}} = \underline{\hspace{2cm}} \text{ hours} \\
+\text{Flight Time} & = \underline{\hspace{2cm}} \text{ minutes}
+\end{align*}
+
+\subsection*{Total Power Consumption}
+\begin{align*}
+\text{Motor:} & \quad \underline{\hspace{2cm}} \text{ A} \times 14.8\text{V} = \underline{\hspace{2cm}} \text{ W} \\
+\text{Rail 1:} & \quad \underline{\hspace{2cm}} \text{ mA} \times 5\text{V} = \underline{\hspace{2cm}} \text{ W} \\
+\text{Rail 2:} & \quad \underline{\hspace{2cm}} \text{ mA} \times 5\text{V} = \underline{\hspace{2cm}} \text{ W} \\
+\text{Total:} & \quad \underline{\hspace{2cm}} \text{ W}
+\end{align*}
+
+\subsection*{Wire Gauge Check}
+Current: \underline{\hspace{2cm}} A $\rightarrow$ Minimum wire gauge: \underline{\hspace{2cm}} AWG\\
+(Use Wire Gauge table in Circuit Fundamentals guide)
+
+\section*{IMPORTANT CONTACTS \& LINKS}
+
+\begin{tabularx}{\textwidth}{lX}
+Team Lead: & \underline{\hspace{8cm}} \\
+Discord Channel: & \underline{\hspace{8cm}} \\
+OneDrive Link: & \underline{\hspace{8cm}} \\[0.5em]
+Component Datasheets Folder: & \underline{\hspace{8cm}} \\
+Wiring Diagram Location: & \underline{\hspace{8cm}} \\[0.5em]
+Emergency Contact: & \underline{\hspace{8cm}} \\
+\end{tabularx}
+
+\textbf{Amazon Order Numbers:}
+\begin{tabularx}{\textwidth}{lX}
+Battery: & \underline{\hspace{8cm}} \\
+ESC: & \underline{\hspace{8cm}} \\
+UBEC: & \underline{\hspace{8cm}} \\
+Other: & \underline{\hspace{8cm}} \\
+\end{tabularx}
+
+\vspace{1em}
+\textbf{Last Updated:} \underline{\hspace{4cm}} \quad \textbf{By:} \underline{\hspace{4cm}}
+
+\section*{NOTES / OBSERVATIONS / MODIFICATIONS}
+
+\textbf{Date:} \underline{\hspace{4cm}}\\
+\underline{\hspace{\textwidth}}\\
+\underline{\hspace{\textwidth}}\\
+\underline{\hspace{\textwidth}}
+
+\textbf{Date:} \underline{\hspace{4cm}}\\
+\underline{\hspace{\textwidth}}\\
+\underline{\hspace{\textwidth}}\\
+\underline{\hspace{\textwidth}}
+
+\textbf{Date:} \underline{\hspace{4cm}}\\
+\underline{\hspace{\textwidth}}\\
+\underline{\hspace{\textwidth}}\\
+\underline{\hspace{\textwidth}}
+
+\begin{center}
+\rule{\textwidth}{2pt}
+\textbf{END OF QUICK REFERENCE CARD}\\
+Print this document and keep at your workbench!\\
+Update as you test and verify each component.
+\end{center}
+
+\end{document}

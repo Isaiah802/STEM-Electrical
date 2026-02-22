@@ -30,22 +30,30 @@ STEM-Electrical/
 │   ├── Project_parts_list.txt
 │   ├── constitution.txt
 │   └── recent_design_decisions.txt
-├── LaTex_files/              # LaTeX source files for documentation
+├── LaTex_files/              # LaTeX source files (13 documents)
+│   ├── Circuit_Fundamentals_Teaching_Guide.tex
+│   ├── Component_Quick_Reference_Card.tex
+│   ├── Lesson_2_Schematics_and_Troubleshooting.tex
 │   ├── Meeting_1_Agenda.tex
 │   ├── Power_Budget_Analysis.tex
 │   ├── Project_Overview.tex
 │   ├── Safety_Protocol.tex
 │   ├── TEAM_LEAD_ACTION_CHECKLIST.tex
-│   └── Technical_Terminology_Definitions.tex
-├── PDFs/                     # Compiled PDF documentation
+│   └── [5 more .tex files]
+├── PDFs/                     # Compiled PDF documentation (13 files)
+│   ├── Circuit_Fundamentals_Teaching_Guide.pdf
+│   ├── Component_Quick_Reference_Card.pdf
+│   ├── Lesson_2_Schematics_and_Troubleshooting.pdf
 │   ├── Meeting_1_Agenda.pdf
 │   ├── Power_Budget_Analysis.pdf
 │   ├── Safety_Protocol.pdf
-│   └── [8 more PDFs]
+│   └── [7 more PDFs]
 ├── txt_files/                # Plain text working documents
+│   ├── Component_Quick_Reference_Card.txt
+│   ├── Lesson_2_Schematics_and_Practical_Troubleshooting.txt
 │   ├── Power_Budget_Analysis.txt
 │   ├── Safety_Protocol.txt
-│   └── MEETING_PREPARATION_SUMMARY.txt
+│   └── [6 more .txt files]
 ├── compile_latex.py          # Automated LaTeX compilation script
 ├── create_latex_documents.py # Document generation automation
 └── create_parts_checklist.py # Parts inventory management
@@ -60,7 +68,12 @@ STEM-Electrical/
 - **[Team Lead Action Checklist PDF](PDFs/TEAM_LEAD_ACTION_CHECKLIST.pdf)** - Timeline and task breakdown
 - **[Subsystem Assignment Detailed PDF](PDFs/Subsystem_Assignment_Detailed.pdf)** - Individual team assignments
 - **[Technical Terminology Definitions PDF](PDFs/Technical_Terminology_Definitions.pdf)** - Reference guide
-- **[Circuit Fundamentals Teaching Guide PDF](PDFs/Circuit_Fundamentals_Teaching_Guide.pdf)** - Complete electrical theory tutorial with UAV examples and practice problems
+- **[Component Quick Reference Card PDF](PDFs/Component_Quick_Reference_Card.pdf)** - Fill-in template for tracking all component specifications, testing, and configurations
+
+### Educational Resources
+
+- **[Lesson 1: Circuit Fundamentals Teaching Guide PDF](PDFs/Circuit_Fundamentals_Teaching_Guide.pdf)** - Complete electrical theory tutorial with UAV examples and practice problems
+- **[Lesson 2: Reading Schematics & Troubleshooting PDF](PDFs/Lesson_2_Schematics_and_Troubleshooting.pdf)** - How to read datasheets, use multimeters, understand PWM signals, and systematically debug electrical problems
 
 ### For Project Planning
 
