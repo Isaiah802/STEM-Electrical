@@ -1,0 +1,435 @@
+═══════════════════════════════════════════════════════════════════════════
+   ELECTRICAL TEAM LEAD - ACTION ITEMS CHECKLIST
+   NLC STEM Club UAV Project
+   Target Deadline: March 6, 2026
+   Last Updated: February 21, 2026
+═══════════════════════════════════════════════════════════════════════════
+
+PRIORITY LEVELS:
+  🚨 CRITICAL - Must complete ASAP (project blocker)
+  ⚠️  HIGH     - Complete within 2-3 days
+  📋 MEDIUM   - Complete within 1 week
+  💡 LOW      - Nice to have, flexible timing
+
+═══════════════════════════════════════════════════════════════════════════
+IMMEDIATE ACTIONS (THIS WEEKEND - Feb 21-23)
+═══════════════════════════════════════════════════════════════════════════
+
+PROCUREMENT:
+  🚨 [ ] Order External 5V 6A UBEC (Hobbywing recommended)
+         - Amazon: Search "Hobbywing UBEC 5V 6A" (~$12-15)
+         - Alternative: ZORZA 5V/6V 6A UBEC
+         - REASON: Cannot build Dual-BEC system without this!
+  
+  🚨 [ ] Order XT60 Y-Harness Splitter Cable
+         - Amazon: "XT60 Y Harness 1 Female to 2 Male" (~$8-12)
+         - REASON: Required to split battery power to ESC + UBEC
+  
+  ⚠️  [ ] Order wiring supplies (if not in "misc" already):
+         - 14AWG Silicone Wire (Red/Black, 2m each) - High current
+         - 18AWG Silicone Wire (Red/Black, 3m each) - Power distribution
+         - 22-24AWG Multi-color wire (5m) - Signal wires
+         - Estimated cost: ~$25-30 total
+  
+  ⚠️  [ ] Order connector kits:
+         - JST-SH connector kit (for GPS, sensors)
+         - Dupont connector kit (for Arduino)
+         - 3.5mm bullet connectors (for motor)
+         - Heat shrink tubing assortment
+         - Estimated cost: ~$30-40 total
+
+ONEDRIVE SETUP:
+  ⚠️  [ ] Create OneDrive folder structure (see detailed plan below)
+  ⚠️  [ ] Upload all documentation (PowerPoint, PDFs, Excel)
+  ⚠️  [ ] Set folder to "Anyone with link can view"
+  ⚠️  [ ] Pin OneDrive link in Discord #electrical channel
+  
+  📋 [ ] Create "Week_1_Parts_Inventory.xlsx" from Friday's meeting
+  📋 [ ] Create "Team_Contact_Info.xlsx" with all member names/emails/Discord
+
+TEACHING MATERIALS:
+  ⚠️  [ ] Record "Soldering Basics" video (7-10 minutes)
+         - Show: Tinning tip, through-hole soldering, wire-to-pad
+         - Post to OneDrive + link in Discord
+  
+  📋 [ ] Create practice soldering checklist (use Circuit_Fundamentals doc)
+  📋 [ ] Print "Circuit Fundamentals Teaching Guide" for in-person sessions
+
+TEAM COMMUNICATION:
+  ⚠️  [ ] Send individual DMs to ALL electrical team members:
+         "Hey [name]! Quick update: We logged parts Friday and set our 
+         March 6 deadline. Hosting soldering practice Tuesday [time/location].
+         Can you make it? We need everyone contributing! 📧⚡"
+  
+  ⚠️  [ ] Post announcement in Discord channel about Tuesday session
+  ⚠️  [ ] Poll team for best weekly meeting time (if Friday was bad)
+  
+  📋 [ ] Create Discord pinned message with schedule + OneDrive link
+
+
+═══════════════════════════════════════════════════════════════════════════
+WEEK 1: Feb 24 - Mar 2 (SOLDERING BOOTCAMP)
+═══════════════════════════════════════════════════════════════════════════
+
+TUESDAY IN-PERSON SESSION:
+  ⚠️  [ ] Prepare soldering station workspace (clean, organized)
+  ⚠️  [ ] Bring practice perfboard + component leads for everyone
+  ⚠️  [ ] Bring printed "Soldering Checklist" (10 practice joints each)
+  ⚠️  [ ] Teach: Soldering safety, technique, inspection
+  ⚠️  [ ] Have everyone complete 5 practice joints in session
+  ⚠️  [ ] Take photos for Discord/OneDrive progress update
+
+THURSDAY DISCORD OFFICE HOURS:
+  📋 [ ] Answer questions from team members
+  📋 [ ] Review photos of practice work submitted
+  📋 [ ] Remind everyone: 10 practice joints due by Sunday
+
+YOUR PERSONAL BUILD WORK:
+  ⚠️  [ ] Pre-wire XT60 Y-Harness when it arrives
+  ⚠️  [ ] Test ESC BEC output with multimeter (verify 5V @ 3A)
+  ⚠️  [ ] Prepare Arduino sensor wiring as teaching demo
+  
+  📋 [ ] Create "Subsystem Assignment" spreadsheet
+         - Assign each team member to: Power, Flight Control, 
+           Research Payload, or Servos
+         - Give each person ONE specific component to wire
+
+SUNDAY CHECKPOINT:
+  📋 [ ] Collect progress photos from all team members
+  📋 [ ] Update "Week_1_Progress.xlsx" with completion status
+  📋 [ ] Post summary to Discord: "Week 1 Update: X members 
+         completed soldering practice ✅"
+
+
+═══════════════════════════════════════════════════════════════════════════
+WEEK 2: Mar 3 - Mar 6 (REAL COMPONENT ASSEMBLY)
+═══════════════════════════════════════════════════════════════════════════
+
+TUESDAY IN-PERSON SESSION:
+  ⚠️  [ ] Bring: Multimeters, actual components, wiring diagram printouts
+  ⚠️  [ ] Teach: Using multimeter (continuity, voltage testing)
+  ⚠️  [ ] Teach: Reading wiring diagrams + identifying pinouts
+  ⚠️  [ ] Have each person wire ONE real component (supervised):
+         - Option A: Solder JST connector to GPS
+         - Option B: Solder servo extension cable
+         - Option C: Solder Dupont headers to sensor wires
+  ⚠️  [ ] TEST each person's work with multimeter (continuity check)
+  ⚠️  [ ] Take photos of completed work
+
+YOUR BUILD WORK (To show progress):
+  🚨 [ ] Complete Power System wiring:
+         - Battery → XT60 Y-Harness → ESC + UBEC
+         - Test voltages with multimeter
+         - Photo documentation
+  
+  ⚠️  [ ] Wire Flight Controller power input (Rail 1)
+  ⚠️  [ ] Wire External UBEC power distribution (Rail 2)
+  ⚠️  [ ] Connect GPS to Flight Controller (UART)
+  
+  📋 [ ] Prepare ONE subsystem for team to assemble (guided):
+         - Best option: Arduino + BME280 + MicroSD module
+         - Reason: Low stakes, clear testing, good learning
+
+THURSDAY PRE-DEADLINE PUSH:
+  📋 [ ] Help struggling team members finish their component
+  📋 [ ] Review/fix any mistakes from Tuesday session
+  📋 [ ] Prepare presentation for president
+
+MARCH 6 - DEADLINE DELIVERABLE:
+  🚨 [ ] Create "March_6_Progress_Report.pdf" with:
+         ✓ Parts inventory complete (spreadsheet)
+         ✓ Team trained on soldering (photos of practice work)
+         ✓ X members successfully wired real components (photos)
+         ✓ Core power system assembled (photo)
+         ✓ Testing methodology demonstrated (multimeter checks)
+         ✓ Next steps: Full system integration by [date]
+  
+  🚨 [ ] Send report to president + mechanical lead
+  🚨 [ ] Post celebratory message in Discord 🎉
+
+
+═══════════════════════════════════════════════════════════════════════════
+ONGOING TASKS (Throughout Feb 24 - Mar 6)
+═══════════════════════════════════════════════════════════════════════════
+
+DOCUMENTATION:
+  📋 [ ] Update Parts_Checklist.xlsx as items arrive
+  📋 [ ] Track team member progress in weekly spreadsheets
+  📋 [ ] Take photos of every session (for documentation + morale)
+  📋 [ ] Keep build log notes in OneDrive
+
+TEACHING:
+  💡 [ ] Record "Multimeter Basics" video (optional but helpful)
+  💡 [ ] Record "Reading Wiring Diagrams" video
+  💡 [ ] Create circuit math practice problems (based on actual system)
+
+TEAM MANAGEMENT:
+  📋 [ ] Check in with team members who miss sessions
+  📋 [ ] Identify your "Core 5%" who showed up - invest in them heavily
+  📋 [ ] Escalate attendance issues to president if needed
+  📋 [ ] Celebrate small wins publicly (Discord shoutouts)
+
+
+═══════════════════════════════════════════════════════════════════════════
+ONEDRIVE FOLDER STRUCTURE & UPLOAD GUIDE
+═══════════════════════════════════════════════════════════════════════════
+
+NLC UAV - Electrical Team/
+│
+├── 📁 00_START_HERE/
+│   │
+│   │   WHAT TO UPLOAD:
+│   │   ✓ Create "READ_ME_FIRST.txt" with:
+│   │       - Link to Discord server
+│   │       - Link to this OneDrive folder
+│   │       - "New? Read TEAM_LEAD_ACTION_CHECKLIST.pdf first!"
+│   │   ✓ Create "Team_Roster_Contact_Info.xlsx"
+│   │       - Name, Phone, Email, Subsystem Assignment
+│   │   ✓ Create "Meeting_Schedule.txt"
+│   │       - Tuesday/Thursday schedule
+│   │       - Location and Zoom link
+│   │
+│   └── PURPOSE: First thing new members see
+│
+├── 📁 01_Documentation/
+│   │
+│   │   WHAT TO UPLOAD:
+│   │   ✓ PowerPoint/ subfolder:
+│   │       - NLC_UAV_Electrical_Meeting_Presentation.pptx (YOU HAVE THIS!)
+│   │
+│   │   ✓ PDFs/ subfolder - Upload these 10 files from your PDFs folder:
+│   │       - Meeting_1_Agenda.pdf
+│   │       - Power_Budget_Analysis.pdf
+│   │       - Project_Overview.pdf
+│   │       - Project_Parts_List.pdf
+│   │       - README_Scripts.pdf
+│   │       - Recent_Design_Decisions.pdf
+│   │       - Safety_Protocol.pdf (IMPORTANT - needs signatures!)
+│   │       - Subsystem_Assignment_Detailed.pdf
+│   │       - TEAM_LEAD_ACTION_CHECKLIST.pdf (this document!)
+│   │       - Technical_Terminology_Definitions.pdf
+│   │
+│   │   ✓ Root of 01_Documentation/:
+│   │       - UAV_Parts_Checklist.xlsx (YOU HAVE THIS!)
+│   │       - Circuit_Fundamentals_Teaching_Guide.txt (YOU HAVE THIS!)
+│   │
+│   └── PURPOSE: All reference materials in one place
+│
+├── 📁 02_Learning_Modules/  ⭐ CREATE THESE AS YOU GO
+│   │
+│   │   WHAT TO CREATE:
+│   │   ✓ Module_1_Soldering_Basics/
+│   │       - Record a 7-10 min soldering tutorial video
+│   │       - Upload video or link to YouTube unlisted
+│   │       - Create "Practice_Checklist.txt":
+│   │           [ ] Solder 2 wires together (20 AWG)
+│   │           [ ] Solder XT60 connector
+│   │           [ ] Solder servo wire
+│   │           [ ] Heat shrink application
+│   │       - Create "Common_Mistakes.txt" (as you see them!)
+│   │
+│   │   ✓ Module_2_Multimeter_Testing/
+│   │       - "How_To_Use_Multimeter.txt"
+│   │       - "Voltage_Testing_Procedure.txt"
+│   │       - "Continuity_Testing.txt"
+│   │
+│   │   ✓ Module_3_Circuit_Math/ (OPTIONAL - only if time)
+│   │       - Upload Circuit_Fundamentals_Teaching_Guide.txt here too
+│   │       - "Practice_Problems.txt" with answers
+│   │
+│   │   ✓ Module_4_Wiring_Techniques/ (Week 2)
+│   │       - "Wire_Stripping_Guide.txt"
+│   │       - "Heat_Shrink_Best_Practices.txt"
+│   │       - Photos of good vs bad solder joints
+│   │
+│   └── PURPOSE: Self-paced learning for members who miss meetings
+│
+├── 📁 03_Build_Logs/
+│   │
+│   │   WHAT TO TRACK (create these spreadsheets):
+│   │   ✓ Week_1_Feb_21-27.xlsx
+│   │       Columns: Date | Member Name | Task Completed | Photo? | Notes
+│   │       Log EVERY member contribution (even 15-min tasks!)
+│   │
+│   │   ✓ Week_2_Feb_28-Mar_6.xlsx
+│   │       Same format, continue tracking
+│   │
+│   │   ✓ Progress_Photos/
+│   │       Week_1/ subfolder
+│   │           - Photo of parts laid out (Feb 21/22)
+│   │           - Photos of first solder joints
+│   │           - Team working photos
+│   │       Week_2/ subfolder
+│   │           - Component assembly photos
+│   │           - Testing photos
+│   │           - Final March 6 deliverables
+│   │
+│   │   ✓ March_6_Progress_Report.txt (CREATE THIS MARCH 5!)
+│   │       Template:
+│   │       ------------------------------------
+│   │       NLC UAV ELECTRICAL TEAM PROGRESS REPORT
+│   │       Date: March 6, 2026
+│   │       Team Lead: [Your Name]
+│   │       
+│   │       TEAM TRAINING COMPLETED:
+│   │       - [X] members trained on soldering
+│   │       - [X] members trained on multimeter
+│   │       - [X] members trained on safety protocols
+│   │       
+│   │       COMPONENTS ASSEMBLED:
+│   │       - Power system: [% complete]
+│   │       - Flight controller: [% complete]
+│   │       - Servos: [% complete]
+│   │       - Research payload: [% complete]
+│   │       
+│   │       CHALLENGES ENCOUNTERED:
+│   │       - [List issues and how you solved them]
+│   │       
+│   │       NEXT STEPS (Post March 6):
+│   │       - [Priority 1]
+│   │       - [Priority 2]
+│   │       ------------------------------------
+│   │
+│   └── PURPOSE: Prove work happened, track contributions
+│
+├── 📁 04_Subsystem_Assignments/  ⭐ ORGANIZE YOUR TEAMS
+│   │
+│   │   WHAT TO CREATE:
+│   │   ✓ Subsystem_Teams.xlsx (ROOT OF THIS FOLDER)
+│   │       Columns: Team | Owner | Assistant 1 | Assistant 2 | Status
+│   │       Example:
+│   │       Power System    | John Doe  | Jane Smith | -         | In Progress
+│   │       Flight Control  | Bob Jones | -          | -         | Not Started
+│   │
+│   │   ✓ Team_A_Power_System/
+│   │       - Assignment.txt (copy from Subsystem_Assignment_Detailed.pdf)
+│   │       - Week_1_Tasks.txt (checklist of what to do)
+│   │       - Progress_Photos/ (their specific photos)
+│   │       - Notes.txt (their questions/issues)
+│   │
+│   │   ✓ Team_B_Flight_Control/
+│   │       - Assignment.txt
+│   │       - Week_1_Tasks.txt
+│   │       - Progress_Photos/
+│   │       - Notes.txt
+│   │
+│   │   ✓ Team_C_Research_Payload/
+│   │       - Assignment.txt
+│   │       - Week_1_Tasks.txt
+│   │       - Progress_Photos/
+│   │       - Notes.txt
+│   │
+│   │   ✓ Team_D_Servos_Control/
+│   │       - Assignment.txt
+│   │       - Week_1_Tasks.txt
+│   │       - Progress_Photos/
+│   │       - Notes.txt
+│   │
+│   └── PURPOSE: Each team has their own workspace
+│
+└── 📁 05_Scripts_Tools/
+    │
+    │   WHAT TO UPLOAD (from your local project):
+    │   ✓ compile_latex.py
+    │   ✓ create_latex_documents.py
+    │   ✓ create_parts_checklist.py
+    │   ✓ README_Scripts.txt (explain what each script does)
+    │
+    └── PURPOSE: Backup of automation scripts, show technical skills
+
+
+═══════════════════════════════════════════════════════════════════════════
+ONEDRIVE UPLOAD PRIORITY ORDER
+═══════════════════════════════════════════════════════════════════════════
+
+🚨 DO FIRST (This Weekend):
+   1. Create folder structure (5 main folders)
+   2. Upload all 10 PDFs to 01_Documentation/PDFs/
+   3. Upload Parts Checklist to 01_Documentation/
+   4. Upload PowerPoint to 01_Documentation/PowerPoint/
+   5. Create Subsystem_Teams.xlsx in 04_Subsystem_Assignments/
+   6. Create Week_1_Feb_21-27.xlsx in 03_Build_Logs/
+
+⚠️  DO NEXT (By Tuesday):
+   7. Record soldering tutorial video
+   8. Create Module_1_Soldering_Basics/ content
+   9. Create READ_ME_FIRST.txt in 00_START_HERE/
+   10. Create team contact spreadsheet
+
+📋 DO ONGOING:
+   11. Take photos during every work session → Upload to Progress_Photos/
+   12. Update build logs after each meeting
+   13. Add learning modules as you create teaching materials
+   14. Update subsystem folders as teams make progress
+
+
+═══════════════════════════════════════════════════════════════════════════
+CRITICAL REMINDERS
+═══════════════════════════════════════════════════════════════════════════
+
+⚠️  You CANNOT build the Dual-BEC system without:
+    1. External 5V 6A UBEC
+    2. XT60 Y-Harness Splitter
+    → ORDER THESE IMMEDIATELY! (~$20-27 total)
+
+⚠️  Your March 6 goal is NOT a flying plane - it's:
+    ✓ Team trained on basics
+    ✓ Initial assembly started
+    ✓ Show progress to president
+    → Don't over-promise, stay realistic
+
+⚠️  Focus on the 5% who showed up:
+    → They are your real team
+    → Invest teaching time in them
+    → Don't wait for ghosts to show up
+
+⚠️  Document everything with photos:
+    → Proves work was done
+    → Helps with future troubleshooting
+    → Shows president visible progress
+
+⚠️  You're teaching AND building:
+    → Delegate even tiny tasks to team
+    → Don't do 100% yourself (you'll burn out)
+    → It's okay if they work slowly - they're learning
+
+
+═══════════════════════════════════════════════════════════════════════════
+QUICK REFERENCE: MARCH 6 SUCCESS CRITERIA
+═══════════════════════════════════════════════════════════════════════════
+
+Minimum Viable Deliverable:
+  ✅ 5+ team members completed soldering training
+  ✅ 3+ team members wired a real component successfully
+  ✅ Power system (Battery → Y-Harness → ESC/UBEC) assembled & tested
+  ✅ Documentation uploaded to OneDrive
+  ✅ Photos showing team actively working
+  ✅ Written report showing progress + next steps
+
+Stretch Goals (if time permits):
+  🎯 Flight Controller powered and configured
+  🎯 GPS connected and getting satellite lock
+  🎯 Arduino sensor system collecting test data
+  🎯 All 4 servos wired and responding to RC input
+
+
+═══════════════════════════════════════════════════════════════════════════
+NOTES / ADDITIONAL TASKS
+═══════════════════════════════════════════════════════════════════════════
+
+[Space for you to add tasks as they come up]
+
+_____________________________________________________________________________
+
+_____________________________________________________________________________
+
+_____________________________________________________________________________
+
+_____________________________________________________________________________
+
+
+═══════════════════════════════════════════════════════════════════════════
+END OF CHECKLIST
+Print this document and check off items as you complete them!
+You've got this! 🚀⚡
+═══════════════════════════════════════════════════════════════════════════

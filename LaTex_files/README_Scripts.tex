@@ -1,0 +1,369 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Essential Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Colors
+\definecolor{nlcblue}{RGB}{0,51,102}
+\definecolor{alertred}{RGB}{204,0,0}
+\definecolor{safgreen}{RGB}{0,128,0}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{NLC STEM Club UAV Project}}
+\fancyhead[R]{\textbf{Documentation Scripts Guide}}
+\fancyfoot[C]{\thepage}
+
+% Title
+\title{\Huge\textbf{Documentation Scripts Guide}\\
+\Large How to Use Automation Tools\\
+\large NLC STEM Club - Electrical Systems Team}
+\author{February 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+===============================================================================\par
+
+\section{NLC STEM CLUB UAV PROJECT - DOCUMENTATION SCRIPTS}
+
+===============================================================================\par
+
+This folder contains two Python scripts to generate professional presentation\par
+
+and PDF documentation for your electrical team meeting.\par
+
+===============================================================================\par
+
+\section{QUICK START GUIDE}
+
+===============================================================================\par
+
+STEP 1: Install Required Libraries\par
+
+\subsection{Open PowerShell in this folder and run}
+
+\begin{itemize}
+  \item pip install python-pptx reportlab
+\end{itemize}
+
+This installs both required libraries (takes \textasciitilde{}30 seconds).\par
+
+STEP 2: Generate PowerPoint Presentation (1-Hour Meeting)\par
+
+\subsection{Run}
+
+\begin{itemize}
+  \item python create\_presentation.py
+\end{itemize}
+
+Output: NLC\_UAV\_Electrical\_Meeting\_Presentation.pptx\par
+
+\begin{itemize}
+  \item 18 professional slides
+  \item Optimized for 1-hour meeting format
+  \item Covers: architecture, power budget, safety, subsystems, action items
+  \item Ready to present immediately
+\end{itemize}
+
+STEP 3: Convert All Text Files to Professional PDFs\par
+
+\subsection{Run}
+
+\begin{itemize}
+  \item python create\_pdfs.py
+\end{itemize}
+
+\subsection{Output: Creates "PDFs/" folder containing}
+
+\begin{itemize}
+  \item Power\_Budget\_Analysis.pdf (with cover page)
+  \item Electrical\_System\_Block\_Diagram.pdf (with cover page)
+  \item Detailed\_Wiring\_Diagram.pdf (with cover page)
+  \item Safety\_Protocol.pdf (with cover page)
+  \item Meeting\_1\_Agenda.pdf (with cover page)
+  \item Subsystem\_Assignment\_Detailed.pdf (with cover page)
+  \item MEETING\_PREPARATION\_SUMMARY.pdf (with cover page)
+\end{itemize}
+
+\subsection{All PDFs include}
+
+\begin{itemize}
+  \item Professional cover pages with project branding
+  \item Headers showing document title
+  \item Page numbers in footer
+  \item Properly formatted ASCII diagrams
+  \item Section/subsection headers
+  \item Ready for printing
+\end{itemize}
+
+===============================================================================\par
+
+\section{WHAT EACH SCRIPT DOES}
+
+===============================================================================\par
+
+create\_presentation.py\par
+
+\subsection{Generates a PowerPoint presentation covering}
+
+\subsection{Slide Layout (18 slides total)}
+
+\begin{itemize}
+  \item 1. Title slide
+  \item 2. Meeting agenda (60 minutes)
+  \item 3. Project overview
+  \item 4. Key components (two-column layout)
+  \item 5. Critical architecture decision (Dual-BEC)
+  \item 6. Power architecture diagram (ASCII art)
+  \item 7. Power budget summary
+  \item 8. Safety protocols (RED ALERT FORMATTING)
+  \item 9. Four subsystems overview
+  \item 10-13. Individual subsystem details (Power, Flight, Payload, Testing)
+  \item 14. Week 1-2 milestones (two-column)
+  \item 15. Critical action items (RED ALERT)
+  \item 16. Resources \& documentation
+  \item 17. Questions \& Discussion
+  \item 18. Closing slide
+\end{itemize}
+
+\subsection{Features}
+
+\begin{itemize}
+  \item Color-coded sections (blue headers, red alerts)
+  \item Professional branding (NLC STEM Club UAV Project)
+  \item Matching your Dual-BEC architecture decision
+  \item Safety emphasis throughout
+  \item Action-oriented content
+  \item 1-hour meeting timing (not 2.5-3 hours)
+\end{itemize}
+
+create\_pdfs.py\par
+
+\subsection{Converts ALL .txt files in this folder to professional PDFs}
+
+PDF Features:\par
+
+\begin{itemize}
+  \item Custom cover page for each document showing:
+  \item NLC STEM Club UAV Project branding
+  \item Document title
+  \item "Electrical Team - February 2026"
+  \item Professional footer
+\end{itemize}
+
+\begin{itemize}
+  \item Document pages include:
+  \item Header with project name and document title
+  \item Decorative blue line under header
+  \item Page numbers centered in footer
+  \item Properly formatted body text
+  \item Monospace font for ASCII diagrams/code
+  \item Section headers (large, blue, bold)
+  \item Subsection headers (medium, blue, bold)
+  \item Justified body text with proper spacing
+\end{itemize}
+
+\begin{itemize}
+  \item Automatic detection of:
+  \item ASCII art diagrams (preserves formatting)
+  \item Section headers (ALL CAPS or numbered)
+  \item Bullet points and lists
+  \item Indented technical content
+\end{itemize}
+
+Creates new folder "PDFs/" to keep organized.\par
+
+===============================================================================\par
+
+\section{TROUBLESHOOTING}
+
+===============================================================================\par
+
+Problem: "pip: command not found"\par
+
+Solution: Python not installed or not in PATH.\par
+
+\begin{itemize}
+  \item 1. Verify Python installed: python --version
+  \item 2. If not installed, download from python.org
+  \item 3. During installation, CHECK "Add Python to PATH"
+\end{itemize}
+
+Problem: "python-pptx not found" or "reportlab not found"\par
+
+Solution: Libraries not installed.\par
+
+\begin{itemize}
+  \item Run: pip install python-pptx reportlab
+\end{itemize}
+
+Problem: Script runs but no output\par
+
+Solution: Check for error messages in console.\par
+
+\begin{itemize}
+  \item For PowerPoint: Verify no existing file is open (close PowerPoint)
+  \item For PDFs: Check "PDFs/" folder was created
+\end{itemize}
+
+Problem: PDF formatting looks weird\par
+
+Solution: Text files may have unusual characters.\par
+
+\begin{itemize}
+  \item The script handles most ASCII art automatically
+  \item If issues persist, check text file encoding (should be UTF-8)
+\end{itemize}
+
+Problem: "Permission denied" error\par
+
+Solution: File is open in another program.\par
+
+\begin{itemize}
+  \item Close PowerPoint before re-running create\_presentation.py
+  \item Close PDF viewer before re-running create\_pdfs.py
+\end{itemize}
+
+===============================================================================\par
+
+\section{FOR YOUR MEETING}
+
+===============================================================================\par
+
+\section{BEFORE THE MEETING:}
+
+\begin{itemize}
+  \item 1. Run both scripts to generate PowerPoint and PDFs
+  \item 2. Review the PowerPoint presentation (18 slides, \textasciitilde{}3-4 min per slide)
+  \item 3. Print PDFs for distribution:
+  \item 1 copy per team member + 2 extras
+  \item \textasciitilde{}90 pages total per set
+  \item Consider: Print Safety\_Protocol.pdf separately (signature required)
+  \item 4. Test PowerPoint on meeting room equipment
+\end{itemize}
+
+DURING THE MEETING (1 hour):\par
+
+\begin{itemize}
+  \item 0-5 min: Introduction (Slides 1-3)
+  \item 5-20 min: Architecture \& Power Budget (Slides 4-7)
+  \item 20-30 min: Safety Protocols (Slide 8) - Mandatory
+  \item 30-40 min: Subsystem Assignments (Slides 9-13)
+  \item 40-50 min: Action Plan (Slides 14-15)
+  \item 50-55 min: Resources \& Q\&A (Slides 16-17)
+  \item 55-60 min: Closing \& Next Steps (Slide 18)
+\end{itemize}
+
+\section{AFTER THE MEETING:}
+
+\begin{itemize}
+  \item Collect signed Safety Protocol PDFs
+  \item Upload PowerPoint to shared drive
+  \item Order External 5V 6A UBEC within 24 hours
+\end{itemize}
+
+===============================================================================\par
+
+\section{TECHNICAL NOTES}
+
+===============================================================================\par
+
+\subsection{PowerPoint Specifications}
+
+\begin{itemize}
+  \item Dimensions: 10" $\times$ 7.5" (standard widescreen)
+  \item Colors: Navy blue (\#003366) headers, Red (\#CC0000) alerts
+  \item Fonts: Helvetica (body), Helvetica-Bold (headers)
+  \item Slide layouts: Title, Content, Two-Column, Blank
+\end{itemize}
+
+PDF Specifications:\par
+
+\begin{itemize}
+  \item Page size: US Letter (8.5" $\times$ 11")
+  \item Margins: 0.75" all sides
+  \item Fonts: Helvetica (body), Courier (code/diagrams)
+  \item Header: 0.5" from top with blue line separator
+  \item Footer: Page numbers 0.5" from bottom
+\end{itemize}
+
+Both scripts are fully self-contained - no external dependencies except\par
+
+the two Python libraries (python-pptx and reportlab).\par
+
+===============================================================================\par
+
+\section{FILE LISTING}
+
+===============================================================================\par
+
+\subsection{Scripts (Python)}
+
+\begin{itemize}
+  \item create\_presentation.py    - PowerPoint generator (\textasciitilde{}500 lines)
+  \item create\_pdfs.py           - PDF converter (\textasciitilde{}400 lines)
+\end{itemize}
+
+\subsection{Documentation (Text)}
+
+\begin{itemize}
+  \item Power\_Budget\_Analysis.txt
+  \item Electrical\_System\_Block\_Diagram.txt
+  \item Detailed\_Wiring\_Diagram.txt
+  \item Safety\_Protocol.txt
+  \item Meeting\_1\_Agenda.txt
+  \item Subsystem\_Assignment\_Detailed.txt
+  \item MEETING\_PREPARATION\_SUMMARY.txt
+\end{itemize}
+
+\subsection{Generated (after running scripts)}
+
+\begin{itemize}
+  \item NLC\_UAV\_Electrical\_Meeting\_Presentation.pptx
+  \item PDFs/
+  \item Power\_Budget\_Analysis.pdf
+  \item Electrical\_System\_Block\_Diagram.pdf
+  \item Detailed\_Wiring\_Diagram.pdf
+  \item Safety\_Protocol.pdf
+  \item Meeting\_1\_Agenda.pdf
+  \item Subsystem\_Assignment\_Detailed.pdf
+  \item MEETING\_PREPARATION\_SUMMARY.pdf
+\end{itemize}
+
+===============================================================================\par
+
+\section{QUESTIONS?}
+
+===============================================================================\par
+
+Both scripts include detailed error handling and will show clear error\par
+
+messages if something goes wrong. Read the error message carefully - it\par
+
+usually tells you exactly what needs to be fixed.\par
+
+The scripts are designed to "just work" - no configuration needed.\par
+
+Good luck with your meeting!\par
+
+===============================================================================\par
+
+\end{document}

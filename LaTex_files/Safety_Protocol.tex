@@ -1,0 +1,750 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Essential Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Colors
+\definecolor{nlcblue}{RGB}{0,51,102}
+\definecolor{alertred}{RGB}{204,0,0}
+\definecolor{safgreen}{RGB}{0,128,0}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{NLC STEM Club UAV Project}}
+\fancyhead[R]{\textbf{Safety Protocol}}
+\fancyfoot[C]{\thepage}
+
+% Title
+\title{\Huge\textbf{Safety Protocol}\\
+\Large LiPo Handling and Electrical Safety\\
+\large NLC STEM Club - Electrical Systems Team}
+\author{February 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+\section{ELECTRICAL SAFETY PROTOCOL}
+
+\begin{itemize}
+  \item Fixed-Wing Environmental Monitoring UAV
+  \item NLC STEM Club - Electrical Systems Team
+\end{itemize}
+
+\section{MANDATORY READING FOR ALL TEAM MEMBERS}
+
+\section{[WARNING] WARNING [WARNING]}
+
+\begin{itemize}
+  \item This project involves high-energy LiPo batteries,
+  \item rotating propellers, and high-current electronics.
+\end{itemize}
+
+\subsection{Failure to follow safety protocols can result in}
+
+\begin{itemize}
+  \item Fire or explosion (LiPo batteries)
+  \item Severe lacerations (propeller strikes)
+  \item Electrical shock or burns
+  \item Equipment damage
+  \item Personal injury
+\end{itemize}
+
+\section{SAFETY IS NON-NEGOTIABLE.}
+
+\begin{itemize}
+  \item When in doubt, STOP and ask for guidance.
+\end{itemize}
+
+\begin{itemize}
+  \item SECTION 1: LiPo BATTERY SAFETY (HIGHEST PRIORITY)
+\end{itemize}
+
+LiPo batteries store significant energy (14.8V $\times$ 2.2Ah = 32.56 Wh). Mishandling can cause\par
+
+thermal runaway, fire, or explosion. LiPo fires burn at >1000$^\circ$C and cannot be extinguished\par
+
+with water.\par
+
+\subsection*{LIPO HANDLING RULES (MANDATORY)}
+
+\subsection*{✓ DO:}
+
+\subsection*{✓ Store batteries in LiPo safety bag at ALL times when not in use}
+
+\subsection*{✓ Charge batteries in LiPo safety bag on non-flammable surface}
+
+\subsection*{✓ Supervise charging at all times (NEVER leave unattended)}
+
+\subsection*{✓ Use only the provided B6 balance charger (4S LiPo mode, 1C rate max)}
+
+\subsection*{✓ Check cell voltages before each use: 3.7V ± 0.1V per cell}
+
+\subsection*{✓ Disconnect battery immediately after use}
+
+\subsection*{✓ Store at 3.8V per cell (storage charge) if not using for >1 week}
+
+\subsection*{✓ Inspect battery before each use: Look for damage, swelling, or deformation}
+
+\subsection*{✓ Transport batteries in LiPo bag, padded container}
+
+\subsection*{✓ Keep fire extinguisher (ABC or CO₂ rated) nearby during charging}
+
+\subsection*{✗ DO NOT:}
+
+\subsection*{✗ NEVER charge unattended or overnight}
+
+\subsection*{✗ NEVER discharge below 3.3V per cell (13.2V total) - causes permanent damage}
+
+\subsection*{✗ NEVER overcharge above 4.2V per cell (16.8V total) - fire risk}
+
+\subsection*{✗ NEVER charge at >1C rate (2.2A max for our 2200mAh battery)}
+
+\subsection*{✗ NEVER puncture, crush, or short-circuit battery terminals}
+
+\subsection*{✗ NEVER store fully charged (fire risk increases over time)}
+
+\subsection*{✗ NEVER use damaged or swollen batteries (dispose properly)}
+
+\subsection*{✗ NEVER expose to water (LiPo + water = dangerous reaction)}
+
+\subsection*{✗ NEVER charge in hot environment (>40°C / 104°F)}
+
+\subsection*{✗ NEVER use damaged charger or wrong battery settings}
+
+\subsection*{BATTERY CHARGING PROCEDURE}
+
+\subsection*{Step 1: Pre-Charge Inspection}
+
+\subsection*{☐ Visually inspect battery (no swelling, no damage to wires or connector)}
+
+\subsection*{☐ Check cell voltages with multimeter: All cells 3.0-4.2V}
+
+\subsection*{☐ If any cell <3.0V or >4.3V → DO NOT CHARGE → Report to lead}
+
+\subsection*{Step 2: Setup}
+
+\subsection*{☐ Place battery in LiPo safety bag}
+
+\subsection*{☐ Place bag on non-flammable surface (metal, ceramic, concrete - NOT wood/carpet)}
+
+\subsection*{☐ Clear area of flammable materials (paper, solvents, aerosols)}
+
+\subsection*{☐ Have fire extinguisher within reach}
+
+\subsection*{Step 3: Charger Configuration}
+
+\subsection*{☐ Connect balance plug to charger (5-pin JST-XH connector)}
+
+\subsection*{☐ Connect main power plug (XT60) to charger}
+
+\subsection*{☐ Set charger to "LiPo Balance Charge" mode}
+
+\subsection*{☐ Set cell count: 4S (14.8V)}
+
+\subsection*{☐ Set charge current: 1.0A (0.5C) or 2.2A max (1C)}
+
+\subsection*{☐ Verify charger displays "4S 14.8V" before starting}
+
+\subsection*{Step 4: Charging}
+
+\subsection*{☐ Press START, charger will check cell count}
+
+\subsection*{☐ Press START again to confirm and begin charging}
+
+\subsection*{☐ REMAIN NEARBY during entire charge cycle (typically 60-120 minutes)}
+
+\subsection*{☐ Monitor battery temperature (should be warm, not hot - <45°C)}
+
+\subsection*{☐ If battery becomes hot (>50°C), smells unusual, or swells → STOP IMMEDIATELY}
+
+\subsection*{Step 5: Post-Charge}
+
+\subsection*{☐ Charger will beep when complete (all cells at 4.20V ± 0.01V)}
+
+\subsection*{☐ Disconnect balance plug first, then main power plug}
+
+\subsection*{☐ Let battery cool for 15 minutes before use or storage}
+
+\subsection*{☐ Label battery with charge date and voltage}
+
+\subsection*{☐ If storing >1 week, discharge to storage voltage (3.8V/cell = 15.2V total)}
+
+\subsection*{LIPO EMERGENCY PROCEDURES}
+
+\subsection*{SWOLLEN BATTERY:}
+
+\subsection*{1. DO NOT CHARGE or USE}
+
+\subsection*{2. Place in LiPo bag, store in safe outdoor location}
+
+\subsection*{3. Discharge to 0V using salt water method (see disposal procedure)}
+
+\subsection*{4. Report to electrical lead for proper disposal}
+
+\subsection*{BATTERY FIRE (Thermal Runaway):}
+
+\subsection*{1. EVACUATE AREA IMMEDIATELY - Alert others}
+
+\subsection*{2. DO NOT USE WATER (makes fire worse)}
+
+\subsection*{3. If safe, use ABC fire extinguisher or sand to smother}
+
+\subsection*{4. Move battery outdoors if possible (use metal tongs, not bare hands)}
+
+\subsection*{5. Call 911 if fire spreads or cannot be controlled}
+
+\subsection*{6. LiPo fires burn for 10-30 minutes - let it burn out in safe area}
+
+\subsection*{BATTERY PUNCTURE/DAMAGE:}
+
+\subsection*{1. Place in LiPo bag immediately}
+
+\subsection*{2. Move to outdoor location away from flammable materials}
+
+\subsection*{3. Monitor for 1 hour (thermal runaway may be delayed)}
+
+\subsection*{4. Discharge and dispose if no fire occurs}
+
+\subsection*{SALT WATER DISCHARGE METHOD (For Disposal):}
+
+\subsection*{1. Prepare salt water solution (5 tablespoons salt per 1 gallon water)}
+
+\subsection*{2. Use non-metallic container (plastic bucket)}
+
+\subsection*{3. Submerge battery completely (weigh down with rock)}
+
+\subsection*{4. Leave submerged for 1 week (check voltage - must be <1V before disposal)}
+
+\subsection*{5. Dispose at battery recycling center (NOT regular trash)}
+
+\section{SECTION 2: PROPELLER SAFETY}
+
+A 10-inch propeller spinning at 8000 RPM has tip speed of \textasciitilde{}400 km/h (\textasciitilde{}250 mph).\par
+
+Contact with spinning propeller causes severe lacerations or amputation.\par
+
+\subsection*{PROPELLER SAFETY RULES (MANDATORY)}
+
+\subsection*{✓ DO:}
+
+\subsection*{✓ Remove propeller for ALL bench testing indoors}
+
+\subsection*{✓ Install propeller ONLY immediately before flight}
+
+\subsection*{✓ Verify propeller securely attached (check spinner nut tight)}
+
+\subsection*{✓ Stand behind propeller plane of rotation when arming motor}
+
+\subsection*{✓ Shout "PROPELLER TEST" before any motor test outdoors}
+
+\subsection*{✓ Establish 10-meter safety perimeter for motor tests}
+
+\subsection*{✓ Inspect propeller before each flight (no cracks, no damage)}
+
+\subsection*{✓ Use folding propeller as designed (blades fold back for water landing)}
+
+\subsection*{✗ DO NOT:}
+
+\subsection*{✗ NEVER test motor with propeller attached indoors}
+
+\subsection*{✗ NEVER reach toward spinning propeller}
+
+\subsection*{✗ NEVER arm motor with people in front of aircraft}
+
+\subsection*{✗ NEVER use damaged or cracked propeller (causes imbalance, shattering risk)}
+
+\subsection*{✗ NEVER overtighten propeller (can crack hub)}
+
+\subsection*{✗ NEVER stand in front of aircraft when battery connected}
+
+\subsection*{MOTOR TEST PROCEDURE}
+
+\subsection*{BENCH TEST (Indoors - Diagnostics only):}
+
+\subsection*{1. Ensure propeller is REMOVED}
+
+\subsection*{2. Secure aircraft to bench (prevent movement)}
+
+\subsection*{3. Connect battery, arm motor}
+
+\subsection*{4. Test throttle response at LOW throttle only (10-20%)}
+
+\subsection*{5. Listen for unusual sounds (grinding, clicking = motor damage)}
+
+\subsection*{6. Check motor temperature after 10-second test (should be cool to touch)}
+
+\subsection*{7. Disarm and disconnect battery immediately after test}
+
+\subsection*{OUTDOOR TEST (With Propeller):}
+
+\subsection*{1. Install propeller (verify secure attachment)}
+
+\subsection*{2. Establish 10-meter safety perimeter with cones/rope}
+
+\subsection*{3. Appoint safety officer to monitor perimeter}
+
+\subsection*{4. Shout "PROPELLER TEST - CLEAR THE AREA"}
+
+\subsection*{5. Wait 10 seconds for confirmation area is clear}
+
+\subsection*{6. Connect battery while standing behind aircraft}
+
+\subsection*{7. Arm motor, gradually increase throttle to 50% max}
+
+\subsection*{8. Test duration: 10 seconds maximum}
+
+\subsection*{9. Throttle to zero, disarm, disconnect battery}
+
+\subsection*{10. Wait for propeller to stop completely before approaching}
+
+\section{SECTION 3: ELECTRICAL SAFETY}
+
+\subsection*{SOLDERING SAFETY}
+
+\subsection*{✓ DO:}
+
+\subsection*{✓ Use soldering iron in well-ventilated area (fume extraction if available)}
+
+\subsection*{✓ Wear safety glasses (solder can splatter)}
+
+\subsection*{✓ Use soldering iron stand (never lay hot iron on bench)}
+
+\subsection*{✓ Set temperature to 350°C (660°F) for lead-free solder}
+
+\subsection*{✓ Wash hands after soldering (lead exposure risk)}
+
+\subsection*{✓ Allow solder joints to cool before handling}
+
+\subsection*{✓ Unplug iron immediately after use}
+
+\subsection*{✓ Keep flammable materials away from soldering area}
+
+\subsection*{✗ DO NOT:}
+
+\subsection*{✗ Touch soldering iron tip (causes severe burns)}
+
+\subsection*{✗ Inhale solder fumes directly (contains flux vapors)}
+
+\subsection*{✗ Solder near LiPo batteries (heat can cause thermal runaway)}
+
+\subsection*{✗ Use wet sponge with excessive water (steam can burn)}
+
+\subsection*{✗ Leave soldering iron unattended while hot}
+
+\subsection*{FIRST AID (Burns):}
+
+\subsection*{1. Run cold water over burn for 10-15 minutes}
+
+\subsection*{2. Do not apply ice directly (tissue damage)}
+
+\subsection*{3. Cover with sterile bandage}
+
+\subsection*{4. Seek medical attention for burns >1 inch or on face/hands}
+
+\subsection*{SHORT CIRCUIT PREVENTION}
+
+\subsection*{A short circuit across 4S LiPo can discharge 286A (burst), causing:}
+
+\subsection*{- Wires to melt or catch fire}
+
+\subsection*{- Battery thermal runaway}
+
+\subsection*{- Burns from hot metal}
+
+\subsection*{PREVENTION:}
+
+\subsection*{✓ Use heat shrink tubing on all solder joints}
+
+\subsection*{✓ Keep tools (screwdrivers, pliers) away from exposed battery terminals}
+
+\subsection*{✓ Disconnect battery during ALL wiring work}
+
+\subsection*{✓ Use XT60 connector covers when battery not in use}
+
+\subsection*{✓ Secure all wires (prevent fraying and short circuits)}
+
+\subsection*{✓ Test continuity BEFORE connecting battery (check for shorts with multimeter)}
+
+\subsection*{EMERGENCY (Short Circuit Occurring):}
+
+\subsection*{1. Disconnect battery IMMEDIATELY (grab insulated connector, not wires)}
+
+\subsection*{2. If fire starts, follow LiPo fire procedures (Section 1)}
+
+\subsection*{3. Inspect all components for damage before re-use}
+
+\subsection*{ELECTROSTATIC DISCHARGE (ESD) PROTECTION}
+
+\subsection*{Flight controller, GPS, and sensors contain sensitive electronics vulnerable to ESD.}
+
+\subsection*{PREVENTION:}
+
+\subsection*{✓ Ground yourself before handling electronics (touch metal bench/ground)}
+
+\subsection*{✓ Use ESD wrist strap if available}
+
+\subsection*{✓ Handle circuit boards by edges (avoid touching components)}
+
+\subsection*{✓ Work on non-conductive surface (wood, plastic mat - NOT metal)}
+
+\subsection*{✓ Store components in anti-static bags when not in use}
+
+\subsection*{✗ Avoid working in low-humidity environments (increases static buildup)}
+
+\subsection*{✗ Avoid wearing synthetic fabrics (wool, polyester generate static)}
+
+\section{SECTION 4: WORKSHOP \& TESTING SAFETY}
+
+\subsection*{GENERAL WORKSHOP SAFETY}
+
+\subsection*{✓ Maintain clean, organized workspace (clutter causes accidents)}
+
+\subsection*{✓ Wear safety glasses during soldering, drilling, cutting}
+
+\subsection*{✓ Keep food and drinks away from electronics (spill risk)}
+
+\subsection*{✓ Label all wires and components clearly (prevents wiring errors)}
+
+\subsection*{✓ Use proper tools for each task (reduces damage and injury risk)}
+
+\subsection*{✓ Report damaged tools or equipment to lead immediately}
+
+\subsection*{✓ Know location of first aid kit and fire extinguisher}
+
+\subsection*{✗ Do not work alone on high-risk tasks (battery charging, motor tests)}
+
+\subsection*{✗ Do not rush (mistakes cause safety hazards)}
+
+\subsection*{✗ Do not bypass safety procedures to save time}
+
+\subsection*{POWER-UP SEQUENCE (EVERY TIME)}
+
+\subsection*{Following this sequence prevents damage and ensures safe operation:}
+
+\subsection*{PRE-POWER CHECKS:}
+
+\subsection*{☐ 1. Propeller REMOVED (if bench testing indoors)}
+
+\subsection*{☐ 2. All connections secure (no loose wires)}
+
+\subsection*{☐ 3. No short circuits (visual inspection of exposed metal)}
+
+\subsection*{☐ 4. Battery voltage checked: 14.0-16.8V total, cells balanced within 0.05V}
+
+\subsection*{☐ 5. Transmitter turned ON (prevents failsafe activation)}
+
+\subsection*{☐ 6. Throttle stick at ZERO position}
+
+\subsection*{POWER-UP:}
+
+\subsection*{☐ 7. Connect battery (listen for beeps from ESC and FC status LED)}
+
+\subsection*{☐ 8. Wait 30 seconds for system initialization}
+
+\subsection*{☐ 9. Check control surface response (move TX sticks)}
+
+\subsection*{☐ 10. Verify GPS lock if needed (wait 2-5 minutes)}
+
+\subsection*{POST-OPERATION:}
+
+\subsection*{☐ 11. Throttle to zero, disarm motor}
+
+\subsection*{☐ 12. Disconnect battery IMMEDIATELY (prevents accidental arming)}
+
+\subsection*{☐ 13. Check battery voltage (should be >14.0V, if lower → recharge)}
+
+\subsection*{☐ 14. Check component temperatures (motor, ESC should be warm, not hot >50°C)}
+
+\subsection*{MULTIMETER SAFETY}
+
+\subsection*{✓ Use correct setting (DC voltage for batteries, continuity for ground checks)}
+
+\subsection*{✓ Start with highest range and work down (prevents overload)}
+
+\subsection*{✓ Red probe to positive (+), black probe to negative (-) or ground}
+
+\subsection*{✓ Do not measure voltage and current simultaneously (damage to meter)}
+
+\subsection*{✗ Do not probe live high-voltage circuits (>50V) without training}
+
+\subsection*{✗ Do not touch metal probe tips while measuring (shock risk)}
+
+\subsection*{✗ Do not measure current in voltage mode (blows fuse)}
+
+\subsection*{COMMON MEASUREMENTS:}
+
+\subsection*{- Battery voltage: DC V setting, 20V range, measure across XT60 terminals}
+
+\subsection*{- Continuity: Continuity mode (beep symbol), checks for 0Ω connections}
+
+\subsection*{- BEC output: DC V setting, 20V range, measure 5V rail to ground}
+
+\subsection*{- Current draw: DC A setting, 10A or 20A range, inline with circuit}
+
+\section{SECTION 5: TEAM ROLES \& RESPONSIBILITIES}
+
+\subsection*{SAFETY OFFICER (Rotating Role Each Meeting)}
+
+\subsection*{Responsibilities:}
+
+\subsection*{✓ Conduct pre-work safety briefing (5 minutes)}
+
+\subsection*{✓ Monitor battery charging (if occurring during meeting)}
+
+\subsection*{✓ Enforce propeller removal during bench testing}
+
+\subsection*{✓ Ensure fire extinguisher and first aid kit accessible}
+
+\subsection*{✓ Stop any unsafe activity immediately (authority to halt work)}
+
+\subsection*{✓ Verify post-work cleanup and battery storage}
+
+\subsection*{Authority: Safety Officer can override any decision if safety concern exists.}
+
+\subsection*{ELECTRICAL LEAD (You)}
+
+\subsection*{Safety Responsibilities:}
+
+\subsection*{✓ Ensure all team members read and sign safety protocol}
+
+\subsection*{✓ Provide safety training before first hands-on work}
+
+\subsection*{✓ Approve all battery charging operations}
+
+\subsection*{✓ Inspect all wiring before first power-up}
+
+\subsection*{✓ Supervise first motor test for each team member}
+
+\subsection*{✓ Maintain safety equipment (fire extinguisher, first aid kit)}
+
+\subsection*{✓ Report all incidents to club advisors immediately}
+
+\subsection*{ALL TEAM MEMBERS}
+
+\subsection*{You are responsible for:}
+
+\subsection*{✓ Reading this entire safety protocol before starting work}
+
+\subsection*{✓ Asking questions if anything is unclear}
+
+\subsection*{✓ Following ALL safety procedures without exception}
+
+\subsection*{✓ Speaking up if you see unsafe behavior (no exceptions for leadership)}
+
+\subsection*{✓ Reporting near-misses or accidents immediately}
+
+\subsection*{✓ Refusing to perform tasks you're not trained for}
+
+\subsection*{"Safety is everyone's responsibility."}
+
+\section{SECTION 6: EMERGENCY CONTACTS \& RESOURCES}
+
+\subsection*{EMERGENCY CONTACTS}
+
+\subsection*{Fire / Medical Emergency:        911}
+
+\subsection*{NLC Campus Security:             [Fill in campus security number]}
+
+\subsection*{Faculty Advisor:                 [Fill in advisor contact]}
+
+\subsection*{Electrical Lead (You):           [Fill in your phone number]}
+
+\subsection*{FIRST AID KIT LOCATION:          [Fill in location in lab/workshop]}
+
+\subsection*{FIRE EXTINGUISHER LOCATION:     [Fill in location]}
+
+\subsection*{NEAREST FIRE ALARM:              [Fill in location]}
+
+\subsection*{EYEWASH STATION:                 [Fill in location if available]}
+
+\subsection*{INCIDENT REPORTING}
+
+\subsection*{ALL incidents must be reported immediately, including:}
+
+\subsection*{- Injuries (burns, cuts, propeller strikes)}
+
+\subsection*{- Equipment damage (component failures, short circuits)}
+
+\subsection*{- Near-misses (situations that COULD have caused injury)}
+
+\subsection*{- Battery incidents (swelling, fire, thermal runaway)}
+
+\subsection*{Reporting Procedure:}
+
+\subsection*{1. Ensure area is safe (turn off power, move to safe location)}
+
+\subsection*{2. Provide first aid if needed (call 911 for serious injuries)}
+
+\subsection*{3. Notify electrical lead and faculty advisor}
+
+\subsection*{4. Document incident (what happened, root cause, corrective action)}
+
+\subsection*{5. Share lessons learned with team (prevent recurrence)}
+
+\subsection*{"Near-misses are learning opportunities. Report them without fear of blame."}
+
+\section{SECTION 7: SAFETY ACKNOWLEDGMENT}
+
+I have read and understood the Electrical Safety Protocol for the NLC STEM Club UAV project.\par
+
+I agree to follow all safety procedures and understand that failure to do so may result in\par
+
+removal from the project for my safety and the safety of others.\par
+
+I understand the following key risks:\par
+
+\begin{itemize}
+  \item LiPo batteries can cause fire or explosion if mishandled
+  \item Propellers can cause severe injury or amputation
+  \item Soldering irons cause severe burns if mishandled
+  \item Short circuits can cause fire and equipment damage
+  \item I must disconnect the battery during wiring work
+\end{itemize}
+
+I commit to:\par
+
+\begin{itemize}
+  \item Following the power-up sequence every time
+  \item Never charging LiPo batteries unattended
+  \item Removing propellers for all indoor bench testing
+  \item Using heat shrink tubing on all solder joints
+  \item Speaking up if I see unsafe behavior
+  \item Asking questions if I'm unsure about a procedure
+\end{itemize}
+
+Name (Print): \underline{\hspace{4.95cm}}     Date: \underline{\hspace{2.4cm}}\par
+
+Signature:    \underline{\hspace{4.95cm}}\par
+
+Team Role:    \underline{\hspace{4.95cm}}\par
+
+\begin{itemize}
+  \item (Power Team / Flight Electronics / Research Payload / Integration)
+\end{itemize}
+
+\subsection{Witnessed by Electrical Lead}
+
+Name:         \underline{\hspace{4.95cm}}     Date: \underline{\hspace{2.4cm}}\par
+
+Signature:    \underline{\hspace{4.95cm}}\par
+
+\section{SAFETY CHECKLISTS FOR COMMON TASKS (QUICK REFERENCE)}
+
+\subsection*{BENCH TESTING CHECKLIST}
+
+\subsection*{Before powering on:}
+
+\subsection*{☐ Propeller removed (if indoors)}
+
+\subsection*{☐ Battery voltage checked (>14.0V)}
+
+\subsection*{☐ All connections secure}
+
+\subsection*{☐ No exposed metal or potential shorts}
+
+\subsection*{☐ Transmitter turned on, throttle at zero}
+
+\subsection*{☐ Safety officer appointed and present}
+
+\subsection*{After testing:}
+
+\subsection*{☐ Battery disconnected immediately}
+
+\subsection*{☐ Battery voltage logged}
+
+\subsection*{☐ Components checked for overheating}
+
+\subsection*{☐ Battery stored in LiPo bag}
+
+\subsection*{SOLDERING CHECKLIST}
+
+\subsection*{☐ Soldering in well-ventilated area}
+
+\subsection*{☐ Safety glasses worn}
+
+\subsection*{☐ Soldering iron in stand when not in use}
+
+\subsection*{☐ No LiPo batteries near soldering area}
+
+\subsection*{☐ Fire extinguisher nearby}
+
+\subsection*{☐ Heat shrink tubing on all solder joints}
+
+\subsection*{☐ Iron unplugged after use}
+
+\subsection*{☐ Hands washed after soldering}
+
+\subsection*{MOTOR/PROPELLER TEST CHECKLIST (OUTDOOR)}
+
+\subsection*{☐ Propeller secure (spinner nut tight)}
+
+\subsection*{☐ 10-meter safety perimeter established}
+
+\subsection*{☐ Safety officer monitoring perimeter}
+
+\subsection*{☐ Verbal warning given ("PROPELLER TEST - CLEAR THE AREA")}
+
+\subsection*{☐ Area confirmed clear (wait 10 seconds after warning)}
+
+\subsection*{☐ Operator standing behind aircraft}
+
+\subsection*{☐ Test duration <10 seconds at <50% throttle}
+
+\subsection*{☐ Battery disconnected after test}
+
+\subsection*{☐ Wait for propeller to stop before approaching}
+
+\section{FINAL SAFETY REMINDER}
+
+This is a REAL aerospace engineering project with REAL risks.\par
+
+Professional aerospace engineers follow strict safety protocols because the consequences\par
+
+of failure are severe. We are holding ourselves to the same standard.\par
+
+Safety is not optional. Safety is not negotiable. Safety is not something we do when\par
+
+convenient.\par
+
+\section{WHEN IN DOUBT, STOP AND ASK.}
+
+There are no stupid questions about safety.\par
+
+It takes courage to speak up about safety concerns - we encourage it.\par
+
+Mistakes are learning opportunities - report them honestly.\par
+
+Your safety and the safety of your teammates is more important than any deadline or\par
+
+demonstration.\par
+
+\section{DOCUMENT INFORMATION}
+
+Version: 1.0\par
+
+Date: February 20, 2026\par
+
+Author: Electrical Lead, NLC STEM Club\par
+
+Status: MANDATORY READING - SIGNATURE REQUIRED BEFORE HANDS-ON WORK\par
+
+Print this document and have ALL team members sign acknowledgment before starting work.\par
+
+\end{document}

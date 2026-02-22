@@ -1,0 +1,1383 @@
+═══════════════════════════════════════════════════════════════════════════════════════════
+   FIRST ELECTRICAL TEAM MEETING
+   Agenda & Leadership Guide
+   
+   Fixed-Wing Environmental Monitoring UAV
+   NLC STEM Club - Electrical Systems Team
+   Meeting Duration: 2.5-3 hours
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+                        THIS IS A PORTFOLIO-LEVEL PROJECT
+                        
+            You are not building a hobby drone. You are executing
+            aerospace systems engineering work that will demonstrate
+            your competency to future employers and graduate programs.
+            
+            Act like a systems engineer. Use professional terminology.
+            Set the tone for excellence from day one.
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   PRE-MEETING PREPARATION (Your Checklist)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+☐ Print Documents (1 copy per attendee + 2 extras):
+    ☐ This Meeting Agenda (19 pages)
+    ☐ Power Budget Analysis (10 pages)
+    ☐ Electrical System Block Diagram (7 pages)
+    ☐ Detailed Wiring Diagram (16 pages)
+    ☐ Safety Protocol (11 pages) - SIGNATURES REQUIRED
+    ☐ Subsystem Assignment Sheet (see Section 9)
+
+☐ Gather Physical Materials:
+    ☐ Whiteboard markers (3+ colors for block diagram)
+    ☐ Component inventory (all electrical parts from parts list)
+    ☐ Multimeter (for demonstrations)
+    ☐ OVONIC 4S LiPo battery (fully charged, in safety bag)
+    ☐ LiPo charger (B6 charger)
+    ☐ Fire extinguisher (verify location, show to team)
+    ☐ First aid kit (verify location)
+    ☐ Pens for signatures
+
+☐ Prepare Workspace:
+    ☐ Reserve room for 2.5-3 hours
+    ☐ Set up tables for component inventory
+    ☐ Label 4 stations: Power / Flight Electronics / Research / Integration
+    ☐ Ensure electrical outlets available (for battery charging demo)
+
+☐ Mental Preparation:
+    ☐ Review all printed documents thoroughly
+    ☐ Rehearse opening statement (see Section 2)
+    ☐ Prepare to answer questions confidently
+    ☐ Remember: You are the expert. They are looking to YOU for leadership.
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   MEETING STRUCTURE OVERVIEW
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+TIME    PHASE                           OBJECTIVE
+────────────────────────────────────────────────────────────────────────────────────────────
+0:00    Opening & Context               Set professional tone, explain mission
+0:15    System Architecture Lecture     Teach power flow, design principles
+0:45    Critical Technical Decision     Decide on Dual-BEC architecture
+1:00    Subsystem Organization          Assign teams and ownership
+1:15    **BREAK** (10 minutes)
+1:25    Safety Training                 Mandatory safety protocol review
+1:45    Hands-On Phase 1: Inventory     Check components, create tracking sheet
+2:15    Hands-On Phase 2: Power Demo    Build power test bench, measure voltages
+2:35    Week 1-2 Planning               Define milestones and deliverables
+2:50    Closing & Commitment            Confirm next meeting, sign-offs
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 1: ROOM SETUP (Arrive 30 minutes early)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+WHITEBOARD LAYOUT:
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                          │
+│  Title (Top): "ELECTRICAL ARCHITECTURE - Fixed-Wing UAV"                                │
+│                                                                                          │
+│  Left Half: Power Flow Block Diagram                                                    │
+│    (Draw during presentation - see block diagram document for reference)                │
+│                                                                                          │
+│    Battery (14.8V)                                                                      │
+│         ↓                                                                               │
+│    ESC + External BEC                                                                    │
+│         ↓                                                                               │
+│    Rail 1 (Flight-Critical) | Rail 2 (Servo Power)                                     │
+│                                                                                          │
+│  Right Half: Key Numbers                                                                │
+│    - Battery: 14.8V, 2200mAh                                                            │
+│    - ESC BEC: 5V @ 3A                                                                   │
+│    - External BEC: 5V @ 6A                                                              │
+│    - Typical Draw: 1383mA                                                               │
+│    - Peak Draw: 1863mA                                                                  │
+│    - Safety Margin: 78% (Dual-BEC)                                                      │
+│                                                                                          │
+│  Bottom: Design Principles                                                              │
+│    1. ISOLATION: Flight-critical separate from high-current loads                       │
+│    2. REDUNDANCY: Servo BEC failure doesn't kill FC                                     │
+│    3. COMMON GROUND: All systems share ground reference                                 │
+│    4. NOISE ISOLATION: Motor wires away from sensors                                    │
+│                                                                                          │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+TABLE LAYOUT:
+
+Table 1: Component Inventory & Inspection
+  - All electrical components laid out
+  - Labels for each component
+  - Checklist for verification
+
+Table 2: Documentation Station
+  - Printed documents (Power Budget, Wiring Diagram, etc.)
+  - Laptop with Google Sheet for tracking
+
+Table 3: Power Test Bench (Later in meeting)
+  - Battery (in LiPo bag)
+  - ESC
+  - Multimeter
+  - Flight Controller
+  - Servos
+
+Table 4: Safety Equipment
+  - LiPo safety bag
+  - Fire extinguisher (visible)
+  - First aid kit
+  - Safety protocol sign-off sheets
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 2: OPENING (0:00 - 0:15) - Set the Tone
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+Stand at front of room. Make eye contact. Speak with confidence.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+YOUR OPENING STATEMENT (Memorize or adapt):
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Welcome to the first electrical systems meeting for our UAV project.
+
+Before we start, I want to be clear about what we're doing here. This is not a hobby 
+project. This is not something we're throwing together to fly once and forget about.
+
+We are building a fixed-wing environmental monitoring UAV as a portfolio-level aerospace 
+engineering project. That means we're going to approach this like professional engineers,
+not hobbyists.
+
+Today, we will:
+  - Define our electrical architecture
+  - Make critical engineering decisions
+  - Assign subsystem ownership
+  - Begin hands-on validation work
+
+By the end of this meeting, everyone will understand:
+  - How power flows through this aircraft
+  - What components you're responsible for
+  - What risks we need to mitigate
+  - What we're building in the next 2 weeks
+
+We originally planned a solar-powered system, but due to budget and timeline constraints,
+we've pivoted to a fixed-wing electric aircraft with a research payload. This is the 
+correct engineering decision, and it actually makes our electrical systems more robust.
+
+Let me be direct: electrical is the critical path for this project. If we get this wrong,
+nothing else matters. Mechanical can build the perfect airframe, software can write perfect
+code, but if we have a power failure at altitude, we crash.
+
+So we're going to do this right. We're going to use professional terminology, follow 
+systematic testing procedures, and prioritize safety above all else.
+
+Questions before we dive into the architecture?"
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+LEADERSHIP TONE TO ESTABLISH:
+
+✓ Use these phrases:
+  - "Let me walk you through the architecture..."
+  - "From a systems engineering perspective..."
+  - "The failure mode here is..."
+  - "We need to validate this through testing..."
+  - "This gives us engineering margin because..."
+  - "Isolation prevents this failure from cascading..."
+
+✗ Avoid these phrases:
+  - "I think maybe we could..."
+  - "I'm not sure, but..."
+  - "Whatever you guys want to do..."
+  - "This is just a club project..."
+  - "We'll figure it out later..."
+
+You are the expert. They need you to be confident and clear.
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 3: SYSTEM ARCHITECTURE LECTURE (0:15 - 0:45) - Teach
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+OBJECTIVE: Every team member understands power flow and design principles.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+PART 3A: Draw the Block Diagram (15 minutes)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Start at the top of whiteboard. Draw as you explain. Use different colors.
+
+"Let's start at the source of all power: our OVONIC 4S LiPo battery."
+
+[Draw battery at top]
+
+"4S means 4 cells in series. Each cell is 3.7V nominal, so:
+  3.7V × 4 = 14.8V nominal voltage
+  Fully charged: 4.2V per cell = 16.8V total
+  Empty: 3.3V per cell = 13.2V total (never go below this - battery damage)
+  Capacity: 2200mAh = 2.2Ah
+  This battery can deliver over 286 amps burst (we won't, but it can)"
+
+[Draw line down from battery, split into two paths]
+
+"Power splits into two main paths:
+
+Path 1: The ESC - Electronic Speed Controller"
+[Draw ESC on left]
+"This does two things:
+  1. Provides high-power 14.8V to the motor (10-30 amps)
+  2. Has a built-in BEC - Battery Eliminator Circuit - that gives us 5V @ 3A"
+
+[Draw motor below ESC]
+
+"Motor draws the most power - 10 to 18 amps typical, up to 30 amps full throttle.
+That's 14.8V × 18A = 266 watts of power. This is why the motor dominates our power budget."
+
+[Draw BEC output coming from ESC]
+
+"The ESC's BEC gives us a 5V rail for electronics. 5V at 3A maximum.
+This is Rail 1 - our Flight-Critical rail."
+
+[Draw Rail 1 components: Flight Controller, GPS, Receiver, Arduino]
+
+"Rail 1 powers:
+  - MATEK F405-WMN Flight Controller: The brain. 250mA typical.
+  - BN-220 GPS: Navigation. 60mA.
+  - ELRS Receiver: Radio link to ground station. 90mA.
+  - Arduino Nano: Research payload brain. 30mA.
+  - Sensors: BME280 and MQ135. 160mA combined."
+
+[Write currents next to each component, sum at bottom]
+
+"Total: 663mA. We have 3000mA available from the BEC.
+That leaves 2337mA margin. That's 78% headroom. Excellent, right?"
+
+[Pause for effect]
+
+"Wrong. Because I haven't told you about the servos yet."
+
+[Draw 4 servos]
+
+"We have 4 servos:
+  - 2 ailerons (roll control)
+  - 1 elevator (pitch control)
+  - 1 rudder (yaw control)
+  
+A single servo draws:
+  - 10mA idle (just sitting there)
+  - 180mA moving (normal operation)
+  - 300mA peak (fast movement)
+  - 650mA stalled (control surface blocked or jammed)
+
+In flight, all 4 servos move constantly. That's 4 × 180mA = 720mA typical, 1200mA peak."
+
+[Write on whiteboard]
+
+"663mA (electronics) + 720mA (servos) = 1383mA total typical draw.
+We have 3000mA. Still okay, right? 1617mA margin."
+
+[Write in red]
+
+"But what if a servo stalls? Imagine a control surface gets jammed.
+One servo tries to move, can't, draws 650mA.
+Now: 663 + 650 + (3 × 180) = 1853mA. Still under 3A.
+
+But what if TWO servos stall? Or THREE?
+Now we're at 2500mA or more. We've exceeded the BEC capacity."
+
+[Draw X through the circuit]
+
+"What happens when you try to draw more current than a BEC can provide?
+  1. Voltage sags - drops below 5V
+  2. Flight controller browns out - resets
+  3. You lose control
+  4. You crash"
+
+[Let that sink in for 3 seconds]
+
+"This is called a single point of failure. Everything depends on one BEC."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+PART 3B: Introduce the Solution (10 minutes)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[Draw second path from battery]
+
+"The solution: Add a second BEC. We call this Dual-BEC Architecture."
+
+[Draw External UBEC on right side of diagram]
+
+"External UBEC:
+  - Input: 14.8V from battery (via XT60 splitter)
+  - Output: 5V @ 6A (twice the capacity of ESC BEC)
+  - This becomes Rail 2: Servo Power Rail"
+
+[Draw servos connected to Rail 2 for power]
+[Draw servo signal wires going to Flight Controller]
+
+"Now the servos get power from Rail 2, signal from Flight Controller.
+This is called power/signal separation. It's standard aerospace practice."
+
+[Write on whiteboard]
+
+RAIL 1 (ESC BEC, 3A):          RAIL 2 (External BEC, 6A):
+  - Flight Controller              - 4× Servos
+  - GPS
+  - Receiver
+  - Arduino + Sensors
+  
+  Total: 663mA                     Total: 720-1200mA
+  Margin: 2337mA (78%)             Margin: 4800mA (80%)
+
+"Now, even if ALL FOUR servos stall simultaneously (1 × 650 + 3 × 300 = 1550mA),
+we still have margin on Rail 2, and Rail 1 is completely unaffected.
+
+Flight Controller voltage: STABLE.
+GPS lock: MAINTAINED.
+Control link: ACTIVE.
+
+If Rail 2 fails completely, the flight controller stays powered. We can't move control
+surfaces, but we can glide to a controlled landing.
+
+If Rail 1 fails, servos keep working, but we lose the brain - catastrophic.
+So we protect Rail 1 at all costs."
+
+[Circle on whiteboard]
+
+"This is ISOLATION. High-current loads cannot affect flight-critical systems."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+PART 3C: Design Principles (5 minutes)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[Write on whiteboard, explain each]
+
+"Five design principles guide our electrical architecture:
+
+1. ISOLATION
+   Flight-critical systems are isolated from high-current loads.
+   Servo power rail is separate from FC power rail.
+
+2. REDUNDANCY
+   If servo BEC fails, FC stays alive.
+   If FC fails... we're in trouble, so we protect FC at all costs.
+
+3. COMMON GROUND
+   All systems share the same ground reference.
+   Battery negative is the master ground for everything.
+   This prevents ground loops and signal noise.
+
+4. NOISE ISOLATION
+   Motor wires carry high-frequency noise from ESC switching.
+   Keep motor wires AWAY from:
+     - GPS antenna
+     - Receiver antenna
+     - Analog sensors (MQ135)
+   Twist motor wires together to reduce electromagnetic interference.
+
+5. POWER MARGIN
+   We size everything with headroom.
+   If a BEC can provide 3A, we only use 1.4A typical.
+   This accounts for component tolerance, aging, and unexpected spikes.
+   Real aerospace systems use 50-100% margin. We're doing the same."
+
+[Turn to team]
+
+"Questions on the architecture before we make our technical decision?"
+
+[Take questions. This is important - make sure everyone understands before moving forward]
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 4: CRITICAL TECHNICAL DECISION (0:45 - 1:00) - Decide
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+OBJECTIVE: Team commits to Dual-BEC architecture (Option B).
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"We have a decision to make. I'm going to present three options, then we'll discuss and vote."
+
+[Refer to Power Budget document, Section 5]
+
+────────────────────────────────────────────────────────────────────────────────────────────
+OPTION A: Single BEC Configuration
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Use ESC BEC for everything. Simplest wiring.
+
+Pros:
+  - Simple
+  - Minimal wiring
+  - One less component
+
+Cons:
+  - Only 1137mA margin under peak load (38%)
+  - Servo stall can exceed BEC capacity
+  - Single point of failure
+  - Risk of brownout → FC reset → crash
+  - No engineering margin
+
+My assessment: UNSAFE for portfolio-level aerospace work.
+This is acceptable for a toy quadcopter. Not for a serious UAV."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+OPTION B: Dual-BEC Configuration (RECOMMENDED)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Add external 5V 6A UBEC for servos. Professional power distribution.
+
+Pros:
+  - Rail 1: 78% margin (flight-critical systems protected)
+  - Rail 2: 80% margin (servos can handle simultaneous stall)
+  - Isolation: Servo load cannot affect FC
+  - Redundancy: Servo BEC failure doesn't kill FC
+  - Professional aerospace practice
+  - Strong portfolio demonstration
+
+Cons:
+  - Slightly more complex wiring
+  - Need to purchase external BEC (~$10-15)
+  - Additional component to integrate
+
+Cost: $15 for UBEC
+Benefit: Insurance against mid-flight power failure and loss of $500 aircraft
+
+My assessment: This is the CORRECT engineering choice.
+This is what I would do if this were my job at Lockheed Martin or Boeing."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+OPTION C: Hybrid Configuration
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Similar to Option B, but Arduino powered from Rail 2 instead of Rail 1.
+
+This is acceptable if you want maximum isolation. Research payload failure cannot
+affect flight systems. But adds complexity for marginal benefit."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+FACILITATE DISCUSSION
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Thoughts? Concerns? Devil's advocate arguments?"
+
+[Let team discuss for 5 minutes]
+
+Common questions you might get:
+
+Q: "Do we really need the extra margin?"
+A: "In engineering, you don't size for typical case. You size for worst case. What if
+a control surface freezes due to icing? What if a servo fails and draws excessive current?
+Margin protects us when unexpected things happen. And unexpected things ALWAYS happen."
+
+Q: "Can we just test with one BEC first and add second later if needed?"
+A: "No. If we test with insufficient power architecture and encounter brownouts during
+testing, we've just made our debugging 10× harder. Are bugs due to software? Wiring?
+Configuration? Or just insufficient power? We eliminate power as a variable by doing it
+right from the start."
+
+Q: "How much will the external BEC cost?"
+A: "$10-15 on Amazon. Hobbywing 5V 6A UBEC is $12. Given our total project budget is
+$500, this is 2.4% additional cost for significant risk mitigation. Worth it."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+VOTE & COMMIT
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Let's vote. Show of hands:
+
+Option A (Single BEC): [Should be 0-1 hands]
+Option B (Dual BEC):   [Should be majority]
+Option C (Hybrid):     [Maybe 0-2 hands]"
+
+If vote is not unanimous for Option B, use this:
+
+"I hear the concerns about added complexity. But fundamentally, this is a question of
+risk tolerance. Option A has a >50% chance of causing brownout during aggressive
+maneuvering based on the power budget calculations. That's unacceptable.
+
+As Electrical Lead, my recommendation is Option B. This is my formal engineering
+decision. Does anyone have a SAFETY or TECHNICAL concern that would override this?"
+
+[Address any technical concerns. If none:]
+
+"Then we're implementing Option B: Dual-BEC architecture. I'll order the external UBEC
+today. It'll arrive in 2-3 days, and we'll integrate it in Week 1."
+
+[Write on whiteboard in large letters:]
+
+DECISION: DUAL-BEC ARCHITECTURE (OPTION B) ✓
+
+"This is now our baseline electrical architecture. All wiring diagrams, testing procedures,
+and documentation will reflect this design."
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 5: SUBSYSTEM ORGANIZATION (1:00 - 1:15) - Organize
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+OBJECTIVE: Assign every team member to a subsystem with clear ownership.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Electrical has 4 subsystems. Each needs an OWNER and 1-2 assistants.
+
+The owner's job:
+  - Become the expert on that subsystem
+  - Create the wiring harness or assembly
+  - Test and validate functionality
+  - Document issues and resolutions
+  - Present status at each meeting
+
+This is your section of the electrical report. You own it."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+SUBSYSTEM 1: POWER TEAM
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Scope:
+  - Battery management (charging, storage, safety)
+  - XT60 connections and wiring
+  - ESC installation and wiring
+  - External BEC installation
+  - Power distribution board/harness (Rail 1 and Rail 2)
+  - Current sensing setup
+  - Power switch implementation
+
+Skills Needed:
+  - Soldering (XT60 connectors, power distribution)
+  - Multimeter usage (measure voltages, current, continuity)
+  - Attention to safety (LiPo handling)
+
+Deliverables (Week 1-2):
+  ☐ LiPo battery charged and tested (voltage check, balance check)
+  ☐ XT60 Y-harness or splitter built (Battery → ESC + External BEC)
+  ☐ External UBEC wired and tested (5V output verified)
+  ☐ Power distribution harness (Rail 1 and Rail 2 wiring)
+  ☐ Current sensing connected to FC
+  ☐ All power connections labeled and heat-shrunk
+  ☐ Power budget validation report (measure actual currents vs predictions)
+
+Owner: ___________________________  Assistant(s): _______________________________
+
+────────────────────────────────────────────────────────────────────────────────────────────
+SUBSYSTEM 2: FLIGHT ELECTRONICS TEAM
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Scope:
+  - MATEK F405-WMN flight controller setup
+  - ESC signal wiring to FC
+  - Servo signal wiring to FC (PWM outputs)
+  - GPS module (BN-220) wiring and configuration
+  - ELRS receiver (EP2) binding and wiring
+  - Flight controller firmware configuration (iNav or ArduPilot)
+  - Servo calibration (endpoints, direction, center points)
+
+Skills Needed:
+  - Flight controller software (iNav Configurator or Mission Planner)
+  - Firmware flashing (if needed)
+  - Servo calibration procedures
+  - Radio binding procedures (ELRS)
+
+Deliverables (Week 1-2):
+  ☐ Flight controller powered and communicating via USB
+  ☐ Firmware flashed (iNav or ArduPilot - team decision)
+  ☐ GPS module wired, confirmed GPS lock (satellite count >8)
+  ☐ ELRS receiver bound to transmitter (Jumper Smart ELRS TX)
+  ☐ Receiver channels configured (verify stick inputs in FC software)
+  ☐ ESC signal wire connected, motor direction verified (NO PROP, bench test)
+  ☐ All 4 servos connected and responding to transmitter inputs
+  ☐ Servo directions verified/reversed as needed (control surface check)
+  ☐ Failsafe configured (motor cuts, servos hold last position or center)
+
+Owner: ___________________________  Assistant(s): _______________________________
+
+────────────────────────────────────────────────────────────────────────────────────────────
+SUBSYSTEM 3: RESEARCH PAYLOAD TEAM
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Scope:
+  - Arduino Nano setup and programming
+  - BME280 sensor (temp/humidity/pressure) wiring and testing
+  - MQ135 sensor (air quality) wiring and testing
+  - MicroSD module wiring and data logging implementation
+  - Toggle switch integration (logging control)
+  - Data logging code development (CSV format)
+  - MQ135 warm-up procedure (24-48 hour burn-in before flight)
+
+Skills Needed:
+  - Arduino programming (C++)
+  - I2C communication (BME280)
+  - Analog input reading (MQ135)
+  - SPI communication (MicroSD)
+  - File I/O (SD card library)
+  - Sensor calibration
+
+Deliverables (Week 1-2):
+  ☐ Arduino Nano powered from 5V rail (Rail 1 or Rail 2)
+  ☐ BME280 connected via I2C (A4/A5), test sketch confirms readings
+  ☐ MQ135 connected to A0, analog readings logged to Serial Monitor
+  ☐ MicroSD module connected via SPI (D10-D13), card detected and writable
+  ☐ Toggle switch wired to D2 with internal pullup resistor
+  ☐ Integrated data logging code:
+      - Reads BME280 (temp, humidity, pressure)
+      - Reads MQ135 (analog gas level)
+      - Timestamps each reading
+      - Writes CSV file to SD card when switch is ON
+      - File format: timestamp,temp,humidity,pressure,gas_level
+  ☐ MQ135 burn-in completed (powered continuously for 48 hours before first flight)
+  ☐ Bench test: 5-minute logging session, CSV file retrieved and verified
+
+Owner: ___________________________  Assistant(s): _______________________________
+
+────────────────────────────────────────────────────────────────────────────────────────────
+SUBSYSTEM 4: INTEGRATION & TESTING TEAM
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Scope:
+  - Oversee integration of all 3 subsystems
+  - Continuity testing (verify all ground connections)
+  - Voltage measurements at all power rails
+  - Current draw measurements (clamp meter or inline sensor)
+  - Electrical noise testing (GPS lock during motor operation)
+  - Wire management (routing, zip ties, strain relief)
+  - Vibration isolation for sensitive components (GPS, FC, sensors)
+  - Final pre-flight electrical checks
+
+Skills Needed:
+  - Multimeter expertise (voltage, current, continuity, resistance)
+  - Systems thinking (how subsystems interact)
+  - Troubleshooting methodology
+  - Attention to detail
+
+Deliverables (Week 1-2):
+  ☐ Continuity check: All grounds connected (0Ω resistance from battery negative to
+      all component grounds: ESC, FC, Arduino, servos, sensors)
+  ☐ Voltage measurements logged:
+      - Battery voltage: 14.0-16.8V
+      - Rail 1 voltage: 5.0V ± 0.1V (no load and under load)
+      - Rail 2 voltage: 5.0V ± 0.1V (no load and under load)
+  ☐ Current measurements logged:
+      - Rail 1 idle: ~320-400mA ✓
+      - Rail 1 with servos: ~1000-1400mA ✓
+      - Rail 2 idle: ~40mA ✓
+      - Rail 2 with servos moving: ~700-1200mA ✓
+      - Motor current: 10-18A typical (with clamp meter)
+  ☐ Voltage sag test: Measure FC voltage during aggressive servo movement
+      (must stay >4.8V, ideally >4.9V)
+  ☐ Electrical noise test: GPS lock maintained during motor spin test (50% throttle,
+      NO PROP, satellite count must not drop)
+  ☐ Wire routing inspection: No wires rubbing against control surfaces, sharp edges,
+      or moving parts
+  ☐ Vibration isolation: GPS and FC mounted with foam or rubber dampers
+  ☐ Final pre-flight checklist created (see Wiring Diagram Section 6)
+
+Owner: ___________________________  Assistant(s): _______________________________
+
+────────────────────────────────────────────────────────────────────────────────────────────
+ASSIGNMENT PROCESS
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Let me explain what each subsystem does, then we'll assign teams.
+
+[Explain each subsystem - read the Scope section above]
+
+Now, think about:
+  - What skills do you have? (Soldering, programming, testing)
+  - What do you want to learn?
+  - Who do you work well with?
+
+I need 1 owner per subsystem. Owners must commit to:
+  - Attending all meetings
+  - Spending 4-6 hours per week outside meetings on your subsystem
+  - Being the go-to expert for your area
+
+Who's interested in each subsystem?"
+
+[Facilitate assignment. Aim for 2-3 people per subsystem depending on team size]
+
+[Fill out Subsystem Assignment Sheet - see Section 9]
+
+"Great. Owners, you are now accountable for your subsystem. Next meeting, I expect status
+updates from each of you. If you hit a blocker, you escalate to me immediately. Don't wait
+until the next meeting to tell me you're stuck."
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   **BREAK** (1:15 - 1:25) - 10 Minutes
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+"Let's take a 10-minute break. When we come back, we'll do mandatory safety training,
+then hands-on work. Stretch, grab water, use the restroom."
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 6: SAFETY TRAINING (1:25 - 1:45) - Critical
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+OBJECTIVE: Every team member understands hazards and commits to safety procedures.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[Stand next to safety equipment - LiPo bag, fire extinguisher, first aid kit]
+
+"Before we touch any hardware, we're doing mandatory safety training.
+
+This project involves three main hazards:
+
+1. LiPo batteries - fire/explosion risk
+2. Propellers - laceration risk
+3. Electrical - burns from soldering, short circuits
+
+I'm going to cover each one, then you'll sign the safety protocol acknowledging you
+understand the risks. If you're not willing to sign, you cannot participate in hands-on work.
+No exceptions."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+LIPO BATTERY SAFETY (10 minutes)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[Hold up LiPo battery IN safety bag]
+
+"This is an OVONIC 4S 2200mAh LiPo battery. It stores 32.56 watt-hours of energy.
+If mishandled, it can enter thermal runaway - an uncontrollable chemical reaction
+that burns at over 1000°C. LiPo fires cannot be extinguished with water. They burn for
+10-30 minutes and release toxic smoke.
+
+Google 'LiPo fire' after this meeting. Watch a few videos. Take this seriously.
+
+[Refer to Safety Protocol document, Section 1]
+
+Key rules:
+
+NEVER charge unattended. NEVER.
+  If you're charging and need to leave, stop charging, disconnect, store in bag.
+
+NEVER discharge below 3.3V per cell.
+  Our battery management will cut power at 3.5V/cell (14.0V total).
+
+NEVER overcharge above 4.2V per cell.
+  The B6 charger handles this automatically, but still monitor.
+
+NEVER use a swollen or damaged battery.
+  If you see swelling or damaged wires, report immediately. Do not charge or use.
+
+ALWAYS store in LiPo safety bag.
+  This bag contains fire if battery ignites. It's not perfect, but it's critical.
+
+ALWAYS charge on non-flammable surface.
+  Metal, ceramic, concrete. NOT wood, carpet, or plastic.
+
+[Demonstrate LiPo charger]
+
+I'll now show you the proper charging procedure.
+
+[Walk through B6 charger setup - see Safety Protocol]
+
+1. Inspect battery (no swelling, no damage)
+2. Place in safety bag on metal surface
+3. Connect balance plug (5-pin JST-XH)
+4. Connect main power (XT60)
+5. Set charger: LiPo Balance Charge, 4S, 1.0A charge rate
+6. Press START, verify 4S 14.8V, press START again
+7. Monitor during entire charge (60-120 minutes)
+8. When done, disconnect balance plug first, then main plug
+9. Let cool 15 minutes before use
+
+If battery becomes hot (>50°C), smells unusual, or swells during charging:
+  STOP IMMEDIATELY. Disconnect. Move outdoors if safe. Monitor for 1 hour.
+
+[Point to fire extinguisher]
+
+Fire extinguisher is here. ABC rated, works on LiPo fires (barely). If LiPo catches fire,
+evacuate, call 911, let it burn out outdoors if possible.
+
+Questions on LiPo safety?"
+
+[Take questions]
+
+────────────────────────────────────────────────────────────────────────────────────────────
+PROPELLER SAFETY (5 minutes)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"A 10-inch propeller at full throttle has tip speed around 250 mph. Contact causes
+severe lacerations or amputation. This is not an exaggeration.
+
+Key rules:
+
+REMOVE propeller for ALL bench testing indoors.
+  We will not install the propeller until Week 2 outdoor testing.
+
+NEVER test motor with propeller indoors.
+  No matter how careful you think you'll be. NO PROP INDOORS.
+
+NEVER reach toward spinning propeller.
+  Obvious, but people make mistakes. Stay behind the plane of rotation.
+
+When we do outdoor propeller tests:
+  - 10-meter safety perimeter
+  - Safety officer monitors perimeter
+  - Verbal warning before arming motor: 'PROPELLER TEST - CLEAR THE AREA'
+  - Wait 10 seconds for confirmation
+  - Operator stands behind aircraft
+
+Questions on propeller safety?"
+
+────────────────────────────────────────────────────────────────────────────────────────────
+ELECTRICAL SAFETY (5 minutes)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[Show soldering iron]
+
+"Soldering iron tip reaches 350°C (660°F). Contact causes instant severe burns.
+
+Rules:
+  - Always use soldering iron stand
+  - Wear safety glasses (solder can splatter)
+  - Work in ventilated area (flux fumes)
+  - Wash hands after soldering (lead exposure)
+  - Unplug immediately after use
+
+[Show multimeter]
+
+"Multimeter safety:
+  - Red probe to positive, black to negative/ground
+  - Use correct setting (voltage vs current)
+  - Don't probe live circuits above 50V without training
+
+[Hold up XT60 connector]
+
+"Short circuit prevention:
+  - Our battery can deliver 286 amps in a short circuit
+  - That's enough to melt wires instantly and start a fire
+  - ALWAYS disconnect battery before wiring work
+  - Use heat shrink tubing on all solder joints
+  - Keep metal tools away from exposed battery terminals
+
+Questions on electrical safety?"
+
+────────────────────────────────────────────────────────────────────────────────────────────
+SAFETY PROTOCOL SIGN-OFF
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[Hand out Safety Protocol document]
+
+"Everyone read Section 7: Safety Acknowledgment. Page 11.
+
+If you understand and agree to follow these safety procedures, sign the acknowledgment.
+
+If you're not willing to commit to these procedures, you can contribute to this project
+through CAD design, documentation, or analysis, but you cannot participate in hands-on
+electrical work.
+
+Take 2 minutes to read and sign."
+
+[Collect signed acknowledgments. File these - they're important if an incident occurs]
+
+"Thank you. Safety is everyone's responsibility. If you see unsafe behavior, speak up.
+I don't care if it's me doing something unsafe - call it out. No exceptions."
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 7: HANDS-ON PHASE 1 - INVENTORY (1:45 - 2:15) - Inspect
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+OBJECTIVE: Verify all components present and functional. Create tracking system.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Now we get hands-on. First task: verify we have all components and they're functional.
+
+We're going to create an inventory spreadsheet. This is professional aerospace practice.
+Every component is logged, inspected, and tracked."
+
+[Open laptop, create Google Sheet, share with team]
+
+SPREADSHEET COLUMNS:
+
+| Component | Qty | Voltage | Current | Connector | Condition | Tested? | Assigned To | Notes |
+
+[Lay out all components on Table 1]
+
+"Each subsystem team, go through your components:
+
+Power Team:
+  - OVONIC 4S LiPo battery
+  - 40A ESC
+  - B6 Battery Charger
+  - LiPo Safety Bag
+  - XT60 connectors (need to verify if Y-harness included or needs to be built)
+
+Flight Electronics Team:
+  - MATEK F405-WMN Flight Controller
+  - BN-220 GPS Module
+  - ELRS EP2 Receiver
+  - 4× RGBZONE ES08MA II Servos
+  - FLASH HOBBY D2830EVO Motor
+  - Folding Propeller (1060 or 1160)
+
+Research Payload Team:
+  - Arduino Nano
+  - BME280 Sensor Module
+  - MQ135 Air Quality Sensor
+  - MicroSD Card Module
+  - SanDisk 32GB MicroSD Card
+  - Toggle Switch (SPST, 2-pin)
+
+Integration Team:
+  - Multimeter (verify we have one)
+  - Soldering iron kit
+  - Wire (various gauges)
+  - Heat shrink tubing
+  - XT60 connectors (spares for power distribution)
+  - Zip ties, foam tape, etc.
+
+For each component:
+
+1. Verify physical condition (no visible damage)
+2. Check connector types (matches wiring diagram?)
+3. Identify any missing components or connectors
+4. Log in spreadsheet
+
+You have 20 minutes. If you find issues, report to me immediately."
+
+[Circulate among teams, answer questions, verify inventory]
+
+────────────────────────────────────────────────────────────────────────────────────────────
+MISSING COMPONENTS DISCUSSION
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[After 20 minutes, reconvene]
+
+"What are we missing?"
+
+[Expected: External 5V UBEC, possibly XT60 Y-harness, possibly some connectors/wire]
+
+"I'll order [missing items] today. They'll arrive in 2-3 days. In the meantime, we can
+work on subsystems that don't require those parts."
+
+[Update spreadsheet with missing items and expected arrival dates]
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 8: HANDS-ON PHASE 2 - POWER DEMO (2:15 - 2:35) - Validate
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+OBJECTIVE: Build power test bench. Verify ESC BEC output. Demonstrate measurements.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Power Team, you're up. We're going to build a simple test bench to verify the ESC BEC
+output. Everyone else, watch and learn - you'll be doing similar tests with your subsystems."
+
+[Clear Table 3 for power test bench]
+
+────────────────────────────────────────────────────────────────────────────────────────────
+STEP 1: Battery Voltage Check
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[Multimeter in DC voltage mode, 20V range]
+
+"First, we verify battery voltage. Red probe to positive, black to negative."
+
+[Measure across XT60 terminals]
+
+"Reading: _______V [Write on whiteboard]
+
+Expected: 14.0-16.8V
+Acceptable: >14.5V (battery has charge)
+If <14.0V: Battery needs charging before proceeding
+
+Our battery is at ____V, which is [good/needs charging]."
+
+[If needs charging, demonstrate proper charging procedure per Safety Protocol]
+
+────────────────────────────────────────────────────────────────────────────────────────────
+STEP 2: ESC BEC Output Test (NO MOTOR CONNECTED)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Now we'll verify the ESC's BEC output. Important: NO MOTOR connected yet.
+We're only testing the BEC function."
+
+[Connect battery to ESC input (XT60)]
+
+"ESC is now powered. Listen for beeps - that's the ESC initializing."
+
+[Take ESC's BEC output cable (red/black servo connector)]
+
+"This is the BEC output. Red is +5V, black is ground."
+
+[Multimeter: red probe to red wire, black probe to black wire]
+
+"Measuring BEC output voltage..."
+
+[Read voltage]
+
+"Reading: _______V [Write on whiteboard]
+
+Expected: 5.0V ± 0.1V
+Acceptable range: 4.9-5.1V
+If outside this range, ESC may be faulty.
+
+Our BEC output: ____V ✓"
+
+[Disconnect battery]
+
+"This confirms Rail 1 will have stable 5V. Good."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+STEP 3: Servo Movement Test (NO SIGNAL)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Now let's test a servo. We'll connect power only, no signal."
+
+[Connect one servo's red wire to BEC +5V (red), brown wire to BEC GND (black)]
+[Do NOT connect servo signal wire yet]
+
+"Servo is now powered. Move the servo arm by hand."
+
+[Manually rotate servo arm]
+
+"Feel that resistance? That's the servo motor. It should move smoothly with some resistance.
+If it's completely stiff, servo is locked up - bad.
+If it's completely loose, servo gears are stripped - bad.
+
+This servo: [good/bad]"
+
+[Test all 4 servos this way, log in spreadsheet]
+
+────────────────────────────────────────────────────────────────────────────────────────────
+STEP 4: Current Measurement Demo (If time permits)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"If we have a clamp meter or inline current sensor, I'll show you how to measure current
+draw. This is how we'll validate our power budget later."
+
+[If equipment available, demonstrate measuring current from BEC during servo movement]
+
+"When we do full system integration next week, we'll measure:
+  - Rail 1 current (should be ~320mA idle, ~660mA with Arduino active)
+  - Rail 2 current (should be ~40mA idle, ~720mA with servos moving)
+  - Battery current (should be 10-18A with motor running at cruise throttle)
+
+This validates our power budget analysis."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+[Disconnect everything, store battery in LiPo bag]
+
+"Good work, Power Team. You've validated the first part of our power system."
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 9: WEEK 1-2 PLANNING (2:35 - 2:50) - Plan
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+OBJECTIVE: Define milestones for next 2 weeks. Assign deliverables.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Let's define what we're accomplishing in the next 2 weeks. We're in Validation Phase.
+That means we validate each subsystem individually BEFORE integrating into the airframe."
+
+[Write on whiteboard]
+
+────────────────────────────────────────────────────────────────────────────────────────────
+WEEK 1 MILESTONES (Next 7 Days)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Power Team:
+  ☐ External UBEC arrives and tested (5V output verified)
+  ☐ XT60 Y-harness or splitter built (Battery → ESC + UBEC)
+  ☐ Power distribution harness designed (Rail 1 and Rail 2 wiring plan)
+  ☐ All power connections soldered and heat-shrunk
+  ☐ Power bench test: ESC + UBEC both outputting stable 5V simultaneously
+
+Flight Electronics Team:
+  ☐ Flight Controller connected to computer via USB
+  ☐ Firmware flashed (team decides: iNav or ArduPilot - recommend iNav for fixed-wing)
+  ☐ GPS module wired to FC, GPS lock confirmed outdoors (>8 satellites)
+  ☐ Receiver bound to transmitter, channels configured in FC software
+  ☐ Receiver channels tested: move TX sticks, verify response in FC config tool
+
+Research Payload Team:
+  ☐ Arduino Nano powered via USB, blink sketch loaded
+  ☐ BME280 sensor wired and tested (I2C address found, readings valid)
+  ☐ MQ135 sensor wired and tested (analog readings logged to Serial Monitor)
+  ☐ MicroSD module wired, SD card detected, test file written successfully
+  ☐ Basic data logging code written (reads sensors, prints to Serial)
+
+Integration Team:
+  ☐ Multimeter training completed (all team members can measure V, A, continuity)
+  ☐ Continuity of grounds verified across all subsystems when assembled
+  ☐ Testing checklist created for Week 2 full system integration
+  ☐ Wire routing plan drafted (keep motor wires away from GPS/sensors)
+
+────────────────────────────────────────────────────────────────────────────────────────────
+WEEK 2 MILESTONES (Days 8-14)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Power Team:
+  ☐ Full power system bench test: Battery → ESC + UBEC → Rail 1 + Rail 2
+  ☐ Current measurements logged for Rail 1 and Rail 2 under load
+  ☐ Voltage sag test: measure FC voltage during servo movement (must be >4.8V)
+
+Flight Electronics Team:
+  ☐ ESC signal wire connected to FC, motor direction verified (NO PROP, bench only)
+  ☐ All 4 servos connected to FC PWM outputs, signal wires tested
+  ☐ Servo configuration in FC: direction, endpoints, center points
+  ☐ Full control surface check: move TX sticks, verify correct servo response
+  ☐ Failsafe configured and tested (turn off TX, verify motor cuts, servos safe)
+
+Research Payload Team:
+  ☐ Integrated data logging code complete:  
+      - Toggle switch controls logging on/off
+      - CSV file written to SD card
+      - Timestamps, temp, humidity, pressure, gas level all logged
+  ☐ MQ135 burn-in started (powered continuously for 48 hours before first flight)
+  ☐ 5-minute bench test: log data, retrieve SD card, verify CSV file readable
+
+Integration Team:
+  ☐ Full system integration: All subsystems powered simultaneously
+  ☐ System-level current draw measured and logged
+  ☐ GPS lock verified with motor running (50% throttle, NO PROP)
+  ☐ All wires routed and secured (zip ties, strain relief)
+  ☐ Components vibration-isolated (GPS and FC on foam/rubber)
+  ☐ Pre-flight electrical checklist completed
+
+────────────────────────────────────────────────────────────────────────────────────────────
+DELIVERABLE FOR WEEK 2 MEETING
+────────────────────────────────────────────────────────────────────────────────────────────
+
+By next meeting (in 1 week):
+
+Each subsystem owner brings:
+  ☐ 5-minute status presentation
+      - What you accomplished
+      - What you tested
+      - What worked
+      - What didn't work
+      - What you learned
+      - Blockers (if any)
+
+  ☐ Photos/videos of your work
+      - Show your wiring
+      - Show test results
+      - This documents the project for your portfolio
+
+  ☐ Updated component spreadsheet
+      - Mark your components as "Tested" when validated
+
+By Week 2 meeting:
+  ☐ FULL SYSTEM demonstration ready:
+      - All subsystems powered and functional on bench
+      - Data logging working
+      - Servos responding to transmitter
+      - GPS locked
+      - Ready for airframe integration
+
+────────────────────────────────────────────────────────────────────────────────────────────
+MEETING SCHEDULE
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Next Meeting: [DATE, TIME, LOCATION]
+Week 2 Meeting: [DATE, TIME, LOCATION]
+
+Between meetings:
+  - Work on your subsystem 4-6 hours per week
+  - Communicate in team group chat (set up Discord/Slack/GroupMe)
+  - If you hit a blocker, message me IMMEDIATELY - don't wait until next meeting
+  - Document everything (photos, notes, measurements)
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 10: CLOSING (2:50 - 3:00) - Commit
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────────────────
+YOUR CLOSING STATEMENT
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"That's our first electrical meeting. Let me summarize what we accomplished:
+
+1. ✓ Defined electrical architecture: Dual-BEC power distribution
+2. ✓ Made critical engineering decision: Option B architecture
+3. ✓ Assigned subsystem ownership: Power, Flight, Research, Integration
+4. ✓ Completed safety training: Everyone signed safety protocol
+5. ✓ Validated component inventory: We know what we have and what we need
+6. ✓ Demonstrated power test bench: Verified ESC BEC works
+7. ✓ Defined Week 1-2 milestones: Clear deliverables for each team
+
+This was a productive meeting. But the meeting is the easy part. The work happens between
+meetings.
+
+You now own your subsystem. You are responsible for:
+  - Learning how your components work
+  - Testing thoroughly before integration
+  - Documenting your work
+  - Delivering by Week 2
+
+This is not a participation trophy project. This is real engineering work with real
+deliverables and real deadlines. If you commit, I will support you 100%. If you don't
+have time, tell me now so we can adjust team assignments.
+
+Looking ahead:
+  - Week 1-2: Subsystem validation (what we just planned)
+  - Week 3-4: Full system integration and bench testing
+  - Week 5-6: Airframe integration and ground tests
+  - Week 7-8: Flight testing and data collection
+  - Week 9-10: Analysis and final report
+
+We're on track. You have everything you need to succeed.
+
+Questions? Concerns? Confusion about your subsystem responsibilities?"
+
+[Take questions]
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+"Alright. Let's make this the best aerospace project NLC STEM Club has ever done.
+
+Take your assignment sheets. Take your printed documents. Study the wiring diagram and
+power budget analysis.
+
+I'll see you at the next meeting with progress updates.
+
+Go build something great."
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   POST-MEETING ACTIONS (Your To-Do List)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+Within 24 hours:
+  ☐ Order missing components (External UBEC, connectors, etc.)
+  ☐ Set up team communication channel (Discord, Slack, GroupMe)
+  ☐ Send meeting summary to all attendees + faculty advisor
+  ☐ Upload component inventory spreadsheet (Google Sheets, shared access)
+  ☐ File safety protocol sign-off sheets (scan and keep copies)
+
+Within 48 hours:
+  ☐ Follow up with each subsystem owner individually:
+      "How are you feeling about your subsystem? Any questions?"
+  ☐ Review power budget analysis again (you'll be asked questions)
+  ☐ Watch YouTube tutorials on:
+      - iNav or ArduPilot setup (whichever team chose)
+      - ELRS receiver binding
+      - Arduino sensor interfacing
+
+Weekly:
+  ☐ Check in with each subsystem owner via group chat
+  ☐ Monitor progress on milestones
+  ☐ Address blockers immediately
+  ☐ Update project documentation
+
+Before next meeting:
+  ☐ Prepare meeting slides (status updates, agenda for Meeting #2)
+  ☐ Test any newly arrived components (External UBEC, etc.)
+  ☐ Review subsystem deliverables to ensure they're on track
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   APPENDICES
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+Appendix A: Subsystem Assignment Sheet (FILL OUT DURING MEETING)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+POWER TEAM
+  Owner: _________________________________  Phone: _____________  Email: ________________
+  Assistant 1: ___________________________  Phone: _____________  Email: ________________
+  Assistant 2: ___________________________  Phone: _____________  Email: ________________
+
+FLIGHT ELECTRONICS TEAM
+  Owner: _________________________________  Phone: _____________  Email: ________________
+  Assistant 1: ___________________________  Phone: _____________  Email: ________________
+  Assistant 2: ___________________________  Phone: _____________  Email: ________________
+
+RESEARCH PAYLOAD TEAM
+  Owner: _________________________________  Phone: _____________  Email: ________________
+  Assistant 1: ___________________________  Phone: _____________  Email: ________________
+  Assistant 2: ___________________________  Phone: _____________  Email: ________________
+
+INTEGRATION & TESTING TEAM
+  Owner: _________________________________  Phone: _____________  Email: ________________
+  Assistant 1: ___________________________  Phone: _____________  Email: ________________
+  Assistant 2: ___________________________  Phone: _____________  Email: ________________
+
+ELECTRICAL LEAD (You)
+  Name: __________________________________  Phone: _____________  Email: ________________
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Appendix B: Meeting #2 Preview (Week 1 Follow-Up)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Meeting #2 Agenda (1.5-2 hours):
+  1. Status Updates (40 min)
+      - Each subsystem: 5-min presentation + Q&A
+      - Demonstrate progress (show working subsystem)
+  
+  2. Integration Planning (20 min)
+      - Review wiring diagram with actual components
+      - Plan wire routing and lengths
+      - Discuss mounting strategy for airframe
+  
+  3. Hands-On Work (40 min)
+      - Continue subsystem testing
+      - Begin subsystem-to-subsystem interface testing
+      - Troubleshoot any issues discovered
+  
+  4. Week 2 Planning (10 min)
+      - Define full system integration test plan
+      - Set date for full system bench test
+  
+  5. Closing (10 min)
+      - Confirm Week 2 deliverables
+      - Address any concerns
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Appendix C: Leadership Tips (For You)
+────────────────────────────────────────────────────────────────────────────────────────────
+
+Being a good technical leader:
+
+✓ BE CLEAR: Say exactly what needs to happen, by when, and who's responsible.
+✓ BE CONFIDENT: You know more than your team. They're looking to you for guidance.
+✓ BE SUPPORTIVE: When someone gets stuck, help them learn, don't just fix it.
+✓ BE FIRM: If safety is compromised, shut it down immediately. No negotiations.
+✓ BE ACCOUNTABLE: If the project fails, it's on you. Own it.
+
+✗ DON'T micromanage: Give ownership, then get out of the way.
+✗ DON'T be a bottleneck: Empower team to make decisions within their subsystems.
+✗ DON'T ignore problems: Address issues immediately, don't let them fester.
+✗ DON'T take all the work: Your job is to LEAD, not do everything yourself.
+
+Remember:
+  - This is a portfolio project for everyone, including you
+  - Your leadership will be more impressive than perfect technical work
+  - Employers want to see: systems thinking, communication, organization
+  - This project demonstrates all of that
+
+You've got this.
+
+────────────────────────────────────────────────────────────────────────────────────────────
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   DOCUMENT INFORMATION
+═══════════════════════════════════════════════════════════════════════════════════════════
+Version: 1.0
+Date: February 20, 2026
+Author: Electrical Lead, NLC STEM Club
+Purpose: Meeting #1 Agenda & Leadership Guide
+Status: Ready for Meeting
+
+PRINT THIS DOCUMENT. BRING IT TO THE MEETING. FOLLOW IT.
+
+Good luck. You're going to do great.
+═══════════════════════════════════════════════════════════════════════════════════════════

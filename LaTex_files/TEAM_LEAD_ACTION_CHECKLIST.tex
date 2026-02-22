@@ -1,0 +1,650 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Essential Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Colors
+\definecolor{nlcblue}{RGB}{0,51,102}
+\definecolor{alertred}{RGB}{204,0,0}
+\definecolor{safgreen}{RGB}{0,128,0}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{NLC STEM Club UAV Project}}
+\fancyhead[R]{\textbf{Team Lead Action Checklist}}
+\fancyfoot[C]{\thepage}
+
+% Title
+\title{\Huge\textbf{Team Lead Action Checklist}\\
+\Large March 6 Deadline Preparation\\
+\large NLC STEM Club - Electrical Systems Team}
+\author{February 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+\section{ELECTRICAL TEAM LEAD - ACTION ITEMS CHECKLIST}
+
+\begin{itemize}
+  \item NLC STEM Club UAV Project
+  \item Target Deadline: March 6, 2026
+  \item Last Updated: February 21, 2026
+\end{itemize}
+
+\section{PRIORITY LEVELS:}
+
+\begin{itemize}
+  \item [CRITICAL] CRITICAL - Must complete ASAP (project blocker)
+  \item [WARNING]  HIGH     - Complete within 2-3 days
+  \item  MEDIUM   - Complete within 1 week
+  \item  LOW      - Nice to have, flexible timing
+\end{itemize}
+
+IMMEDIATE ACTIONS (THIS WEEKEND - Feb 21-23)\par
+
+\section{PROCUREMENT:}
+
+\begin{itemize}
+  \item [CRITICAL] [ ] Order External 5V 6A UBEC (Hobbywing recommended)
+  \item Amazon: Search "Hobbywing UBEC 5V 6A" (\textasciitilde{}\$12-15)
+  \item Alternative: ZORZA 5V/6V 6A UBEC
+  \item REASON: Cannot build Dual-BEC system without this!
+\end{itemize}
+
+\begin{itemize}
+  \item [CRITICAL] [ ] Order XT60 Y-Harness Splitter Cable
+  \item Amazon: "XT60 Y Harness 1 Female to 2 Male" (\textasciitilde{}\$8-12)
+  \item REASON: Required to split battery power to ESC + UBEC
+\end{itemize}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Order wiring supplies (if not in "misc" already):
+  \item 14AWG Silicone Wire (Red/Black, 2m each) - High current
+  \item 18AWG Silicone Wire (Red/Black, 3m each) - Power distribution
+  \item 22-24AWG Multi-color wire (5m) - Signal wires
+  \item Estimated cost: \textasciitilde{}\$25-30 total
+\end{itemize}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Order connector kits:
+  \item JST-SH connector kit (for GPS, sensors)
+  \item Dupont connector kit (for Arduino)
+  \item 3.5mm bullet connectors (for motor)
+  \item Heat shrink tubing assortment
+  \item Estimated cost: \textasciitilde{}\$30-40 total
+\end{itemize}
+
+\section{ONEDRIVE SETUP:}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Create OneDrive folder structure (see detailed plan below)
+  \item [WARNING]  [ ] Upload all documentation (PowerPoint, PDFs, Excel)
+  \item [WARNING]  [ ] Set folder to "Anyone with link can view"
+  \item [WARNING]  [ ] Pin OneDrive link in Discord \#electrical channel
+\end{itemize}
+
+\begin{itemize}
+  \item  [ ] Create "Week\_1\_Parts\_Inventory.xlsx" from Friday's meeting
+  \item  [ ] Create "Team\_Contact\_Info.xlsx" with all member names/emails/Discord
+\end{itemize}
+
+\section{TEACHING MATERIALS:}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Record "Soldering Basics" video (7-10 minutes)
+  \item Show: Tinning tip, through-hole soldering, wire-to-pad
+  \item Post to OneDrive + link in Discord
+\end{itemize}
+
+\begin{itemize}
+  \item  [ ] Create practice soldering checklist (use Circuit\_Fundamentals doc)
+  \item  [ ] Print "Circuit Fundamentals Teaching Guide" for in-person sessions
+\end{itemize}
+
+\section{TEAM COMMUNICATION:}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Send individual DMs to ALL electrical team members:
+  \item "Hey [name]! Quick update: We logged parts Friday and set our
+  \item March 6 deadline. Hosting soldering practice Tuesday [time/location].
+  \item Can you make it? We need everyone contributing! 📧"
+\end{itemize}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Post announcement in Discord channel about Tuesday session
+  \item [WARNING]  [ ] Poll team for best weekly meeting time (if Friday was bad)
+\end{itemize}
+
+\begin{itemize}
+  \item  [ ] Create Discord pinned message with schedule + OneDrive link
+\end{itemize}
+
+WEEK 1: Feb 24 - Mar 2 (SOLDERING BOOTCAMP)\par
+
+\section{TUESDAY IN-PERSON SESSION:}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Prepare soldering station workspace (clean, organized)
+  \item [WARNING]  [ ] Bring practice perfboard + component leads for everyone
+  \item [WARNING]  [ ] Bring printed "Soldering Checklist" (10 practice joints each)
+  \item [WARNING]  [ ] Teach: Soldering safety, technique, inspection
+  \item [WARNING]  [ ] Have everyone complete 5 practice joints in session
+  \item [WARNING]  [ ] Take photos for Discord/OneDrive progress update
+\end{itemize}
+
+\section{THURSDAY DISCORD OFFICE HOURS:}
+
+\begin{itemize}
+  \item  [ ] Answer questions from team members
+  \item  [ ] Review photos of practice work submitted
+  \item  [ ] Remind everyone: 10 practice joints due by Sunday
+\end{itemize}
+
+\section{YOUR PERSONAL BUILD WORK:}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Pre-wire XT60 Y-Harness when it arrives
+  \item [WARNING]  [ ] Test ESC BEC output with multimeter (verify 5V @ 3A)
+  \item [WARNING]  [ ] Prepare Arduino sensor wiring as teaching demo
+\end{itemize}
+
+\begin{itemize}
+  \item  [ ] Create "Subsystem Assignment" spreadsheet
+  \item Assign each team member to: Power, Flight Control,
+  \item Research Payload, or Servos
+  \item Give each person ONE specific component to wire
+\end{itemize}
+
+\section{SUNDAY CHECKPOINT:}
+
+\begin{itemize}
+  \item  [ ] Collect progress photos from all team members
+  \item  [ ] Update "Week\_1\_Progress.xlsx" with completion status
+  \item  [ ] Post summary to Discord: "Week 1 Update: X members
+  \item completed soldering practice ✅"
+\end{itemize}
+
+WEEK 2: Mar 3 - Mar 6 (REAL COMPONENT ASSEMBLY)\par
+
+\section{TUESDAY IN-PERSON SESSION:}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Bring: Multimeters, actual components, wiring diagram printouts
+  \item [WARNING]  [ ] Teach: Using multimeter (continuity, voltage testing)
+  \item [WARNING]  [ ] Teach: Reading wiring diagrams + identifying pinouts
+  \item [WARNING]  [ ] Have each person wire ONE real component (supervised):
+  \item Option A: Solder JST connector to GPS
+  \item Option B: Solder servo extension cable
+  \item Option C: Solder Dupont headers to sensor wires
+  \item [WARNING]  [ ] TEST each person's work with multimeter (continuity check)
+  \item [WARNING]  [ ] Take photos of completed work
+\end{itemize}
+
+YOUR BUILD WORK (To show progress):\par
+
+\begin{itemize}
+  \item [CRITICAL] [ ] Complete Power System wiring:
+  \item Battery $\rightarrow$ XT60 Y-Harness $\rightarrow$ ESC + UBEC
+  \item Test voltages with multimeter
+  \item Photo documentation
+\end{itemize}
+
+\begin{itemize}
+  \item [WARNING]  [ ] Wire Flight Controller power input (Rail 1)
+  \item [WARNING]  [ ] Wire External UBEC power distribution (Rail 2)
+  \item [WARNING]  [ ] Connect GPS to Flight Controller (UART)
+\end{itemize}
+
+\begin{itemize}
+  \item  [ ] Prepare ONE subsystem for team to assemble (guided):
+  \item Best option: Arduino + BME280 + MicroSD module
+  \item Reason: Low stakes, clear testing, good learning
+\end{itemize}
+
+\section{THURSDAY PRE-DEADLINE PUSH:}
+
+\begin{itemize}
+  \item  [ ] Help struggling team members finish their component
+  \item  [ ] Review/fix any mistakes from Tuesday session
+  \item  [ ] Prepare presentation for president
+\end{itemize}
+
+\section{MARCH 6 - DEADLINE DELIVERABLE:}
+
+\begin{itemize}
+  \item [CRITICAL] [ ] Create "March\_6\_Progress\_Report.pdf" with:
+  \item Parts inventory complete (spreadsheet)
+  \item Team trained on soldering (photos of practice work)
+  \item X members successfully wired real components (photos)
+  \item Core power system assembled (photo)
+  \item Testing methodology demonstrated (multimeter checks)
+  \item Next steps: Full system integration by [date]
+\end{itemize}
+
+\begin{itemize}
+  \item [CRITICAL] [ ] Send report to president + mechanical lead
+  \item [CRITICAL] [ ] Post celebratory message in Discord 🎉
+\end{itemize}
+
+ONGOING TASKS (Throughout Feb 24 - Mar 6)\par
+
+\section{DOCUMENTATION:}
+
+\begin{itemize}
+  \item  [ ] Update Parts\_Checklist.xlsx as items arrive
+  \item  [ ] Track team member progress in weekly spreadsheets
+  \item  [ ] Take photos of every session (for documentation + morale)
+  \item  [ ] Keep build log notes in OneDrive
+\end{itemize}
+
+\section{TEACHING:}
+
+\begin{itemize}
+  \item  [ ] Record "Multimeter Basics" video (optional but helpful)
+  \item  [ ] Record "Reading Wiring Diagrams" video
+  \item  [ ] Create circuit math practice problems (based on actual system)
+\end{itemize}
+
+\section{TEAM MANAGEMENT:}
+
+\begin{itemize}
+  \item  [ ] Check in with team members who miss sessions
+  \item  [ ] Identify your "Core 5\%" who showed up - invest in them heavily
+  \item  [ ] Escalate attendance issues to president if needed
+  \item  [ ] Celebrate small wins publicly (Discord shoutouts)
+\end{itemize}
+
+\section{ONEDRIVE FOLDER STRUCTURE \& UPLOAD GUIDE}
+
+NLC UAV - Electrical Team/\par
+
+\section{+-- 📁 00\_START\_HERE/}
+
+\section{|   |   WHAT TO UPLOAD:}
+
+\subsection*{✓ Create "READ_ME_FIRST.txt" with:}
+
+\subsection*{- Link to Discord server}
+
+\subsection*{- Link to this OneDrive folder}
+
+\subsection*{- "New? Read TEAM_LEAD_ACTION_CHECKLIST.pdf first!"}
+
+\subsection*{✓ Create "Team_Roster_Contact_Info.xlsx"}
+
+\subsection*{- Name, Phone, Email, Subsystem Assignment}
+
+\subsection*{✓ Create "Meeting_Schedule.txt"}
+
+\subsection*{- Tuesday/Thursday schedule}
+
+\subsection*{- Location and Zoom link}
+
+\subsection*{└── PURPOSE: First thing new members see}
+
++-- 📁 01\_Documentation/\par
+
+\section{|   |   WHAT TO UPLOAD:}
+
+\subsection*{✓ PowerPoint/ subfolder:}
+
+\subsection*{- NLC_UAV_Electrical_Meeting_Presentation.pptx (YOU HAVE THIS!)}
+
+\subsection*{✓ PDFs/ subfolder - Upload these 10 files from your PDFs folder:}
+
+\subsection*{- Meeting_1_Agenda.pdf}
+
+\subsection*{- Power_Budget_Analysis.pdf}
+
+\subsection*{- Project_Overview.pdf}
+
+\subsection*{- Project_Parts_List.pdf}
+
+\subsection*{- README_Scripts.pdf}
+
+\subsection*{- Recent_Design_Decisions.pdf}
+
+\subsection*{- Safety_Protocol.pdf (IMPORTANT - needs signatures!)}
+
+\subsection*{- Subsystem_Assignment_Detailed.pdf}
+
+\subsection*{- TEAM_LEAD_ACTION_CHECKLIST.pdf (this document!)}
+
+\subsection*{- Technical_Terminology_Definitions.pdf}
+
+\subsection*{✓ Root of 01_Documentation/:}
+
+\subsection*{- UAV_Parts_Checklist.xlsx (YOU HAVE THIS!)}
+
+\subsection*{- Circuit_Fundamentals_Teaching_Guide.txt (YOU HAVE THIS!)}
+
+\subsection*{└── PURPOSE: All reference materials in one place}
+
++-- 📁 02\_Learning\_Modules/  ⭐ CREATE THESE AS YOU GO\par
+
+\section{|   |   WHAT TO CREATE:}
+
+\subsection*{✓ Module_1_Soldering_Basics/}
+
+\subsection*{- Record a 7-10 min soldering tutorial video}
+
+\subsection*{- Upload video or link to YouTube unlisted}
+
+\subsection*{- Create "Practice_Checklist.txt":}
+
+\subsection*{[ ] Solder 2 wires together (20 AWG)}
+
+\subsection*{[ ] Solder XT60 connector}
+
+\subsection*{[ ] Solder servo wire}
+
+\subsection*{[ ] Heat shrink application}
+
+\subsection*{- Create "Common_Mistakes.txt" (as you see them!)}
+
+\subsection*{✓ Module_2_Multimeter_Testing/}
+
+\subsection*{- "How_To_Use_Multimeter.txt"}
+
+\subsection*{- "Voltage_Testing_Procedure.txt"}
+
+\subsection*{- "Continuity_Testing.txt"}
+
+\subsection*{✓ Module_3_Circuit_Math/ (OPTIONAL - only if time)}
+
+\subsection*{- Upload Circuit_Fundamentals_Teaching_Guide.txt here too}
+
+\subsection*{- "Practice_Problems.txt" with answers}
+
+\subsection*{✓ Module_4_Wiring_Techniques/ (Week 2)}
+
+\subsection*{- "Wire_Stripping_Guide.txt"}
+
+\subsection*{- "Heat_Shrink_Best_Practices.txt"}
+
+\subsection*{- Photos of good vs bad solder joints}
+
+\subsection*{└── PURPOSE: Self-paced learning for members who miss meetings}
+
++-- 📁 03\_Build\_Logs/\par
+
+\subsection*{WHAT TO TRACK (create these spreadsheets):}
+
+\subsection*{✓ Week_1_Feb_21-27.xlsx}
+
+\subsection*{Columns: Date | Member Name | Task Completed | Photo? | Notes}
+
+\subsection*{Log EVERY member contribution (even 15-min tasks!)}
+
+\subsection*{✓ Week_2_Feb_28-Mar_6.xlsx}
+
+\subsection*{Same format, continue tracking}
+
+|   |   $\checkmark$ Progress\_Photos/\par
+
+|   |       Week\_1/ subfolder\par
+
+\subsection*{- Photo of parts laid out (Feb 21/22)}
+
+\subsection*{- Photos of first solder joints}
+
+\subsection*{- Team working photos}
+
+|   |       Week\_2/ subfolder\par
+
+\subsection*{- Component assembly photos}
+
+\subsection*{- Testing photos}
+
+\subsection*{- Final March 6 deliverables}
+
+\subsection*{✓ March_6_Progress_Report.txt (CREATE THIS MARCH 5!)}
+
+|   |       Template:\par
+
+\subsection*{------------------------------------}
+
+\subsection*{NLC UAV ELECTRICAL TEAM PROGRESS REPORT}
+
+\subsection*{Date: March 6, 2026}
+
+\subsection*{Team Lead: [Your Name]}
+
+\subsection*{TEAM TRAINING COMPLETED:}
+
+\subsection*{- [X] members trained on soldering}
+
+\subsection*{- [X] members trained on multimeter}
+
+\subsection*{- [X] members trained on safety protocols}
+
+\subsection*{COMPONENTS ASSEMBLED:}
+
+\subsection*{- Power system: [% complete]}
+
+\subsection*{- Flight controller: [% complete]}
+
+\subsection*{- Servos: [% complete]}
+
+\subsection*{- Research payload: [% complete]}
+
+\subsection*{CHALLENGES ENCOUNTERED:}
+
+\subsection*{- [List issues and how you solved them]}
+
+\subsection*{NEXT STEPS (Post March 6):}
+
+|   |       - [Priority 1]\par
+
+|   |       - [Priority 2]\par
+
+\subsection*{------------------------------------}
+
+\subsection*{└── PURPOSE: Prove work happened, track contributions}
+
++-- 📁 04\_Subsystem\_Assignments/  ⭐ ORGANIZE YOUR TEAMS\par
+
+\section{|   |   WHAT TO CREATE:}
+
+\subsection*{✓ Subsystem_Teams.xlsx (ROOT OF THIS FOLDER)}
+
+\subsection*{Columns: Team | Owner | Assistant 1 | Assistant 2 | Status}
+
+|   |       Example:\par
+
+\subsection*{Power System    | John Doe  | Jane Smith | -         | In Progress}
+
+\subsection*{Flight Control  | Bob Jones | -          | -         | Not Started}
+
+|   |   $\checkmark$ Team\_A\_Power\_System/\par
+
+\subsection*{- Assignment.txt (copy from Subsystem_Assignment_Detailed.pdf)}
+
+\subsection*{- Week_1_Tasks.txt (checklist of what to do)}
+
+\subsection*{- Progress_Photos/ (their specific photos)}
+
+\subsection*{- Notes.txt (their questions/issues)}
+
+\subsection*{✓ Team_B_Flight_Control/}
+
+|   |       - Assignment.txt\par
+
+|   |       - Week\_1\_Tasks.txt\par
+
+|   |       - Progress\_Photos/\par
+
+|   |       - Notes.txt\par
+
+\subsection*{✓ Team_C_Research_Payload/}
+
+|   |       - Assignment.txt\par
+
+|   |       - Week\_1\_Tasks.txt\par
+
+|   |       - Progress\_Photos/\par
+
+|   |       - Notes.txt\par
+
+\subsection*{✓ Team_D_Servos_Control/}
+
+|   |       - Assignment.txt\par
+
+|   |       - Week\_1\_Tasks.txt\par
+
+|   |       - Progress\_Photos/\par
+
+|   |       - Notes.txt\par
+
+\subsection*{└── PURPOSE: Each team has their own workspace}
+
++-- 📁 05\_Scripts\_Tools/\par
+
+\subsection*{WHAT TO UPLOAD (from your local project):}
+
+\begin{itemize}
+  \item |   $\checkmark$ compile\_latex.py
+\end{itemize}
+
+\subsection*{✓ create_latex_documents.py}
+
+\subsection*{✓ create_parts_checklist.py}
+
+\subsection*{✓ README_Scripts.txt (explain what each script does)}
+
+\begin{itemize}
+  \item +-- PURPOSE: Backup of automation scripts, show technical skills
+\end{itemize}
+
+\section{ONEDRIVE UPLOAD PRIORITY ORDER}
+
+[CRITICAL] DO FIRST (This Weekend):\par
+
+\begin{itemize}
+  \item 1. Create folder structure (5 main folders)
+  \item 2. Upload all 10 PDFs to 01\_Documentation/PDFs/
+  \item 3. Upload Parts Checklist to 01\_Documentation/
+  \item 4. Upload PowerPoint to 01\_Documentation/PowerPoint/
+  \item 5. Create Subsystem\_Teams.xlsx in 04\_Subsystem\_Assignments/
+  \item 6. Create Week\_1\_Feb\_21-27.xlsx in 03\_Build\_Logs/
+\end{itemize}
+
+[WARNING]  DO NEXT (By Tuesday):\par
+
+\begin{itemize}
+  \item 7. Record soldering tutorial video
+  \item 8. Create Module\_1\_Soldering\_Basics/ content
+  \item 9. Create READ\_ME\_FIRST.txt in 00\_START\_HERE/
+  \item 10. Create team contact spreadsheet
+\end{itemize}
+
+\section{ DO ONGOING:}
+
+\begin{itemize}
+  \item 11. Take photos during every work session $\rightarrow$ Upload to Progress\_Photos/
+  \item 12. Update build logs after each meeting
+  \item 13. Add learning modules as you create teaching materials
+  \item 14. Update subsystem folders as teams make progress
+\end{itemize}
+
+\section{CRITICAL REMINDERS}
+
+[WARNING]  You CANNOT build the Dual-BEC system without:\par
+
+\begin{itemize}
+  \item 1. External 5V 6A UBEC
+  \item 2. XT60 Y-Harness Splitter
+  \item $\rightarrow$ ORDER THESE IMMEDIATELY! (\textasciitilde{}\$20-27 total)
+\end{itemize}
+
+[WARNING]  Your March 6 goal is NOT a flying plane - it's:\par
+
+\begin{itemize}
+  \item Team trained on basics
+  \item Initial assembly started
+  \item Show progress to president
+  \item $\rightarrow$ Don't over-promise, stay realistic
+\end{itemize}
+
+[WARNING]  Focus on the 5\% who showed up:\par
+
+\begin{itemize}
+  \item $\rightarrow$ They are your real team
+  \item $\rightarrow$ Invest teaching time in them
+  \item $\rightarrow$ Don't wait for ghosts to show up
+\end{itemize}
+
+[WARNING]  Document everything with photos:\par
+
+\begin{itemize}
+  \item $\rightarrow$ Proves work was done
+  \item $\rightarrow$ Helps with future troubleshooting
+  \item $\rightarrow$ Shows president visible progress
+\end{itemize}
+
+[WARNING]  You're teaching AND building:\par
+
+\begin{itemize}
+  \item $\rightarrow$ Delegate even tiny tasks to team
+  \item $\rightarrow$ Don't do 100\% yourself (you'll burn out)
+  \item $\rightarrow$ It's okay if they work slowly - they're learning
+\end{itemize}
+
+\section{QUICK REFERENCE: MARCH 6 SUCCESS CRITERIA}
+
+\subsection{Minimum Viable Deliverable}
+
+\begin{itemize}
+  \item ✅ 5+ team members completed soldering training
+  \item ✅ 3+ team members wired a real component successfully
+  \item ✅ Power system (Battery $\rightarrow$ Y-Harness $\rightarrow$ ESC/UBEC) assembled \& tested
+  \item ✅ Documentation uploaded to OneDrive
+  \item ✅ Photos showing team actively working
+  \item ✅ Written report showing progress + next steps
+\end{itemize}
+
+\subsection{Stretch Goals (if time permits)}
+
+\begin{itemize}
+  \item 🎯 Flight Controller powered and configured
+  \item 🎯 GPS connected and getting satellite lock
+  \item 🎯 Arduino sensor system collecting test data
+  \item 🎯 All 4 servos wired and responding to RC input
+\end{itemize}
+
+\section{NOTES / ADDITIONAL TASKS}
+
+[Space for you to add tasks as they come up]\par
+
+\underline{\hspace{11.549999999999999cm}}\par
+
+\underline{\hspace{11.549999999999999cm}}\par
+
+\underline{\hspace{11.549999999999999cm}}\par
+
+\underline{\hspace{11.549999999999999cm}}\par
+
+\section{END OF CHECKLIST}
+
+Print this document and check off items as you complete them!\par
+
+You've got this! \par
+
+\end{document}

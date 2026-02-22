@@ -1,0 +1,111 @@
+3D-Printed Solar Floatplane: Final Build List
+Category
+Component
+Description
+Price (USD)
+Airframe & Hardware
+Filament /Materials
+eSUN PLA LW PLA 3D Printer Filament (https://a.co/d/2AS4Lgc) - Lightweight PLA for airframe structure.
+45
+Airframe & Hardware
+Reinforcement
+Wing Spars: 2mm Carbon Fiber Rods (10pcs) - Essential structural reinforcement.
+12
+Flight Systems
+Flight Controller (FC)
+MATEK F405-WMN F405 Flight Controller STM32F405RGT6 OSD Blackbox 132A Current Sense 2-6S Lipo for FPV Fixed Wing Drone DIY Accessories Parts
+
+
+65
+Flight Systems
+GPS Module
+BN-220 GPS Module TTL Dual GPS (https://a.co/d/5AzMOpc) - For navigation and autonomous flight.
+23
+Flight Systems
+Motor
+FLASH HOBBY D2830EVO 1000KV RC Brushless Motor 2212 (https://a.co/d/1kmZM1H) - Primary propulsion.
+20
+Flight Systems
+ESC
+40A Brushless ESC 2-4S Speed Controller 5V 3A BEC (https://a.co/d/9lb3vMa) - Electronic Speed Controller.
+13
+Flight Systems
+Propeller
+2 Set Folding Fold Propeller & Red Paddle Clip Adapter clamp 1060/1160 (https://a.co/d/h3iRwcI) - Folding design may be beneficial for water landings.
+12
+Flight Systems
+Servos
+RGBZONE ES08MA II Metal Gear Servos (4pcs) - For control surfaces (ailerons, elevator, rudder).
+24
+Flight Systems
+Radio Transmitter (Tx)
+Jumper Smart ELRS 2.4G RC Transmitter (https://a.co/d/hAO1MYe) - Ground control station.
+65
+Flight Systems
+Radio Receiver (Rx)
+HAPPYMODEL ELRS EPI/EP2 RX Nano Long Range Receiver (https://a.co/d/hY74V3x) - Onboard communication link.
+24
+Research & Power
+Research Microcontroller
+Nano V3.0 Board with Cable, ATmega328P (https://a.co/d/e5A5Xpw) - For sensor data acquisition.
+8
+Research & Power
+Sensor Package
+HiLetgo BME280 (Atmos.) & Ximimark 3Pcs MQ135 (Gas Quality) (https://a.co/d/568Ea4O, https://a.co/d/7JlDKiE) - Environmental sensor payload.
+18
+Research & Power
+Data Storage
+SanDisk 32GB MicroSD (2-Pack) & HiLetgo 5pcs Micro SD TF Card Adater Reader Module (https://a.co/d/9OyR5tD, https://a.co/d/0a0SZVi) - Onboard data logging.
+21
+Research & Power
+Main Flight Battery
+OVONIC 4S LiPo Battery 2200mAh 14.8V 130C (https://a.co/d/1qcOXx2) - Primary power source.
+45
+Research & Power
+Charging Equipment
+B6 Battery Charger 80W Mini Lipo Balance Charger/Discharger (https://a.co/d/0vfvAfl) - Essential ground support equipment.
+30
+Research & Power
+Safety Equipment
+LiPo Safety Bag (https://a.co/d/dm49smh) - Crucial for safe LiPo handling/charging.
+10
+Research & Power
+Solar Panels (2x)
+Small Solar Panels Monocrystalline Mini Solar Cells 4W (https://a.co/d/gdNsXPv) - Power for supplemental research/charging.
+24
+Research & Power
+Solar Controller
+DROK Boost Buck Converter (https://a.co/d/0vfvAfl) - To regulate solar power input.
+17
+Tools & Hardware
+Soldering Station
+Soldering Iron Kit, 80W Electric Solder iron, Adjustable Temperature (https://a.co/d/8bsmLsD) - For wiring and component connections.
+24
+Tools & Hardware
+Wiring/Adhesives/Misc
+Wire, XT60 connectors (2x), Foam Cure, Epoxy (2x), Insta-Set™, Component Kit (Multiple Links) - General build and assembly supplies.
+107
+Tools & Hardware
+Data Logger Switch
+Taiss 10PCS SPST Mini Toggle Switch 2 Pin (https://a.co/d/f613hYO) - To manually trigger data logging.
+8
+---
+---
+---
+---
+TOTAL
+All Purchased Components
+Total Estimated Cost
+$508
+
+https://www.amazon.com/Control-PushRods-Connector-Airplane-Aircraft/dp/B07X9BWM6B
+
+https://www.amazon.com/ZORZA-Regulator-Antijamming-Switching-Quadcopter/dp/B0CQ1R55BV/ref=sr_1_5?dib=eyJ2IjoiMSJ9.cvr7ajNhrJqwHVckr5M05ZxYisQ6eDxbI1N4Ppu2F_XQ5jcGyxbjmLg8NtWQeXBH8-N5RC_EoJ70nELQx8Pwh0Q9wAs5NtXbJD9OrIWuNljKi9opGujUUf8Mu05Ouu4luRI6Ynhu9yUAEP65RWKKxGuwiEl3gojcOiW1FgZrzTHoSg8687i-1TT9etrWESuewU1P_0AJzvEkHNvJgryyb9Sx_e3JaDolxQoYSVeNtT-9Y7GaOIFuxnbQF04RhYEwZpkroAku1dkNuBvD_w7YX0YTx5tYgxgtGfZvaBljE-c._5qkJ0j43ab96YXJiSClsd64PhKnGSHwErnAUmRz1JY&dib_tag=se&keywords=5v+bec&qid=1759287267&sr=8-5
+
+https://www.amazon.com/TecUnite-Extension-Connectors-Connection-Control/dp/B07C18BXDV/ref=sr_1_5?dib=eyJ2IjoiMSJ9.8SC_NOqcftYFUD13pha2Qu8NV8HYzi5ytyggriIRZdlLo1GPfF7ytFsjdk7PziH2Gil-KJck3Ee7fTSHiW6IwJa1GxGFKFtM1LcNY6DXaDR5dSAMoeGtE7ij4QZ-0UWyjS_e8qhqCt-kGExkH0QShthIKjP92M4tIkjAkCEQTizFb49dnZsC5Mt37Xd3bSgqHh-wGA8Kxi3PbO22K9yxWT9-dSEm1kFXZo4EXIIQKwAwRAbVXqJEZj05o8rUfk_hZA1CGfCkSbrSjgyJXz7mhD_UF9Nz5ULgn2zoHVNKmFo.UK6U7hesD5KFMyS2RYn6vgB9DfGDOTV7qdR44a1OtcQ&dib_tag=se&keywords=servo+extension+cable&qid=1759287278&sr=8-5
+
+https://www.amazon.com/eBoot-Pairs-Connector-Female-Battery/dp/B06XRBKSY2/ref=sr_1_5?dib=eyJ2IjoiMSJ9.RmAwttBX0nmtaYkcZhj9BJ_apf6OzwVlpJAXBP4LJp60qYn107WeIc5ocMf5TIuSU7KUWaW-H7KV1juv9c2lfEXtSzg5uRm_7qvlgbvCWP_WpMwHjlTu4mUrBDJKD4se3uhgWqfy4pr6lG-I14GhltmxOIdSa8zVejJH7lFb-SpwlQXF-ocw4wZ4d9azvLj4uiaOhKmC_1SEBjXK3Iy4wO26rgb0ZrWu1poKd7C1Z1oWB1s_tLBLEKGacsCAjBsFURD6kwkNug9R0nQTUKscImP6X_2Ak4vGkMR6u5u7vM0.aDY2sbtN34A00f3cqhWkEXWV73aXR4d2x8gpmZlA_pg&dib_tag=se&keywords=jst+connector&qid=1759287292&sr=8-5
+
+https://www.amazon.com/RiToEasysports-Propeller-Adaptor-Aluminum-Adapter/dp/B0BZQWK83Z/ref=sr_1_7?dib=eyJ2IjoiMSJ9.ZzHCHWmN4gxe5JZFMcwUgQUFoxACCwdRBb8xTGzqwGytbvSptcBbNtHMIt7UPujr6ksiYV1ZCWkScKu1A5-dMnjYXLzfGrGoDuSZQJeIC3GgBeqccVemZyo9R10vqBJCpwfpe-yZhDge1w-n21aS91He1qHf5QWqb5UFbzP_U3-1mXcOVL7PYPGyJ0EJwO1omYkZ9hZV1hpnBQQ3kHFynwasrfOFgIJN4b8m8ys4-91V6P4ibZ8hSPRS6Bbvrg6dix3jURBWAmmFdyh82buuLWFo-OYlhiJCohtgcrAu7pA.BoFF_7WqnCQEzgbCLJY4GUvbX07xBTmxtv-y3sW4GKE&dib_tag=se&keywords=propeller+adapter&qid=1759287313&sr=8-7
+
+

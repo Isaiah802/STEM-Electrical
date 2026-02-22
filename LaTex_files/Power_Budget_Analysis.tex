@@ -1,0 +1,490 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Essential Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Colors
+\definecolor{nlcblue}{RGB}{0,51,102}
+\definecolor{alertred}{RGB}{204,0,0}
+\definecolor{safgreen}{RGB}{0,128,0}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{NLC STEM Club UAV Project}}
+\fancyhead[R]{\textbf{Power Budget Analysis}}
+\fancyfoot[C]{\thepage}
+
+% Title
+\title{\Huge\textbf{Power Budget Analysis}\\
+\Large Electrical System Energy Calculations\\
+\large NLC STEM Club - Electrical Systems Team}
+\author{February 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+\section{ELECTRICAL POWER BUDGET ANALYSIS}
+
+\begin{itemize}
+  \item Fixed-Wing Environmental Monitoring UAV
+  \item NLC STEM Club - Electrical Systems Team
+  \item Date: February 20, 2026
+\end{itemize}
+
+\section{SYSTEM OVERVIEW}
+
+Primary Power Source: OVONIC 4S LiPo (14.8V nominal, 2200mAh, 130C)\par
+
+Power Conversion:     40A ESC with integrated 5V 3A BEC\par
+
+Available 5V Rail:    5V @ 3A maximum (15W total)\par
+
+\section{SECTION 1: DETAILED CURRENT CONSUMPTION ANALYSIS}
+
+\subsection*{FLIGHT-CRITICAL SYSTEMS (5V Rail)}
+
+Component               Voltage    Idle (mA)   Typical (mA)   Peak (mA)\par
+
+\section{MATEK F405-WMN FC         5V          180          250           350}
+
+BN-220 GPS Module         5V           40           60            80\par
+
+ELRS EP2 Receiver         5V           70           90           120\par
+
+Servos (4x ES08MA II)     5V          ---          ---           ---\par
+
+\begin{itemize}
+  \item Single Servo Idle                   8           10            15
+  \item Single Servo Moving                ---          180           300
+  \item Single Servo Stall                 ---          ---           650
+  \item All 4 Servos Idle                  32           40            60
+  \item All 4 Servos Moving                ---          720          1200
+  \item All 4 Servos (1 stall)             ---          ---          1830
+\end{itemize}
+
+SUBTOTAL (Flight Sys)                 322         1120          1750+\par
+
+\subsection*{RESEARCH PAYLOAD SYSTEMS (5V Rail)}
+
+Component               Voltage    Idle (mA)   Typical (mA)   Peak (mA)\par
+
+Arduino Nano (ATmega328)  5V           20           30            50\par
+
+BME280 Sensor (I2C)       3.3V          3            3             4\par
+
+MQ135 Gas Sensor          5V          140          150           165\par
+
+MicroSD Card Module       5V           15           80           200\par
+
+SUBTOTAL (Research)                   178          263           419\par
+
+\section{SECTION 2: POWER CONSUMPTION SCENARIOS}
+
+Scenario                           Current Draw    \% of BEC     Status\par
+
+Ground Idle (All Systems On)         500 mA         16.7\%      $\checkmark$ SAFE\par
+
+Cruise Flight (No Servo Load)        1383 mA        46.1\%      $\checkmark$ SAFE\par
+
+Active Maneuvering (2 servos)        1743 mA        58.1\%      [WARNING] MARGINAL\par
+
+Aggressive Turn (All servos)         2303 mA        76.8\%      [WARNING] HIGH RISK\par
+
+Control Surface Jam (1 stall)        2543 mA        84.8\%      [WARNING] CRITICAL\par
+
+Multiple Servo Stall (2+)            3193+ mA       106\%+      $\times$ OVERLOAD\par
+
+\section{CRITICAL ANALYSIS:}
+
+[WARNING] WARNING: ESC BEC (3A) is INSUFFICIENT for worst-case scenarios\par
+
+The 5V 3A BEC provides 3000mA maximum. Under aggressive maneuvering or\par
+
+servo stall conditions, total system draw exceeds BEC capacity.\par
+
+\section{FAILURE MODES:}
+
+\begin{itemize}
+  \item 1. BEC voltage sag $\rightarrow$ Flight controller brownout $\rightarrow$ Loss of control
+  \item 2. BEC thermal shutdown $\rightarrow$ Complete power loss $\rightarrow$ Crash
+  \item 3. ESC protective cutoff $\rightarrow$ Motor stops mid-flight $\rightarrow$ Crash
+\end{itemize}
+
+SECTION 3: MOTOR POWER ANALYSIS (14.8V Rail)\par
+
+Component               Voltage    Current (A)    Power (W)    Notes\par
+
+\section{FLASH HOBBY D2830EVO     14.8V        ---           ---        1000KV}
+
+\begin{itemize}
+  \item Idle/No Load                      0.8          11.8W       Propeller friction
+  \item 50\% Throttle                      8-12        118-177W     Cruise flight
+  \item 75\% Throttle                     15-20        222-296W     Climb/acceleration
+  \item Full Throttle                    25-30        370-444W     Maximum power
+  \item Max Burst                        35-38        518-562W     Emergency climb
+\end{itemize}
+
+ESC Rating: 40A continuous @ 14.8V (4S) = 592W maximum\par
+
+\section{SAFETY MARGIN:}
+
+\begin{itemize}
+  \item Cruise:   40A - 12A = 28A remaining (70\% headroom)  $\checkmark$ EXCELLENT
+  \item Climb:    40A - 20A = 20A remaining (50\% headroom)  $\checkmark$ GOOD
+  \item Full:     40A - 30A = 10A remaining (25\% headroom)  $\checkmark$ ACCEPTABLE
+  \item Burst:    40A - 38A = 2A remaining  (5\% headroom)   [WARNING] MARGINAL
+\end{itemize}
+
+\section{SECTION 4: BATTERY ANALYSIS}
+
+\subsection{Battery Specifications}
+
+\begin{itemize}
+  \item Type:         OVONIC 4S LiPo
+  \item Capacity:     2200mAh
+  \item Voltage:      14.8V nominal (16.8V fully charged, 14.0V cutoff)
+  \item C-Rating:     130C burst, \textasciitilde{}65C continuous
+  \item Max Current:  2.2Ah $\times$ 130C = 286A burst (way more than needed)
+  \item 2.2Ah $\times$ 65C = 143A continuous
+\end{itemize}
+
+\subsection{Battery Capacity Allocation}
+
+\begin{itemize}
+  \item Motor power dominates the power budget.
+\end{itemize}
+
+\subsection{Flight Time Estimates (Based on Motor Current)}
+
+Throttle    Motor (A)   5V Draw (mA)   Total (mAh)   Flight Time\par
+
+Cruise 50\%    10A         1383mA         10000mA      \textasciitilde{}13.2 minutes\par
+
+Climb 75\%     18A         1743mA         18000mA       \textasciitilde{}7.3 minutes\par
+
+Mixed*        14A         1500mA         14000mA      \textasciitilde{}9.4 minutes\par
+
+\begin{itemize}
+  \item Mixed profile: 70\% cruise, 20\% climb, 10\% idle
+\end{itemize}
+
+NOTE: 5V system draw is negligible compared to motor (< 1.5A equivalent).\par
+
+\section{SAFE BATTERY CUTOFF:}
+
+\begin{itemize}
+  \item Minimum: 3.3V per cell $\times$ 4 = 13.2V
+  \item Suggested landing voltage: 3.5V/cell = 14.0V
+  \item Reserve capacity: 20\% $\rightarrow$ Land at \textasciitilde{}500mAh remaining
+\end{itemize}
+
+\section{SECTION 5: RECOMMENDED POWER ARCHITECTURE}
+
+OPTION A: Single BEC Configuration (NOT RECOMMENDED)\par
+
+\begin{itemize}
+  \item ESC BEC (5V 3A) $\rightarrow$ ALL systems
+\end{itemize}
+
+\begin{itemize}
+  \item Pros:  Simplicity, minimal wiring
+  \item Cons:  $\times$ Insufficient current for servo stall conditions
+  \item Single point of failure
+  \item Risk of brownout $\rightarrow$ flight controller reset $\rightarrow$ crash
+  \item No engineering margin
+\end{itemize}
+
+\begin{itemize}
+  \item VERDICT: UNSAFE for portfolio-level aerospace work
+\end{itemize}
+
+OPTION B: Dual-BEC Configuration (RECOMMENDED) $\checkmark$\par
+
+\subsection{Power Rail 1 (ESC BEC):        Power Rail 2 (External BEC)}
+
+\begin{itemize}
+  \item Flight Controller            - 4$\times$ Servos
+  \item GPS Module                   (High current isolation)
+  \item ELRS Receiver
+\end{itemize}
+
+\subsection{Power Rail 3 (Arduino Nano onboard regulator from 5V)}
+
+\begin{itemize}
+  \item BME280 Sensor
+  \item MQ135 Sensor
+  \item MicroSD Module
+\end{itemize}
+
+\begin{itemize}
+  \item Pros:  $\checkmark$ Isolated servo power prevents brownout
+  \item Redundancy (if servo BEC fails, FC stays alive)
+  \item Engineering margin: \textasciitilde{}1.5A on FC rail
+  \item Professional-grade power distribution
+  \item Demonstrates systems engineering competency
+\end{itemize}
+
+\begin{itemize}
+  \item VERDICT: CORRECT ENGINEERING CHOICE for serious aerospace project
+\end{itemize}
+
+OPTION C: Hybrid Configuration (ACCEPTABLE ALTERNATIVE)\par
+
+\begin{itemize}
+  \item ESC BEC $\rightarrow$ FC + GPS + Receiver + Nano/Sensors
+  \item External BEC $\rightarrow$ Servos ONLY
+\end{itemize}
+
+\begin{itemize}
+  \item Advantage: Maximum servo current headroom
+  \item Use if: You want absolute power isolation for control surfaces
+\end{itemize}
+
+\section{SECTION 6: POWER DISTRIBUTION IMPLEMENTATION}
+
+\subsection{Required Additional Hardware}
+
+\begin{itemize}
+  \item 5V UBEC (5-6A rating recommended)
+  \item Example: Hobbywing 5V 6A UBEC or similar
+  \item Input: 7-26V (connect to main LiPo via XT60 breakout)
+  \item Output: 5V @ 6A (more than enough for 4 servos)
+\end{itemize}
+
+\begin{itemize}
+  \item XT60 Y-Harness or Distribution Board
+  \item To split main battery power to ESC + External BEC
+\end{itemize}
+
+\begin{itemize}
+  \item Power Distribution PCB (optional but recommended)
+  \item Clean solder joints for all 5V connections
+  \item Common ground plane
+\end{itemize}
+
+\subsection{Wiring Strategy}
+
+\begin{itemize}
+  \item 1. Main LiPo $\rightarrow$ XT60 Splitter
+  \item +-$\rightarrow$ ESC (motor + 5V BEC output)
+  \item +-$\rightarrow$ External BEC (5V output to servo rail)
+\end{itemize}
+
+\begin{itemize}
+  \item 2. ESC BEC 5V Output $\rightarrow$ FC + GPS + Receiver rail
+\end{itemize}
+
+\begin{itemize}
+  \item 3. External BEC 5V Output $\rightarrow$ Servo power pins
+\end{itemize}
+
+\begin{itemize}
+  \item 4. Nano: Powered from FC 5V rail or external BEC
+\end{itemize}
+
+\section{5. ALL GROUNDS MUST BE COMMON}
+
+\begin{itemize}
+  \item Critical: Connect all ground wires together
+\end{itemize}
+
+\section{SECTION 7: RISK ASSESSMENT \& MITIGATION}
+
+Risk \#1: BEC Overload During Flight\par
+
+\begin{itemize}
+  \item Likelihood:   HIGH (if using single BEC)
+  \item Impact:       CATASTROPHIC (loss of aircraft)
+  \item Mitigation:   Use dual-BEC architecture (Option B)
+  \item Validation:   Bench test with all servos under load
+\end{itemize}
+
+Risk \#2: Electrical Noise from ESC/Motor\par
+
+\begin{itemize}
+  \item Likelihood:   MEDIUM
+  \item Impact:       MODERATE (sensor errors, GPS dropouts)
+  \item Mitigation:   - Twist motor wires
+  \item Route motor wires away from signal wires
+  \item Use ferrite beads on ESC power lines
+  \item Keep MQ135 sensor away from high-current paths
+  \item Validation:   Monitor GPS lock during motor operation on bench
+\end{itemize}
+
+Risk \#3: Ground Loop / Poor Grounding\par
+
+\begin{itemize}
+  \item Likelihood:   MEDIUM
+  \item Impact:       MODERATE (erratic behavior, noise)
+  \item Mitigation:   - Star ground topology from battery negative
+  \item Use thick ground wires (18-20 AWG)
+  \item Verify continuity across all grounds
+  \item Validation:   Multimeter continuity test
+\end{itemize}
+
+Risk \#4: Servo Stall Current Spike\par
+
+\begin{itemize}
+  \item Likelihood:   LOW (good airframe should prevent jamming)
+  \item Impact:       HIGH (voltage sag, brownout)
+  \item Mitigation:   - Dual-BEC architecture
+  \item Ensure control surfaces move freely
+  \item Add current limiting if needed
+  \item Validation:   Manual obstruction test on bench (brief)
+\end{itemize}
+
+Risk \#5: LiPo Mishandling\par
+
+\begin{itemize}
+  \item Likelihood:   MEDIUM (team inexperience)
+  \item Impact:       CATASTROPHIC (fire, injury)
+  \item Mitigation:   - Mandatory safety training
+  \item LiPo safety bag usage
+  \item Low-voltage alarm
+  \item Never charge unattended
+  \item Validation:   Supervised charging protocol
+\end{itemize}
+
+Risk \#6: MQ135 Sensor Warm-Up\par
+
+\begin{itemize}
+  \item Likelihood:   CERTAIN (MQ135 requires 24-48hr burn-in)
+  \item Impact:       LOW (inaccurate gas readings initially)
+  \item Mitigation:   - Power sensor for 24-48 hours before first flight
+  \item Document calibration procedure
+  \item Log warm-up period in data
+  \item Validation:   Monitor sensor readings over 48-hour period
+\end{itemize}
+
+\section{SECTION 8: VALIDATION \& TESTING REQUIREMENTS}
+
+PHASE 1: Component-Level Testing\par
+
+\begin{itemize}
+  \item Verify all component voltage ratings (multimeter)
+  \item Test each servo individually (movement, current draw)
+  \item Confirm GPS lock indoors/outdoors
+  \item Validate Arduino sensor readings
+  \item Measure ESC BEC output under no load: Expected 5.0V $\pm$ 0.1V
+\end{itemize}
+
+PHASE 2: Subsystem Integration Testing\par
+
+\begin{itemize}
+  \item Power test bench: ESC + BEC + FC + GPS + Receiver
+  \item Measure current draw at idle: Expected \textasciitilde{}320mA
+  \item Motor spin test (NO PROP): Verify ESC signal response
+  \item Servo bench test: All 4 servos moving simultaneously
+  \item $\rightarrow$ Measure current with clamp meter: Should NOT exceed 2000mA
+  \item Arduino data logging: Confirm MicroSD writes correctly
+\end{itemize}
+
+PHASE 3: Full System Integration\par
+
+\begin{itemize}
+  \item All systems powered simultaneously
+  \item Measure voltage at FC under servo load: Must stay > 4.8V
+  \item GPS lock test with motor running: Verify no GPS dropouts
+  \item Range test: Verify receiver connection at 100m
+  \item Vibration test: Secure all connections
+\end{itemize}
+
+PHASE 4: Ground Validation\par
+
+\begin{itemize}
+  \item Control surface checks: Full deflection, no binding
+  \item Failsafe test: Turn off transmitter $\rightarrow$ verify servo behavior
+  \item Battery alarm test: Verify low voltage warning at 14.0V
+  \item Emergency shutdown procedure: Kill switch test
+\end{itemize}
+
+\section{SECTION 9: CURRENT BUDGET SUMMARY CHART}
+
+\subsection*{5V POWER RAIL BUDGET (ESC BEC: 3000mA Available)}
+
+\subsection*{Flight Controller      ████░░░░░░░░░░░░░░░░  250mA  (8.3%)}
+
+\subsection*{GPS Module             ██░░░░░░░░░░░░░░░░░░   60mA  (2.0%)}
+
+\subsection*{ELRS Receiver          ███░░░░░░░░░░░░░░░░░   90mA  (3.0%)}
+
+\subsection*{Arduino Nano + Sensors ████░░░░░░░░░░░░░░░░  263mA  (8.8%)}
+
+\subsection*{FLIGHT CRITICAL ONLY   █████████████░░░░░░░  663mA  (22.1%) ✓}
+
+\subsection*{Servos (Cruise)        ████████████████████ 720mA  (24.0%)}
+
+\subsection*{TOTAL TYPICAL          ████████████████████████████░ 1383mA (46%)}
+
+\subsection*{Servos (Aggressive)    ████████████████████████████████ 1200mA}
+
+\subsection*{TOTAL PEAK             ████████████████████████████████████ 1863mA}
+
+\subsection*{(62.1% of BEC) ⚠}
+
+\subsection*{MARGIN (Typical)       ███████████████░░░░░░░░░░░░░ 1617mA (54%)}
+
+\subsection*{MARGIN (Peak)          ██████████░░░░░░░░░░░░░░░░░░ 1137mA (38%)}
+
+[WARNING] WARNING: With single BEC, margin drops to 38\% under peak load.\par
+
+\begin{itemize}
+  \item Servo stall condition (2543mA) would EXCEED BEC capacity.
+\end{itemize}
+
+\begin{itemize}
+  \item SOLUTION: Dual-BEC architecture provides 100\% margin on flight-critical
+  \item systems, ensuring FC cannot brown out due to servo load.
+\end{itemize}
+
+\section{SECTION 10: EXECUTIVE SUMMARY FOR MEETING}
+
+\section{KEY FINDINGS:}
+
+\begin{itemize}
+  \item 1. Total 5V system draw: 1383mA typical, 1863mA peak
+  \item 2. ESC BEC capacity: 3000mA (3A)
+  \item 3. Critical margin concern: Servo stall can exceed BEC limit
+  \item 4. Motor power: 10-18A typical (within ESC and battery limits)
+  \item 5. Estimated flight time: 9-13 minutes depending on throttle profile
+\end{itemize}
+
+\section{RECOMMENDATION:}
+
+\begin{itemize}
+  \item Implement DUAL-BEC ARCHITECTURE (Option B) to isolate servo power
+  \item from flight-critical systems. This is the only configuration that
+  \item provides adequate engineering margin for safe flight operations.
+\end{itemize}
+
+\section{IMMEDIATE ACTION ITEMS:}
+
+\begin{itemize}
+  \item Purchase additional 5V UBEC (5-6A rating)
+  \item Create power distribution board or wiring harness
+  \item Implement common ground topology
+  \item Begin Phase 1 component testing
+\end{itemize}
+
+\section{DOCUMENT REVISION HISTORY}
+
+Version 1.0 | February 20, 2026 | Initial power budget analysis\par
+
+\end{document}

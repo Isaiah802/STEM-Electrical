@@ -1,0 +1,366 @@
+═══════════════════════════════════════════════════════════════════════════════════════════
+   ELECTRICAL SYSTEM ARCHITECTURE - BLOCK DIAGRAM
+   Fixed-Wing Environmental Monitoring UAV
+   NLC STEM Club - Electrical Systems Team
+   DUAL-BEC CONFIGURATION (OPTION B - RECOMMENDED)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+LEGEND:
+  ═══  14.8V High Current Path (Motor Power)
+  ───  5V Power Distribution
+  ···  Signal/Data Lines
+  [R]  RAIL 1 - Flight Critical (ESC BEC 5V@3A)
+  [S]  RAIL 2 - Servo Power (External UBEC 5V@6A)
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                           LEVEL 1: POWER SOURCE                                       ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+                                ┏━━━━━━━━━━━━━━━━━━━━━━━━━┓
+                                ┃  OVONIC 4S LiPo BATTERY ┃
+                                ┃  14.8V @ 2200mAh        ┃
+                                ┃  XT60 Male Connector    ┃
+                                ┃  130C Burst Rating      ┃
+                                ┗━━━━━━━━━┯━━━━━━━━━━━━━━━┛
+                                          │ 14.8V
+                                          │ [XT60 Y-Harness Splitter]
+                 ┌────────────────────────┴────────────────────────┐
+                 │                                                  │
+                 ║ 14.8V                                           ║ 14.8V
+                 ║                                                  ║
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                         LEVEL 2: POWER CONVERSION                                     ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+    ┏━━━━━━━━━━━━━━━━━━━━┓                              ┏━━━━━━━━━━━━━━━━━━━━━┓
+    ┃  40A ESC           ┃                              ┃  EXTERNAL 5V UBEC   ┃
+    ┃  XT60 Input        ┃                              ┃  (6A Hobbywing)     ┃
+    ┃  Integrated BEC:   ┃                              ┃  Input: 2-6S LiPo   ┃
+    ┃    5V @ 3A         ┃                              ┃  Output: 5.0V @ 6A  ┃
+    ┗━━━┯━━━━━━━━━┯━━━━━━┛                              ┗━━━━━━━━━┯━━━━━━━━━━━┛
+        ║         │ 5V @ 3A                                       │ 5V @ 6A
+        ║         │ [BEC Output]                                  │ [Regulated]
+        ║         │                                               │
+        ║ Motor   └─────────────────┐             ┌───────────────┘
+        ║ Power                     │             │
+        ║                           │             │
+        ║
+        ║ 14.8V (10-30A peak)
+        ║
+        ║
+    ┏━━━▼━━━━━━━━━━━━━━┓
+    ┃  BRUSHLESS MOTOR  ┃
+    ┃  D2830EVO 1000KV  ┃
+    ┃  3-Phase BLDC     ┃
+    ┃  + Folding Prop   ┃
+    ┗━━━━━━━━━━━━━━━━━━━┛
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                      LEVEL 3: POWER DISTRIBUTION RAILS                                ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+                ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┓         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+                ┃  [R] RAIL 1: 5V @ 3A     ┃         ┃  [S] RAIL 2: 5V @ 6A     ┃
+                ┃  FLIGHT-CRITICAL SYSTEMS ┃         ┃  SERVO POWER ONLY        ┃
+                ┃  ✓ Isolated from servos ┃         ┃  ✓ Isolated from FC      ┃
+                ┗━━┯━━━━━━━━━━━━━┯━━━━━━━━━┛         ┗━━━━━━━━━━━━┯━━━━━━━━━━━━━┛
+                   │             │                                 │
+          ┌────────┼─────────────┼──────────┐                     │
+          │        │             │          │                     │
+          │        │             │          │                     │
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                       LEVEL 4: FLIGHT CONTROL & SENSORS                               ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+  ┏━━━━━━━━━━━━━━━━━━┓  ┏━━━━━━━━━━━━━┓  ┏━━━━━━━━━━━━━┓  ┏━━━━━━━━━━━━━━━━━┓
+  ┃ MATEK F405-WMN   ┃  ┃  BN-220 GPS ┃  ┃  ELRS EP2   ┃  ┃  Arduino Nano   ┃
+  ┃ Flight Computer  ┃  ┃  + Compass  ┃  ┃  Receiver   ┃  ┃  Data Logger    ┃
+  ┃                  ┃  ┃             ┃  ┃             ┃  ┃                 ┃
+  ┃ Power: 250mA [R] ┃  ┃ Power: 60mA ┃  ┃ Power: 90mA ┃  ┃ Power: 30mA [R] ┃
+  ┗━━━━━━┯━━━━━━━━━━━┛  ┗━━━━━┯━━━━━━━┛  ┗━━━━━┯━━━━━━━┛  ┗━━━━━┯━━━━━━━━━━━┛
+         │                     │                 │                 │
+         │ PWM Outputs         │ UART1           │ CRSF            │ I2C/SPI/Analog
+         │ (S1-S4)             │ (GPS data)      │ (RC Commands)   │
+         │                     │                 │                 │
+         │                     └─────────────────┴─────────────────┤
+         │                                                          │
+         │                     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━▼━━━━━┓
+         │                     ┃       RESEARCH PAYLOAD SENSORS           ┃
+         │                     ┃  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┃
+         │                     ┃  │ BME280   │ │  MQ135   │ │ MicroSD  │ ┃
+         │                     ┃  │ Temp/Hum │ │ Air Qual │ │  Logger  │ ┃
+         │                     ┃  │  3mA [R] │ │ 150mA[R] │ │  80mA[R] │ ┃
+         │                     ┃  └──────────┘ └──────────┘ └──────────┘ ┃
+         │                     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+         │
+         │ PWM Control Signals (Signal only, no power)
+         ├·····························································┐
+         │                      │                  │                  │
+         │                      │                  │                  │
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                         LEVEL 5: SERVO ACTUATORS                                      ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+    Power Source: RAIL 2 [S] (External UBEC 5V @ 6A)
+    │
+    ├────────────────────┬────────────────────┬────────────────────┬────────────────────┐
+    │                    │                    │                    │                    │
+    │                    │                    │                    │                    │
+  ┏━▼━━━━━━━━━━━━┓   ┏━━▼━━━━━━━━━━━┓   ┏━━▼━━━━━━━━━━━┓   ┏━━▼━━━━━━━━━━━┓
+  ┃ SERVO 1      ┃   ┃ SERVO 2       ┃   ┃ SERVO 3       ┃   ┃ SERVO 4       ┃
+  ┃ Aileron Left ┃   ┃ Aileron Right ┃   ┃ Elevator      ┃   ┃ Rudder        ┃
+  ┃ ES08MA II    ┃   ┃ ES08MA II     ┃   ┃ ES08MA II     ┃   ┃ ES08MA II     ┃
+  ┃              ┃   ┃               ┃   ┃               ┃   ┃               ┃
+  ┃ Power: 5V[S] ┃   ┃ Power: 5V [S] ┃   ┃ Power: 5V [S] ┃   ┃ Power: 5V [S] ┃
+  ┃ PWM ◄────────┼···┼ PWM ◄─────────┼···┼ PWM ◄─────────┼···┼ PWM ◄─────────┼···(From FC)
+  ┃ 180mA typ    ┃   ┃ 180mA typ     ┃   ┃ 180mA typ     ┃   ┃ 180mA typ     ┃
+  ┃ 300mA stall  ┃   ┃ 300mA stall   ┃   ┃ 300mA stall   ┃   ┃ 300mA stall   ┃
+  ┗━━━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━━━━┛   ┗━━━━━━━━━━━━━━━┛
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                         COMMON GROUND - STAR TOPOLOGY                                 ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+                                  Battery Negative (-)
+                                          │
+            ┌──────────┬──────────┬───────┼────────┬──────────┬─────────┬──────────┐
+            │          │          │       │        │          │         │          │
+          ESC GND   UBEC GND   FC GND  GPS GND  RX GND  Arduino GND  Servo GND  ...
+          
+          ⚠ CRITICAL: All ground connections must tie to battery negative terminal
+                      Use star topology to minimize ground loops
+                                    Signal wires from Flight Controller
+                                    PWM outputs (Ch1-4)
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SYSTEM HIERARCHY & SIGNAL FLOW
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+LEVEL 1: POWER SOURCE
+  └─ OVONIC 4S LiPo (14.8V) ────────────────────┐
+                                                  │
+LEVEL 2: POWER CONVERSION                        │
+  ├─ ESC (Motor + BEC) ◄─────────────────────────┤
+  └─ External UBEC ◄─────────────────────────────┘
+                                                  
+LEVEL 3: POWER DISTRIBUTION                      
+  ├─ Rail 1: Flight-Critical (ESC BEC)          
+  │   ├─ Flight Controller (Master)             
+  │   ├─ GPS Module                             
+  │   ├─ ELRS Receiver                          
+  │   └─ Arduino Nano (Research)                
+  │                                              
+  └─ Rail 2: Servo Power (External UBEC)        
+      ├─ Servo 1 (Aileron Left)                 
+      ├─ Servo 2 (Aileron Right)                
+      ├─ Servo 3 (Elevator)                     
+      └─ Servo 4 (Rudder)                       
+
+LEVEL 4: DATA ACQUISITION
+  └─ Arduino Nano (Data Processor)
+      ├─ BME280 (I2C) → Temp/Humidity/Pressure
+      ├─ MQ135 (Analog) → Air Quality
+      ├─ MicroSD (SPI) → Data Logging
+      └─ Toggle Switch (GPIO) → Logging Control
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SIGNAL INTERFACES
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+RADIO CONTROL PATH:
+  Ground Station (ELRS Transmitter) 
+       │ 2.4GHz ELRS Protocol
+       ▼
+  ELRS EP2 Receiver
+       │ SBUS/CRSF Protocol
+       ▼
+  MATEK F405-WMN Flight Controller (iNav/ArduPilot)
+       │ PWM Signals (50Hz)
+       ▼
+  4× Servos (Control Surfaces)
+       │ Mechanical Linkage
+       ▼
+  Aircraft Control Surfaces (Ailerons, Elevator, Rudder)
+
+GPS NAVIGATION PATH:
+  GPS Satellites
+       │ L1 Band (1575.42 MHz)
+       ▼
+  BN-220 GPS Module
+       │ UART (9600 baud NMEA or UBX)
+       ▼
+  Flight Controller
+       │ Position/Navigation Processing
+       ▼
+  Autonomous Flight / Position Hold
+
+RESEARCH DATA PATH:
+  Environmental Sensors (BME280, MQ135)
+       │ I2C (BME280) / Analog (MQ135)
+       ▼
+  Arduino Nano (ATmega328P)
+       │ Data Processing & Timestamping
+       ▼
+  MicroSD Card Module (SPI)
+       │ CSV File Write
+       ▼
+  Post-Flight Data Analysis
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   POWER FLOW SUMMARY
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+14.8V RAIL (High Power):
+  Source:  LiPo Battery
+  Consumers:
+    - ESC Input (Motor Power)           10-18A typical, 30A max
+    - External UBEC Input               ~1.5A (for 5V conversion)
+  Total Current: 11.5-19.5A typical
+
+5V RAIL 1 (Flight-Critical): 
+  Source: ESC BEC
+  Capacity: 3A
+  Consumers:
+    - Flight Controller                 250mA
+    - GPS                                60mA
+    - Receiver                           90mA
+    - Arduino Nano + Sensors            263mA
+  Total Current: 663mA (22% of capacity)
+  Margin: 2337mA (78%) ✓ EXCELLENT
+
+5V RAIL 2 (Servo Power):
+  Source: External UBEC  
+  Capacity: 6A
+  Consumers:
+    - 4× Servos (idle)                   40mA
+    - 4× Servos (moving)                720mA typical, 1200mA peak
+  Total Current: 720mA typical, 1200mA peak
+  Margin: 4800mA typical (80%) ✓ EXCELLENT
+
+GROUND:
+  ⚠ CRITICAL: ALL grounds must be connected together
+    - LiPo negative
+    - ESC ground
+    - External UBEC ground
+    - Flight Controller ground
+    - Arduino ground
+    - All sensor grounds
+  
+  Use star grounding topology from battery negative terminal.
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   KEY DESIGN PRINCIPLES
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+1. ISOLATION
+   Flight-critical systems (FC, GPS, RX) are powered separately from 
+   high-current servo loads. This prevents voltage sag/brownout on the FC.
+
+2. REDUNDANCY
+   If servo BEC fails, flight systems remain powered. Aircraft can still
+   be controlled (though without servo movement - glide to landing).
+
+3. COMMON GROUND
+   All subsystems share a common ground reference to prevent ground loops
+   and ensure clean signal integrity.
+
+4. NOISE ISOLATION
+   Motor power wires are physically separated from:
+   - GPS antenna
+   - Receiver antenna  
+   - Analog sensor (MQ135)
+   
+   Twist motor wires to reduce electromagnetic interference.
+
+5. POWER MARGIN
+   Each power rail has >75% margin under typical operation, allowing for:
+   - Component tolerance variation
+   - Aging/degradation
+   - Unexpected current spikes
+   - Engineering safety factor
+
+6. FAIL-SAFE DESIGN
+   System degradation modes:
+   - Servo BEC fails → Glide to landing (no control surfaces)
+   - FC BEC fails → Loss of control (catastrophic - prevented by isolation)
+   - Arduino fails → Flight continues, no data logging
+   - GPS fails → Manual flight mode
+   - Receiver fails → Pre-programmed failsafe (circle & land)
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   CONNECTOR & WIRE GAUGE REFERENCE
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+CONNECTION                  WIRE GAUGE    CONNECTOR TYPE       NOTES
+────────────────────────────────────────────────────────────────────────────────────────
+Battery → ESC               12-14 AWG     XT60                 High current (30A)
+Battery → External BEC      16-18 AWG     XT60 or JST          Medium current (2A)
+ESC → Motor                 12-14 AWG     3.5mm Bullet         High current (30A)
+ESC BEC → FC                20-22 AWG     Servo Connector      Low current (1A)
+External BEC → Servo Rail   18-20 AWG     JST or XT30          Medium current (2A)
+FC → Servos (Signal)        26-28 AWG     Servo Connector      Signal only
+FC → GPS                    26-28 AWG     JST-SH 1.0mm         Signal + Power
+FC → Receiver               26-28 AWG     JST-SH 1.0mm         Signal + Power
+Arduino → Sensors           26-28 AWG     Dupont/JST           Signal + Power
+Ground Wires                18-20 AWG     Ring Terminal        Common ground
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   RECOMMENDED BUILD SEQUENCE
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+PHASE 1: Power Distribution (Week 1, Day 1-2)
+  1. Solder XT60 Y-harness (Battery → ESC + External BEC)
+  2. Verify External BEC 5V output with multimeter
+  3. Create power distribution board or harness for 5V rails
+  4. Label all power wires clearly (Rail 1 / Rail 2)
+
+PHASE 2: Flight Systems (Week 1, Day 3-4)
+  5. Connect ESC to motor (verify rotation direction)
+  6. Connect FC to ESC BEC (Rail 1)
+  7. Connect GPS to FC
+  8. Connect Receiver to FC
+  9. Bind receiver to transmitter
+ 10. Configure FC firmware (iNav or ArduPilot)
+
+PHASE 3: Servo Systems (Week 1, Day 4-5)
+ 11. Connect all 4 servos to External BEC (Rail 2)
+ 12. Connect servo signal wires to FC outputs (Ch1-4)
+ 13. Test servo movement with transmitter
+ 14. Set servo endpoints and reversing in FC
+
+PHASE 4: Research Payload (Week 2, Day 1-2)
+ 15. Wire Arduino to Rail 1 (or Rail 2)
+ 16. Connect BME280 to Arduino (I2C: SDA, SCL)
+ 17. Connect MQ135 to Arduino (Analog: A0)
+ 18. Connect MicroSD module to Arduino (SPI)
+ 19. Upload data logging code
+ 20. Test data logging on bench
+
+PHASE 5: Integration & Testing (Week 2, Day 3-5)
+ 21. Measure all system currents with clamp meter
+ 22. Verify common ground continuity
+ 23. Check for electrical noise (GPS lock during motor run)
+ 24. Final wire management (zip ties, heat shrink)
+ 25. Install in airframe
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   DOCUMENT INFORMATION
+═══════════════════════════════════════════════════════════════════════════════════════════
+Version: 1.0
+Date: February 20, 2026
+Author: Electrical Lead, NLC STEM Club
+Status: APPROVED FOR IMPLEMENTATION
+═══════════════════════════════════════════════════════════════════════════════════════════

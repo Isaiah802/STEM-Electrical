@@ -1,0 +1,1537 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Essential Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Colors
+\definecolor{nlcblue}{RGB}{0,51,102}
+\definecolor{alertred}{RGB}{204,0,0}
+\definecolor{safgreen}{RGB}{0,128,0}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{NLC STEM Club UAV Project}}
+\fancyhead[R]{\textbf{Technical Terminology \& Definitions}}
+\fancyfoot[C]{\thepage}
+
+% Title
+\title{\Huge\textbf{Technical Terminology \& Definitions}\\
+\Large Reference Guide for Electrical Team\\
+\large NLC STEM Club - Electrical Systems Team}
+\author{February 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+\section{TECHNICAL TERMINOLOGY \& DEFINITIONS}
+
+\begin{itemize}
+  \item Fixed-Wing Environmental Monitoring UAV
+  \item NLC STEM Club - Electrical Systems Team
+  \item Reference Guide for Team Members
+\end{itemize}
+
+\section{DOCUMENT PURPOSE:}
+
+\begin{itemize}
+  \item This glossary defines all technical terms, acronyms, and concepts used throughout
+  \item the UAV electrical system documentation. Use this as a quick reference guide when
+  \item encountering unfamiliar terminology.
+\end{itemize}
+
+\section{ORGANIZATION:}
+
+\begin{itemize}
+  \item Terms are organized alphabetically within categories for easy lookup.
+\end{itemize}
+
+\section{SECTION 1: ELECTRICAL TERMS \& CONCEPTS}
+
+AMPERE (A) / MILLIAMPERE (mA)\par
+
+\begin{itemize}
+  \item Unit of electrical current. 1 Ampere = 1000 milliamperes.
+  \item Example: The flight controller draws 250mA (0.25A) of current.
+\end{itemize}
+
+AWG (American Wire Gauge)\par
+
+\begin{itemize}
+  \item Standard system for measuring wire thickness. LOWER numbers = THICKER wire.
+  \item 12 AWG: Very thick, high current (30A+) - motor wires
+  \item 18 AWG: Medium, moderate current (5-10A) - power distribution
+  \item 26 AWG: Thin, low current/signal (<1A) - sensor wires
+  \item The thicker the wire, the less resistance and more current it can safely carry.
+\end{itemize}
+
+\section{BACKFEEDING}
+
+\begin{itemize}
+  \item Unwanted flow of power in the reverse direction through a circuit. In our system,
+  \item this occurs if the ESC's +5V wire is connected to the FC, potentially damaging
+  \item the FC's voltage regulator. SOLUTION: Cut the middle wire on ESC signal cable.
+\end{itemize}
+
+BEC (Battery Eliminator Circuit)\par
+
+\begin{itemize}
+  \item A voltage regulator that converts high battery voltage (14.8V) down to 5V for
+  \item electronics. "Eliminates" the need for a separate battery for radio equipment.
+  \item Our ESC has a built-in 5V 3A BEC (Linear BEC - less efficient but simpler).
+\end{itemize}
+
+\section{BROWNOUT}
+
+\begin{itemize}
+  \item Temporary voltage drop that causes electronics to malfunction or reset. Occurs
+  \item when too much current is drawn from a power source, causing voltage to sag below
+  \item minimum operating level. Our Dual-BEC design prevents FC brownout from servo loads.
+\end{itemize}
+
+CAPACITY (mAh or Ah)\par
+
+\begin{itemize}
+  \item Milliamp-hours or Amp-hours. Measures how much charge a battery can store.
+  \item Our battery: 2200mAh = can deliver 2200mA for 1 hour (or 1100mA for 2 hours)
+  \item Higher capacity = longer flight time (but also heavier battery)
+\end{itemize}
+
+\section{CONTINUITY}
+
+\begin{itemize}
+  \item Unbroken electrical path. Used in testing: "check continuity" means verify a
+  \item wire is not broken and conducts electricity. Measured with multimeter in $\Omega$ mode.
+\end{itemize}
+
+\section{CURRENT (I)}
+
+\begin{itemize}
+  \item Flow of electrical charge, measured in Amperes (A). Like water flow in a pipe.
+  \item Formula: I = V / R (Current = Voltage / Resistance)
+  \item Typical current: FC draws 250mA
+  \item Peak current: Motor can draw 30A during full throttle
+\end{itemize}
+
+\section{DUAL-BEC CONFIGURATION}
+
+\subsection{Our chosen power architecture using TWO separate voltage regulators}
+
+\begin{itemize}
+  \item BEC 1 (ESC integrated): Powers flight-critical systems (FC, GPS, RX)
+  \item BEC 2 (External UBEC): Powers high-current servos
+  \item Advantage: Isolates servo power spikes from flight controller, preventing crashes.
+\end{itemize}
+
+\section{DUTY CYCLE}
+
+\begin{itemize}
+  \item Percentage of time a signal is "ON" vs "OFF". Used in PWM control.
+  \item 50\% duty cycle = signal is high 50\% of the time
+  \item Servo control: 1ms pulse (5\% duty cycle) = full left, 2ms (10\%) = full right
+\end{itemize}
+
+ELECTRICAL NOISE / EMI (Electromagnetic Interference)\par
+
+\subsection{Unwanted electrical signals that interfere with sensitive electronics. Sources}
+
+\begin{itemize}
+  \item Motor/ESC switching (high-frequency noise)
+  \item Power supply ripple
+  \item Radio frequency interference
+  \item Mitigation: Twisted wires, distance separation, filtering capacitors.
+\end{itemize}
+
+GND (Ground)\par
+
+\begin{itemize}
+  \item Reference point for voltage measurement, typically 0V. Also completes circuit
+  \item for current flow. CRITICAL: All components must share a common ground or signals
+  \item will be corrupted. Our design uses star grounding topology.
+\end{itemize}
+
+LOAD\par
+
+\subsection{Any device that consumes electrical power. In our system}
+
+\begin{itemize}
+  \item Light load: GPS (60mA)
+  \item Medium load: Arduino (263mA)
+  \item Heavy load: Motor (10-30A)
+\end{itemize}
+
+\section{OHMS LAW}
+
+\begin{itemize}
+  \item Fundamental relationship: V = I $\times$ R (Voltage = Current $\times$ Resistance)
+  \item Also: I = V / R and R = V / I
+  \item Used to calculate current draw, voltage drop, wire sizing, etc.
+\end{itemize}
+
+\section{PARALLEL CONNECTION}
+
+\begin{itemize}
+  \item Components connected with all positive terminals together and all negative
+  \item terminals together. Voltage stays same, currents add.
+  \item Example: All 4 servos powered in parallel from UBEC (each gets 5V, currents sum).
+\end{itemize}
+
+\section{POLARITY}
+
+\begin{itemize}
+  \item Direction of electrical flow. Positive (+) and Negative (-) terminals.
+  \item [WARNING] CRITICAL: Reversed polarity can instantly destroy electronics!
+  \item Always verify RED = positive, BLACK = negative before connecting.
+\end{itemize}
+
+POWER (W, Watts)\par
+
+\begin{itemize}
+  \item Rate of energy consumption. Formula: P = V $\times$ I (Power = Voltage $\times$ Current)
+  \item Example: Motor at 14.8V drawing 20A = 296W power consumption
+  \item Our battery: 2200mAh $\times$ 14.8V = 32.56Wh (Watt-hours) total energy
+\end{itemize}
+
+\section{POWER RAIL}
+
+\begin{itemize}
+  \item Distribution bus that supplies power to multiple components at same voltage.
+\end{itemize}
+
+\subsection{Our system has two 5V rails}
+
+\begin{itemize}
+  \item Rail 1: Flight-critical (FC, GPS, RX, Arduino) - ESC BEC
+  \item Rail 2: Servo power (all 4 servos) - External UBEC
+\end{itemize}
+
+\section{RESISTANCE (R)}
+
+\begin{itemize}
+  \item Opposition to current flow, measured in Ohms ($\Omega$). Like friction in a pipe.
+  \item Low resistance: Thick wires, good connections
+  \item High resistance: Thin wires, corroded connections
+  \item Causes voltage drop and heat generation.
+\end{itemize}
+
+\section{SERIES CONNECTION}
+
+\begin{itemize}
+  \item Components connected end-to-end so current flows through each in sequence.
+  \item Voltages add, current stays same.
+  \item Example: Battery cells in series (3.7V + 3.7V + 3.7V + 3.7V = 14.8V for 4S).
+\end{itemize}
+
+\section{SHORT CIRCUIT}
+
+\begin{itemize}
+  \item Unintended direct connection between positive and negative, bypassing load.
+  \item Results in VERY high current, heat, fire risk, component damage.
+  \item [WARNING] ALWAYS use fuse/protection and inspect for bare wire touching!
+\end{itemize}
+
+\section{STAR GROUNDING}
+
+\begin{itemize}
+  \item Grounding topology where all ground wires connect to ONE central point (battery
+  \item negative) rather than daisy-chaining. Prevents ground loops and voltage differences
+  \item between components. REQUIRED for our system's proper operation.
+\end{itemize}
+
+UBEC (Universal Battery Eliminator Circuit)\par
+
+\begin{itemize}
+  \item Advanced switching voltage regulator (vs linear BEC). More efficient, handles
+  \item higher input voltage range, generates less heat. Our external UBEC is 5V 6A
+  \item switching regulator for servo power.
+\end{itemize}
+
+\section{VOLTAGE (V)}
+
+\begin{itemize}
+  \item Electrical potential difference, measured in Volts. Like water pressure in a pipe.
+  \item Battery voltage: 14.8V nominal (13.2-16.8V range for 4S LiPo)
+  \item Regulated voltage: 5.0V for electronics
+  \item Signal voltage: 3.3V or 5V logic levels
+\end{itemize}
+
+\section{VOLTAGE DROP}
+
+\begin{itemize}
+  \item Reduction in voltage due to resistance in wires/connections. Formula: V\_drop = I $\times$ R
+  \item Problem: Long thin wires carrying high current have significant voltage drop.
+  \item Solution: Use appropriately thick wire for current level (AWG sizing).
+\end{itemize}
+
+\section{VOLTAGE SAG}
+
+\begin{itemize}
+  \item Temporary voltage drop when high current is suddenly drawn. Battery internal
+  \item resistance causes voltage to "sag" under heavy load. Can cause brownout if
+  \item excessive. Our high C-rating battery (130C) minimizes voltage sag.
+\end{itemize}
+
+\section{SECTION 2: COMPONENT TERMINOLOGY}
+
+\section{ARDUINO}
+
+\begin{itemize}
+  \item Open-source microcontroller platform. Our Arduino Nano uses ATmega328P chip
+  \item (8-bit, 16MHz, 32KB flash) for data logging and sensor interfacing. Programmed
+  \item in C/C++ using Arduino IDE.
+\end{itemize}
+
+\section{BAROMETER}
+
+\begin{itemize}
+  \item Atmospheric pressure sensor (BMP280 on flight controller). Measures air pressure
+  \item to calculate altitude. Used for altitude hold and vertical navigation.
+\end{itemize}
+
+BLDC MOTOR (Brushless DC Motor)\par
+
+\begin{itemize}
+  \item Electric motor with electronic commutation (no brushes). More efficient, reliable,
+  \item and powerful than brushed motors. Requires ESC for speed control. Our D2830EVO
+  \item is a 3-phase outrunner BLDC motor.
+\end{itemize}
+
+C-RATING (Battery)\par
+
+\begin{itemize}
+  \item Discharge rate capability of LiPo battery. Formula: Max Current = Capacity $\times$ C-Rating
+  \item Our battery: 2.2Ah $\times$ 130C = 286A maximum burst current (never approach this!)
+  \item Higher C-rating = lower internal resistance = less voltage sag under load.
+\end{itemize}
+
+COMPASS (Magnetometer)\par
+
+\begin{itemize}
+  \item Sensor that detects Earth's magnetic field for heading determination. Integrated
+  \item in BN-220 GPS module (HMC5883L chip). Requires calibration and distance from
+  \item magnetic interference (motors, current-carrying wires).
+\end{itemize}
+
+ESC (Electronic Speed Controller)\par
+
+\begin{itemize}
+  \item Power electronics that control brushless motor speed. Converts DC battery power
+  \item to 3-phase AC for motor. Receives PWM throttle signal from FC, outputs variable
+  \item frequency/amplitude to motor. Our 40A ESC has integrated 5V BEC.
+\end{itemize}
+
+FC (Flight Controller)\par
+
+\begin{itemize}
+  \item Central computer that stabilizes aircraft and executes flight commands. Our
+  \item MATEK F405-WMN has:
+  \item STM32F405 processor (32-bit ARM, 168MHz)
+  \item IMU (gyro + accelerometer) for attitude sensing
+  \item Runs iNav or ArduPilot firmware
+\end{itemize}
+
+\section{FOLDING PROPELLER}
+
+\begin{itemize}
+  \item Propeller with blades that fold back when motor is off (reduces drag in glide).
+  \item Spring-loaded to deploy under centrifugal force when spinning. Used on our
+  \item motor for efficient glide performance.
+\end{itemize}
+
+GPS (Global Positioning System)\par
+
+\begin{itemize}
+  \item Satellite navigation system. Our BN-220 module receives signals from GPS
+  \item satellites to determine 3D position (latitude, longitude, altitude) and velocity.
+  \item Requires clear view of sky; 6+ satellites for good fix.
+\end{itemize}
+
+\section{GYROSCOPE}
+
+\begin{itemize}
+  \item Sensor that measures angular rotation rate (degrees per second). Part of IMU
+  \item on flight controller. Used for stabilization - detects when aircraft is rotating
+  \item and commands control surfaces to counteract.
+\end{itemize}
+
+\section{HEAT SHRINK TUBING}
+
+\begin{itemize}
+  \item Plastic tubing that shrinks when heated, used to insulate electrical connections.
+  \item Always cover solder joints and bare wire with heat shrink to prevent shorts.
+\end{itemize}
+
+IMU (Inertial Measurement Unit)\par
+
+\begin{itemize}
+  \item Combined sensor package: 3-axis gyroscope + 3-axis accelerometer = 6 DOF
+  \item (degrees of freedom). Measures rotation and acceleration in all directions.
+  \item Flight controller uses IMU data for stabilization and attitude estimation.
+\end{itemize}
+
+\section{JST CONNECTOR}
+
+\subsection{Small standardized connector series. Common types}
+
+\begin{itemize}
+  \item JST-XH: Battery balance connector
+  \item JST-SH: 1.0mm pitch (GPS, receiver)
+  \item JST-PH: 2.0mm pitch (general electronics)
+\end{itemize}
+
+KV RATING (Motor)\par
+
+\begin{itemize}
+  \item RPM per volt constant. Our 1000KV motor spins at 1000 RPM for every volt applied.
+  \item At 14.8V: 14,800 RPM (no load)
+  \item Lower KV = more torque, larger props; Higher KV = less torque, smaller props.
+\end{itemize}
+
+LiPo (Lithium Polymer Battery)\par
+
+\begin{itemize}
+  \item Rechargeable battery with high energy density. Chemistry: Lithium-ion with
+  \item polymer electrolyte. Nominal voltage: 3.7V per cell.
+  \item 1S = 3.7V, 2S = 7.4V, 3S = 11.1V, 4S = 14.8V (our battery)
+  \item [WARNING] DANGEROUS: Can catch fire if damaged, overcharged, or short-circuited!
+\end{itemize}
+
+OSD (On-Screen Display)\par
+
+\begin{itemize}
+  \item Overlays flight telemetry on FPV video feed. MATEK F405-WMN has integrated OSD
+  \item chip that can display battery voltage, current, altitude, GPS data, etc. on
+  \item screen. Configured in iNav/ArduPilot.
+\end{itemize}
+
+\section{OUTRUNNER MOTOR}
+
+\begin{itemize}
+  \item BLDC motor where outer case rotates and center is stationary (opposite of
+  \item inrunner). Higher torque, better for direct-drive propellers. Our D2830EVO is
+  \item an outrunner.
+\end{itemize}
+
+\section{RECEIVER (RX)}
+
+\begin{itemize}
+  \item Radio receiver that picks up transmitter signals. Our HAPPYMODEL EP2 receives
+  \item ExpressLRS 2.4GHz radio commands and sends them to FC via CRSF or SBUS protocol.
+\end{itemize}
+
+\section{SENSOR FUSION}
+
+\begin{itemize}
+  \item Algorithm that combines data from multiple sensors (GPS, IMU, barometer, compass)
+  \item to get better position/attitude estimate than any single sensor. Flight controller
+  \item firmware does this automatically.
+\end{itemize}
+
+SERVO\par
+
+\begin{itemize}
+  \item Electromechanical actuator with position feedback. Receives PWM pulse (1-2ms)
+  \item and rotates output shaft to corresponding angle. Our ES08MA II servos have:
+  \item Metal gears (durable)
+  \item 180$^\circ$ rotation
+  \item Proportional control
+\end{itemize}
+
+\section{TRANSMITTER (TX)}
+
+\begin{itemize}
+  \item Hand-held radio controller. Pilot inputs (sticks, switches) converted to radio
+  \item signals and sent to receiver on aircraft. Can also refer to data transmit pin
+  \item on serial connection.
+\end{itemize}
+
+UBEC (Previously Defined)\par
+
+\begin{itemize}
+  \item See Section 1. External voltage regulator providing 5V @ 6A for servo power.
+\end{itemize}
+
+\section{XT60 CONNECTOR}
+
+\begin{itemize}
+  \item High-current connector rated for 60A continuous. Yellow plastic housing with
+  \item spring-pin contacts. Standard for 3S-6S LiPo batteries. Gender: Male on battery,
+  \item Female on ESC/cables.
+\end{itemize}
+
+\section{SECTION 3: PROTOCOLS \& COMMUNICATION STANDARDS}
+
+\section{ANALOG SIGNAL}
+
+\begin{itemize}
+  \item Continuously variable voltage representing data. Our MQ135 gas sensor outputs
+  \item 0-5V analog voltage proportional to gas concentration. Read by Arduino ADC
+  \item (Analog-to-Digital Converter).
+\end{itemize}
+
+\section{BAUD RATE}
+
+\subsection{Speed of serial communication in bits per second (bps). Common rates}
+
+\begin{itemize}
+  \item 9600 baud: GPS default (slow but reliable)
+  \item 115200 baud: Fast serial (firmware upload, debugging)
+  \item 420000 baud: CRSF protocol from ELRS receiver
+  \item Both devices must use SAME baud rate to communicate.
+\end{itemize}
+
+CRSF (Crossfire Protocol)\par
+
+\begin{itemize}
+  \item Bi-directional serial protocol for RC control and telemetry. Developed by TBS,
+  \item now used by ExpressLRS. 420000 baud, low latency, supports up to 16 channels
+  \item plus telemetry data. Our ELRS receiver uses CRSF to talk to FC.
+\end{itemize}
+
+\section{DIGITAL SIGNAL}
+
+\begin{itemize}
+  \item Discrete on/off voltage levels representing binary data (0 or 1).
+  \item Logic LOW: 0V (binary 0)
+  \item Logic HIGH: 3.3V or 5V (binary 1)
+  \item Used for: I2C, SPI, UART, PWM control signals.
+\end{itemize}
+
+ELRS (ExpressLRS)\par
+
+\subsection{Open-source long-range radio control system using 2.4GHz or 900MHz. Features}
+
+\begin{itemize}
+  \item Very low latency (5-20ms)
+  \item Long range (10+ km)
+  \item Frequency hopping for interference immunity
+  \item Over-the-air updates
+  \item Our EP2 receiver uses ELRS protocol.
+\end{itemize}
+
+I2C (Inter-Integrated Circuit)\par
+
+\begin{itemize}
+  \item Two-wire serial protocol for short-distance communication. Uses SDA (data) and
+  \item SCL (clock) lines. Multiple devices on same bus (each has unique address).
+  \item Our BME280 sensor uses I2C to send temperature/humidity/pressure data to Arduino.
+\end{itemize}
+
+NMEA (National Marine Electronics Association)\par
+
+\subsection{Text-based protocol for GPS data. Human-readable sentences like}
+
+\section{\$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47}
+
+\begin{itemize}
+  \item Contains position, time, satellites, etc. Alternative to binary UBX protocol.
+\end{itemize}
+
+PWM (Pulse Width Modulation)\par
+
+\subsection{Signal where information is encoded in pulse duration. Used for}
+
+\begin{itemize}
+  \item Servo control: 1ms = -90$^\circ$, 1.5ms = center, 2ms = +90$^\circ$
+  \item Motor throttle: 1ms = 0\%, 2ms = 100\%
+  \item Frequency: typically 50Hz (20ms period) for servos
+  \item Analog value represented by digital signal duty cycle.
+\end{itemize}
+
+SBUS (Serial Bus)\par
+
+\begin{itemize}
+  \item Inverted serial protocol from FrSky. 100000 baud, 25ms update, 16 channels.
+  \item Less efficient than CRSF but widely compatible. Fallback option if CRSF doesn't
+  \item work with our FC firmware.
+\end{itemize}
+
+SPI (Serial Peripheral Interface)\par
+
+\begin{itemize}
+  \item Four-wire serial protocol: MOSI (master out), MISO (master in), SCK (clock),
+  \item CS (chip select). Fast, full-duplex communication. Our MicroSD card module uses
+  \item SPI to transfer data at high speed from Arduino.
+\end{itemize}
+
+\section{TELEMETRY}
+
+\subsection{Real-time transmission of aircraft data back to ground station. Can include}
+
+\begin{itemize}
+  \item battery voltage, current, altitude, GPS position, speed, RSSI (signal strength).
+  \item CRSF protocol supports bi-directional telemetry.
+\end{itemize}
+
+UART (Universal Asynchronous Receiver-Transmitter)\par
+
+\begin{itemize}
+  \item Serial communication protocol using TX (transmit) and RX (receive) wires.
+  \item Asynchronous = no clock signal, must agree on baud rate.
+  \item UART1 on FC: Connected to GPS (9600 baud)
+  \item UART2 on FC: Connected to receiver (420000 baud)
+\end{itemize}
+
+\section{UBX PROTOCOL}
+
+\begin{itemize}
+  \item Binary GPS protocol from u-blox. More efficient than NMEA, higher update rate,
+  \item configurable messages. Our BN-220 GPS supports both UBX and NMEA.
+\end{itemize}
+
+\section{SECTION 4: AVIATION \& UAV TERMINOLOGY}
+
+\section{AILERON}
+
+\begin{itemize}
+  \item Control surface on wing trailing edge that controls roll (banking). Differential
+  \item movement: left aileron up + right aileron down = roll left.
+  \item Our aircraft has 2 ailerons (Servo 1 and Servo 2).
+\end{itemize}
+
+\section{AUTONOMOUS FLIGHT}
+
+\begin{itemize}
+  \item Aircraft flies pre-programmed mission without pilot input. Uses GPS waypoints,
+  \item altitude commands, loiter circles. FC firmware executes mission autonomously.
+  \item Requires GPS lock and properly tuned flight controller.
+\end{itemize}
+
+\section{BLACKBOX}
+
+\begin{itemize}
+  \item Flight data recorder that logs sensor data at high rate (1000Hz+) for post-
+  \item flight analysis. Can be onboard flash memory or microSD card. Used for tuning
+  \item PIDs, diagnosing crashes, analyzing performance.
+\end{itemize}
+
+\section{CONTROL SURFACE}
+
+\subsection{Movable aerodynamic surface that controls aircraft attitude}
+
+\begin{itemize}
+  \item Ailerons: Roll control
+  \item Elevator: Pitch control
+  \item Rudder: Yaw control
+\end{itemize}
+
+\section{ELEVATOR}
+
+\begin{itemize}
+  \item Control surface on horizontal tail that controls pitch (nose up/down).
+  \item Our Servo 3 controls the elevator.
+\end{itemize}
+
+ELRS (Already Defined)\par
+
+\begin{itemize}
+  \item See Section 3 - ExpressLRS long-range control system.
+\end{itemize}
+
+\section{FAILSAFE}
+
+\subsection{Pre-programmed behavior when radio link is lost. Options}
+
+\begin{itemize}
+  \item Hold position (loiter)
+  \item Return to home (RTH) and land
+  \item Immediate land
+  \item Cut throttle (glide down)
+  \item Configured in flight controller firmware.
+\end{itemize}
+
+\section{FIXED-WING}
+
+\begin{itemize}
+  \item Aircraft with continuous rigid wings (like airplane), as opposed to rotorcraft
+  \item (quadcopter). Our UAV is fixed-wing design. Requires forward motion for lift;
+  \item can glide efficiently but cannot hover.
+\end{itemize}
+
+FPV (First Person View)\par
+
+\begin{itemize}
+  \item Flying from onboard camera perspective. Video transmitted to pilot's goggles/
+  \item screen in real-time. Our project focuses on autonomous flight, not FPV, but
+  \item FC has OSD capability for future FPV addition.
+\end{itemize}
+
+\section{GPS LOCK / FIX}
+
+\begin{itemize}
+  \item Successful acquisition of GPS satellite signals allowing position determination.
+\end{itemize}
+
+\subsection{Requires}
+
+\begin{itemize}
+  \item Clear sky view
+  \item 4+ satellites for 2D fix (lat/long)
+  \item 6+ satellites for 3D fix (lat/long/altitude)
+  \item Indicated by LED on GPS module.
+\end{itemize}
+
+IMU (Already Defined)\par
+
+\begin{itemize}
+  \item See Section 2 - Inertial Measurement Unit for stabilization.
+\end{itemize}
+
+\section{LOITER / POSITION HOLD}
+
+\begin{itemize}
+  \item Flight mode where aircraft maintains fixed GPS position (circles within radius).
+  \item Requires GPS lock. Useful for observing area or waiting for telemetry.
+\end{itemize}
+
+PID (Proportional-Integral-Derivative)\par
+
+\begin{itemize}
+  \item Control algorithm used for stabilization. FC continuously adjusts control surfaces
+  \item to maintain desired attitude:
+  \item P: Correction proportional to error (immediate response)
+  \item I: Correction based on accumulated error (eliminates steady-state error)
+  \item D: Correction based on rate of error change (dampening)
+  \item Tuning PID values is critical for stable flight.
+\end{itemize}
+
+PITCH\par
+
+\begin{itemize}
+  \item Rotation about lateral axis (nose up/down). Controlled by elevator.
+\end{itemize}
+
+\section{PROPELLER}
+
+\subsection{Rotating blade that converts motor power to thrust. Specifications}
+
+\begin{itemize}
+  \item Diameter $\times$ Pitch: 1060 = 10" diameter, 6" pitch
+  \item Pitch = distance propeller advances in one rotation
+  \item Folding prop: Blades fold back when not spinning
+\end{itemize}
+
+ROLL\par
+
+\begin{itemize}
+  \item Rotation about longitudinal axis (banking left/right). Controlled by ailerons.
+\end{itemize}
+
+RTH (Return to Home)\par
+
+\begin{itemize}
+  \item Autonomous flight mode where aircraft flies back to takeoff location using GPS.
+  \item Can be triggered by pilot command, failsafe, or low battery.
+\end{itemize}
+
+\section{RUDDER}
+
+\begin{itemize}
+  \item Control surface on vertical tail that controls yaw (nose left/right).
+  \item Our Servo 4 controls the rudder. Less critical in calm wind than ailerons/elevator.
+\end{itemize}
+
+\section{STABILIZATION}
+
+\begin{itemize}
+  \item Automatic correction to maintain level flight. Gyros detect rotation, FC commands
+  \item control surfaces to counteract. Modes:
+  \item Acro: No stabilization (manual input only)
+  \item Angle: Self-leveling (returns to level when sticks centered)
+  \item Horizon: mix of Acro and Angle
+\end{itemize}
+
+UAV (Unmanned Aerial Vehicle)\par
+
+\begin{itemize}
+  \item Aircraft without human pilot onboard. Controlled remotely or autonomously.
+  \item Synonyms: drone, UAS (Unmanned Aircraft System), remotely piloted aircraft.
+\end{itemize}
+
+YAW\par
+
+\begin{itemize}
+  \item Rotation about vertical axis (nose left/right). Controlled by rudder.
+\end{itemize}
+
+\section{SECTION 5: SENSOR \& MEASUREMENT TERMINOLOGY}
+
+ADC (Analog-to-Digital Converter)\par
+
+\begin{itemize}
+  \item Circuit that converts analog voltage to digital number. Arduino Nano has 10-bit
+  \item ADC (0-1023 range) for reading analog sensors. MQ135 gas sensor output is read
+  \item by ADC on pin A0.
+\end{itemize}
+
+\section{BME280}
+
+\subsection{Combined environmental sensor IC (Bosch Sensortec)}
+
+\begin{itemize}
+  \item Barometric pressure: 300-1100 hPa (altitude 0-30,000 ft)
+  \item Temperature: -40 to +85$^\circ$C ($\pm$1$^\circ$C accuracy)
+  \item Humidity: 0-100\% RH ($\pm$3\% accuracy)
+  \item Uses I2C interface. Perfect for weather monitoring mission.
+\end{itemize}
+
+\section{BURN-IN PERIOD}
+
+\begin{itemize}
+  \item Initial operation time required for sensor to stabilize. MQ135 gas sensor requires
+  \item 24-48 hours of continuous power before accurate readings. Tin oxide sensor
+  \item element needs to heat up and stabilize chemically.
+\end{itemize}
+
+\section{CALIBRATION}
+
+\subsection{Procedure to adjust sensor readings to known reference values. Examples}
+
+\begin{itemize}
+  \item Compass: Rotate aircraft through 360$^\circ$ to map magnetic field distortions
+  \item ESC: Set throttle range endpoints (min/max PWM values)
+  \item Gas sensor: Expose to fresh air and record baseline reading
+\end{itemize}
+
+CSV (Comma-Separated Values)\par
+
+\begin{itemize}
+  \item Simple text file format for data logging. Each line is one record, values
+  \item separated by commas. Example:
+  \item Time,Temp,Humidity,AirQuality
+  \item 0,24.5,65,450
+  \item Our Arduino saves sensor data in CSV format for analysis in Excel/Python.
+\end{itemize}
+
+\section{DATA LOGGING}
+
+\subsection{Recording sensor measurements over time for post-flight analysis. Our system}
+
+\begin{itemize}
+  \item Timestamp from millis() function
+  \item BME280 readings every second
+  \item MQ135 readings every second
+  \item Written to microSD card in CSV format
+\end{itemize}
+
+\section{I2C ADDRESS}
+
+\subsection{Unique 7-bit number identifying device on I2C bus. BME280 default address}
+
+\begin{itemize}
+  \item 0x76 or 0x77 (solder jumper selectable). Scanner sketch can find device addresses.
+\end{itemize}
+
+MicroSD CARD\par
+
+\begin{itemize}
+  \item Small removable flash storage. Our module uses SPI interface for data transfer.
+  \item Format: FAT32 recommended (up to 32GB cards). Stores sensor data logs as CSV files.
+\end{itemize}
+
+MQ135\par
+
+\subsection{Metal oxide gas sensor for air quality monitoring. Detects}
+
+\begin{itemize}
+  \item CO2 (carbon dioxide)
+  \item NH3 (ammonia)
+  \item NOx (nitrogen oxides)
+  \item Alcohol, smoke, benzene
+  \item Outputs analog voltage (0-5V) proportional to gas concentration. Requires 5V
+  \item supply and 24-48 hour burn-in period. Not highly selective (detects multiple gases).
+\end{itemize}
+
+\section{RESOLUTION}
+
+\subsection{Smallest change a sensor can detect. Examples}
+
+\begin{itemize}
+  \item BME280 temperature: 0.01$^\circ$C resolution
+  \item Arduino ADC: 5V / 1024 = 4.88mV resolution (10-bit)
+  \item Higher resolution = more precise measurements.
+\end{itemize}
+
+\section{SAMPLING RATE}
+
+\begin{itemize}
+  \item Frequency of sensor measurements. Our system: 1 Hz (one reading per second).
+  \item Higher sampling rate = more data, faster battery drain, larger log files.
+\end{itemize}
+
+SENSOR FUSION (Already Defined)\par
+
+\begin{itemize}
+  \item See Section 3 - Combining multiple sensor inputs for better accuracy.
+\end{itemize}
+
+\section{TIMESTAMP}
+
+\begin{itemize}
+  \item Time marker for each data point. Arduino uses millis() function (milliseconds
+  \item since power-on). Format: Unix timestamp or formatted date/time string.
+\end{itemize}
+
+\section{SECTION 6: SOFTWARE \& FIRMWARE TERMINOLOGY}
+
+\section{ARDUINO IDE}
+
+\begin{itemize}
+  \item Software development environment for programming Arduino boards. Uses simplified
+  \item C/C++ language. Includes code editor, compiler, and upload tool. Free and
+  \item open-source.
+\end{itemize}
+
+ArduPilot\par
+
+\begin{itemize}
+  \item Open-source autopilot software for fixed-wing, multirotor, and other vehicles.
+  \item Features: GPS navigation, autonomous missions, advanced sensors. Alternative
+  \item firmware for our MATEK F405-WMN (in addition to iNav).
+\end{itemize}
+
+\section{BOOTLOADER}
+
+\begin{itemize}
+  \item Small program that allows firmware updates via USB. Pre-installed on Arduino
+  \item and flight controllers. Runs first on power-up, checks for upload request.
+\end{itemize}
+
+\section{CONFIGURATOR}
+
+\begin{itemize}
+  \item GUI software for flight controller setup. Options:
+  \item iNav Configurator (for iNav firmware)
+  \item Mission Planner (for ArduPilot)
+  \item Betaflight Configurator (for Betaflight)
+  \item Used to configure PID values, modes, calibration, OSD layout.
+\end{itemize}
+
+\section{FIRMWARE}
+
+\begin{itemize}
+  \item Low-level software running directly on microcontroller. Read-only memory,
+  \item flashed via USB. Examples:
+  \item iNav on flight controller
+  \item Arduino sketch on Arduino Nano
+  \item ELRS on receiver
+\end{itemize}
+
+\section{FLASHING}
+
+\subsection{Uploading firmware to microcontroller's flash memory. Process}
+
+\begin{itemize}
+  \item 1. Connect device via USB
+  \item 2. Select COM port in software
+  \item 3. Click "Flash" button
+  \item 4. Wait for completion (device reboots automatically)
+\end{itemize}
+
+\section{GITHUB}
+
+\begin{itemize}
+  \item Online platform for hosting open-source code. ELRS, iNav, ArduPilot all hosted
+  \item on GitHub. Can download latest versions, report bugs, contribute code.
+\end{itemize}
+
+iNav\par
+
+\begin{itemize}
+  \item Open-source flight control firmware optimized for fixed-wing and long-range
+  \item flight. Features GPS navigation, missions, return-to-home. Alternative to
+  \item ArduPilot, easier setup. Recommended for our project.
+\end{itemize}
+
+\section{LIBRARY}
+
+\begin{itemize}
+  \item Pre-written code that provides functionality for common tasks. Arduino libraries
+  \item for our project:
+  \item Adafruit\_BME280: BME280 sensor interface
+  \item SD: MicroSD card file operations
+  \item Wire: I2C communication
+\end{itemize}
+
+\section{MISSION PLANNING}
+
+\subsection{Creating pre-programmed flight path with GPS waypoints. Software}
+
+\begin{itemize}
+  \item Mission Planner (ArduPilot)
+  \item iNav Configurator (iNav)
+  \item Define takeoff, waypoints (lat/long/alt), loiter circles, landing.
+\end{itemize}
+
+\section{OSD LAYOUT}
+
+\begin{itemize}
+  \item Configuration of on-screen display elements (position, size, visibility).
+  \item Can show: battery voltage, current, altitude, GPS position, speed, heading,
+  \item artificial horizon, etc.
+\end{itemize}
+
+\section{SKETCH}
+
+\begin{itemize}
+  \item Arduino program file (.ino extension). Contains setup() function (runs once)
+  \item and loop() function (runs repeatedly). Our data logging sketch reads sensors
+  \item and writes to SD card.
+\end{itemize}
+
+USB BOOTLOADER (See BOOTLOADER)\par
+
+\section{WAYPOINT}
+
+\begin{itemize}
+  \item GPS coordinate (latitude, longitude, altitude) defining point in mission.
+  \item Aircraft flies from waypoint to waypoint autonomously. Can specify actions
+  \item at each waypoint (loiter time, heading, speed).
+\end{itemize}
+
+\section{SECTION 7: SAFETY \& TESTING TERMINOLOGY}
+
+\section{BALANCE CHARGING}
+
+\begin{itemize}
+  \item LiPo charging method that ensures all cells reach same voltage. Uses balance
+  \item connector (JST-XH) to monitor individual cell voltages. REQUIRED for safe
+  \item LiPo charging. Never charge without balance lead connected!
+\end{itemize}
+
+\section{BENCH TEST}
+
+\subsection{Testing on workbench before installation in aircraft. Advantages}
+
+\begin{itemize}
+  \item Safer (no propeller)
+  \item Easier troubleshooting (access to all components)
+  \item Can measure voltages and currents
+  \item Always bench test before flight test!
+\end{itemize}
+
+\section{CELL VOLTAGE}
+
+\subsection{Voltage of individual cell in multi-cell battery. LiPo safe voltages}
+
+\begin{itemize}
+  \item Full charge: 4.2V per cell
+  \item Nominal: 3.7V per cell
+  \item Safe minimum: 3.3V per cell
+  \item DANGER: 3.0V per cell (damages cell permanently)
+  \item 4S battery: 16.8V full, 14.8V nominal, 13.2V minimum
+\end{itemize}
+
+\section{CONTINUITY TEST}
+
+\begin{itemize}
+  \item Using multimeter to verify electrical connection (wire not broken). Set meter
+  \item to $\Omega$ mode, touch probes to both ends of wire. Should beep/read \textasciitilde{}0$\Omega$ if continuous.
+\end{itemize}
+
+\section{FAILSAFE TEST}
+
+\subsection{Verifying aircraft behavior when radio link is lost. Process}
+
+\begin{itemize}
+  \item 1. Arm aircraft on ground
+  \item 2. Turn off transmitter
+  \item 3. Verify failsafe activates (motor cuts, servos go to preset positions)
+  \item 4. Turn transmitter back on
+  \item 5. Verify control restored
+\end{itemize}
+
+\section{FIRE EXTINGUISHER}
+
+\begin{itemize}
+  \item Required safety equipment for LiPo batteries. Class D (metal fire) or ABC
+  \item extinguisher. LiPo fires extremely hot and dangerous. Alternative: Sand bucket
+  \item or metal container to smother fire.
+\end{itemize}
+
+FUSE\par
+
+\begin{itemize}
+  \item Protective device that breaks circuit if current exceeds rated value. Should
+  \item be installed on battery positive lead. Our system: 40A fuse protects against
+  \item short circuits, prevents battery damage and fire risk.
+\end{itemize}
+
+\section{GROUND TEST}
+
+\subsection{Final system check before flight}
+
+\begin{itemize}
+  \item Power on sequence (battery last)
+  \item GPS lock verification
+  \item Radio range test (walk 50m away, verify control)
+  \item Failsafe test
+  \item Control surface deflection check (full travel, correct direction)
+\end{itemize}
+
+\section{LIPO-SAFE BAG}
+
+\begin{itemize}
+  \item Fire-resistant bag for charging and storing LiPo batteries. Contains fire if
+  \item battery catches fire during charging. NOT fireproof (will eventually burn through),
+  \item but provides time to move outside. Alternative: Metal ammo can.
+\end{itemize}
+
+\section{PUFFED BATTERY}
+
+\begin{itemize}
+  \item Damaged LiPo battery with swollen cells (bulging). Caused by overcharge, over-
+  \item discharge, physical damage, or age. [WARNING] EXTREMELY DANGEROUS - can explode or
+  \item catch fire! Dispose immediately at battery recycling center.
+\end{itemize}
+
+\section{RANGE TEST}
+
+\begin{itemize}
+  \item Verifying radio control range before flight. ELRS: Built-in range test mode
+  \item reduces TX power to simulate long distance. Walk away from aircraft until warning
+  \item (should be >100m). Verify control and failsafe work correctly.
+\end{itemize}
+
+\section{SMOKE TEST}
+
+\begin{itemize}
+  \item Informal term: First power-on of new build. "If it doesn't smoke, it works!"
+\end{itemize}
+
+\subsection{Serious first power-up procedure}
+
+\begin{itemize}
+  \item 1. Visual inspection (no shorts, correct polarity)
+  \item 2. Connect battery slowly, watch for sparks
+  \item 3. Feel components for excessive heat
+  \item 4. Measure voltages with multimeter
+  \item 5. If anything smokes/smells: DISCONNECT IMMEDIATELY!
+\end{itemize}
+
+\section{STORAGE VOLTAGE}
+
+\begin{itemize}
+  \item Safe voltage for long-term LiPo storage: 3.8V per cell (15.2V for 4S).
+  \item Reduces stress on cells, prolongs battery life. Use charger's "storage mode"
+  \item if not flying for >1 week.
+\end{itemize}
+
+\section{THERMAL RUNWAY}
+
+\begin{itemize}
+  \item Uncontrolled exothermic reaction in damaged LiPo battery. Cell overheats, causing
+  \item chemical breakdown, generating more heat, causing neighboring cells to fail.
+  \item Results in fire/explosion. Prevention: Proper charging, damage inspection,
+  \item voltage monitoring.
+\end{itemize}
+
+\section{VOLTAGE ALARM}
+
+\begin{itemize}
+  \item Small device that beeps when LiPo voltage drops below set threshold. Plugs into
+  \item balance connector. Prevents over-discharge during flight. Set alarm at 3.5V/cell
+  \item (14.0V for 4S) for safety margin.
+\end{itemize}
+
+\section{SECTION 8: CONNECTORS \& MECHANICAL TERMINOLOGY}
+
+\section{BULLET CONNECTOR}
+
+\subsection{Cylindrical push-fit electrical connector. Common sizes}
+
+\begin{itemize}
+  \item 2mm: Low current signal wires
+  \item 3.5mm: Motor phase wires (our ESC to motor)
+  \item 4mm: High current battery connections
+  \item Male = pin (on wire), Female = socket (on wire or component)
+\end{itemize}
+
+\section{CRIMPING}
+
+\begin{itemize}
+  \item Mechanical joining of connector to wire using special tool. Alternative to
+  \item soldering for some connectors (JST, Dupont). Requires proper crimp tool for
+  \item connector size.
+\end{itemize}
+
+\section{DUPONT CONNECTOR}
+
+\begin{itemize}
+  \item 0.1" pitch plastic housing with crimped pins. Used for breadboard connections,
+  \item Arduino headers, sensor wiring. Can make custom cable lengths. Separate male
+  \item and female pins.
+\end{itemize}
+
+HEAT SHRINK (Already Defined)\par
+
+\begin{itemize}
+  \item See Section 1 - Insulating tubing that shrinks when heated.
+\end{itemize}
+
+JST CONNECTOR (Already Defined)\par
+
+\begin{itemize}
+  \item See Section 2 - Small standardized connector family.
+\end{itemize}
+
+\section{MOUNTING TAPE / FOAM TAPE}
+
+\begin{itemize}
+  \item Double-sided foam tape for securing electronics. Provides vibration dampening
+  \item and electrical insulation. Use for mounting FC, GPS, receiver.
+\end{itemize}
+
+\section{SERVO ARM / SERVO HORN}
+
+\begin{itemize}
+  \item Plastic attachment on servo output shaft. Connects to pushrod/linkage for
+  \item control surface actuation. Usually cross-shaped with multiple holes for different
+  \item throw distances.
+\end{itemize}
+
+\section{SERVO EXTENSION}
+
+\begin{itemize}
+  \item Cable to extend servo wire length. Standard 3-pin, male-female. Available in
+  \item various lengths (6", 12", 24"). Allows mounting servos far from FC.
+\end{itemize}
+
+\section{SOLDER / SOLDERING}
+
+\subsection{Joining metal parts with molten metal alloy (tin-lead or lead-free). Process}
+
+\begin{itemize}
+  \item 1. Heat joint with soldering iron (300-350$^\circ$C)
+  \item 2. Apply solder (melts and flows into joint)
+  \item 3. Remove iron, let cool (2-3 seconds)
+  \item Good solder joint: Shiny, smooth, no cold spots. Bad joint: Dull, cracked,
+  \item blobby (redo it).
+\end{itemize}
+
+\section{TWIST TIE / ZIP TIE / CABLE TIE}
+
+\begin{itemize}
+  \item Plastic strap for bundling and securing wires. Prevents wires from snagging
+  \item on moving parts, keeps electronics neat. Use locking zip ties (not reusable)
+  \item for permanent installation.
+\end{itemize}
+
+\section{WIRE STRIPPING}
+
+\begin{itemize}
+  \item Removing insulation from wire end to expose conductor. Use wire strippers
+  \item (adjustable for gauge) or knife (carefully). Strip enough for connection but
+  \item not excessive (keeps joint mechanically strong).
+\end{itemize}
+
+XT30 / XT60 (XT60 Already Defined)\par
+
+\subsection{High-current connector series}
+
+\begin{itemize}
+  \item XT30: 30A rated, smaller/lighter (good for UBEC power input)
+  \item XT60: 60A rated, standard for 3S-6S batteries (our main battery connector)
+  \item XT90: 90A rated, heavy duty (overkill for our project)
+\end{itemize}
+
+\section{SECTION 9: TROUBLESHOOTING TERMS}
+
+\section{COLD SOLDER JOINT}
+
+\begin{itemize}
+  \item Poor solder connection that looks dull/grainy instead of shiny. Caused by moving
+  \item joint before solder cools, or insufficient heat. Results in intermittent connection.
+  \item Fix: Reheat with soldering iron until shiny and smooth.
+\end{itemize}
+
+\section{GROUND LOOP}
+
+\begin{itemize}
+  \item Unwanted current flow between multiple ground paths at different voltages.
+  \item Causes noise, erratic behavior, flickering OSD. Prevention: Star grounding
+  \item topology (all grounds to ONE point).
+\end{itemize}
+
+\section{INTERMITTENT CONNECTION}
+
+\subsection{Electrical connection that works sometimes but not always. Causes}
+
+\begin{itemize}
+  \item Cold solder joint
+  \item Loose connector
+  \item Broken wire strand (partially broken)
+  \item Corrosion
+  \item Troubleshooting: Wiggle wires while powered to reproduce problem.
+\end{itemize}
+
+\section{MAGIC SMOKE}
+
+\begin{itemize}
+  \item Humorous term for electronics component failure. "I let the magic smoke out =
+  \item I broke it." Expensive lesson - always double-check polarity and connections!
+\end{itemize}
+
+\section{NO GPS FIX / NO GPS LOCK}
+
+\begin{itemize}
+  \item GPS module cannot determine position. Troubleshooting:
+  \item Verify clear sky view (no roof, no dense trees)
+  \item Check antenna not damaged/disconnected
+  \item Verify TX/RX wires not swapped
+  \item Wait longer (cold start can take 5+ minutes)
+  \item Check baud rate matches FC configuration
+\end{itemize}
+
+\section{OSCILLATION}
+
+\begin{itemize}
+  \item Unstable rapid shaking or vibration. In flight: PID values too high (reduce P
+  \item and D gains). In servo: Mechanical binding or damaged feedback potentiometer.
+\end{itemize}
+
+\section{POWER CYCLING}
+
+\begin{itemize}
+  \item Turning device off and on again. Basic troubleshooting step that clears transient
+  \item errors, resets firmware. For our system: Disconnect battery, wait 5 seconds,
+  \item reconnect.
+\end{itemize}
+
+\section{REVERSED SERVO}
+
+\begin{itemize}
+  \item Servo moves opposite direction from command (up command = down movement). Fix
+  \item in FC configurator: Enable "reverse" checkbox for that channel. Do NOT physically
+  \item reverse servo wires (changes null position).
+\end{itemize}
+
+\section{RX LOSS / LINK LOST}
+
+\subsection{Radio receiver not receiving transmitter signal. Causes}
+
+\begin{itemize}
+  \item Transmitter off or too far away
+  \item Receiver antenna damaged
+  \item Frequency interference
+  \item Low transmission power
+  \item Result: Failsafe activates. Check RSSI (signal strength) telemetry.
+\end{itemize}
+
+SHORT CIRCUIT (Already Defined)\par
+
+\begin{itemize}
+  \item See Section 1 - Direct connection between + and -, bypassing load.
+\end{itemize}
+
+\section{VOLTAGE SPIKE}
+
+\begin{itemize}
+  \item Brief surge in voltage above normal level. Caused by inductive kickback (motor
+  \item stopping), switching transients. Can damage sensitive electronics. Mitigation:
+  \item Capacitors across power supply, TVS diodes on signal lines.
+\end{itemize}
+
+\section{SECTION 10: ACRONYMS QUICK REFERENCE}
+
+ADC     Analog-to-Digital Converter\par
+
+AHRS    Attitude and Heading Reference System\par
+
+ARM     Advanced RISC Machine (processor architecture)\par
+
+AWG     American Wire Gauge\par
+
+BEC     Battery Eliminator Circuit\par
+
+BLDC    Brushless DC Motor\par
+
+CRSF    Crossfire Protocol\par
+
+CSV     Comma-Separated Values\par
+
+DC      Direct Current (as opposed to AC - Alternating Current)\par
+
+DOF     Degrees of Freedom\par
+
+ELRS    ExpressLRS (radio control protocol)\par
+
+EMI     Electromagnetic Interference\par
+
+ESC     Electronic Speed Controller\par
+
+FC      Flight Controller\par
+
+FPV     First Person View\par
+
+GND     Ground (0V reference)\par
+
+GPS     Global Positioning System\par
+
+GUI     Graphical User Interface\par
+
+I2C     Inter-Integrated Circuit\par
+
+IDE     Integrated Development Environment\par
+
+IMU     Inertial Measurement Unit\par
+
+JST     Japan Solderless Terminal (connector type)\par
+
+KV      RPM per Volt constant (motor rating)\par
+
+LED     Light Emitting Diode\par
+
+LiPo    Lithium Polymer (battery type)\par
+
+mAh     Milliamp-hours (battery capacity)\par
+
+MCU     Microcontroller Unit\par
+
+NMEA    National Marine Electronics Association\par
+
+OSD     On-Screen Display\par
+
+PCB     Printed Circuit Board\par
+
+PID     Proportional-Integral-Derivative (control algorithm)\par
+
+PPM     Pulse Position Modulation\par
+
+PWM     Pulse Width Modulation\par
+
+RC      Radio Control\par
+
+RF      Radio Frequency\par
+
+RSSI    Received Signal Strength Indicator\par
+
+RTH     Return to Home\par
+
+RX      Receiver (or Receive pin on serial)\par
+
+SBUS    Serial Bus (FrSky protocol)\par
+
+SCL     Serial Clock (I2C)\par
+
+SDA     Serial Data (I2C)\par
+
+SPI     Serial Peripheral Interface\par
+
+TX      Transmitter (or Transmit pin on serial)\par
+
+UAV     Unmanned Aerial Vehicle\par
+
+UART    Universal Asynchronous Receiver-Transmitter\par
+
+UBEC    Universal Battery Eliminator Circuit\par
+
+UBX     u-blox binary GPS protocol\par
+
+USB     Universal Serial Bus\par
+
+VOC     Volatile Organic Compounds (what MQ135 detects)\par
+
+\section{APPENDIX: COMMON FORMULAS}
+
+\section{OHM'S LAW:}
+
+\begin{itemize}
+  \item V = I $\times$ R    (Voltage = Current $\times$ Resistance)
+  \item I = V / R    (Current = Voltage / Resistance)
+  \item R = V / I    (Resistance = Voltage / Current)
+\end{itemize}
+
+\section{POWER:}
+
+\begin{itemize}
+  \item P = V $\times$ I         (Power = Voltage $\times$ Current)
+  \item P = I² $\times$ R        (Power = Current squared $\times$ Resistance)
+  \item P = V² / R        (Power = Voltage squared / Resistance)
+\end{itemize}
+
+\section{BATTERY CAPACITY:}
+
+\begin{itemize}
+  \item Runtime (hours) = Capacity (mAh) / Current (mA)
+  \item Energy (Wh) = Capacity (Ah) $\times$ Voltage (V)
+\end{itemize}
+
+WIRE CURRENT CAPACITY (Approximate):\par
+
+\section{12 AWG: 20-25A}
+
+\section{14 AWG: 15-20A}
+
+\section{16 AWG: 10-15A}
+
+\section{18 AWG: 7-10A}
+
+\section{20 AWG: 5-7A}
+
+\section{22 AWG: 3-5A}
+
+\section{24 AWG: 2-3A}
+
+\begin{itemize}
+  \item 26 AWG: 1-2A (signal wires only)
+\end{itemize}
+
+\section{SERVO TRAVEL:}
+
+\begin{itemize}
+  \item Travel (degrees) = (Pulse Width - 1.5ms) $\times$ 90$^\circ$ per 0.5ms
+  \item Center: 1.5ms = 0$^\circ$
+  \item Min: 1.0ms = -90$^\circ$
+  \item Max: 2.0ms = +90$^\circ$
+\end{itemize}
+
+\section{LIPO CELL VOLTAGES:}
+
+\begin{itemize}
+  \item Full charge:    4.20V per cell (16.8V for 4S)
+  \item Nominal:        3.70V per cell (14.8V for 4S)
+  \item Storage:        3.80V per cell (15.2V for 4S)
+  \item Low warning:    3.50V per cell (14.0V for 4S)
+  \item Critical min:   3.30V per cell (13.2V for 4S)
+  \item Damaged:        <3.00V per cell (DO NOT USE!)
+\end{itemize}
+
+\section{END OF TERMINOLOGY REFERENCE}
+
+This document should be used as a quick reference guide throughout the project.\par
+
+When you encounter an unfamiliar term in meeting materials, wiring diagrams, or\par
+
+troubleshooting, refer to this glossary.\par
+
+Recommended: Print this document and keep it accessible during build sessions.\par
+
+\subsection{For questions not answered here, consult}
+
+\begin{itemize}
+  \item Arduino reference: arduino.cc
+  \item iNav documentation: github.com/iNavFlight/inav/wiki
+  \item ELRS documentation: expresslrs.org
+  \item Component datasheets (available on manufacturer websites)
+\end{itemize}
+
+Good luck with your build!\par
+
+\end{document}

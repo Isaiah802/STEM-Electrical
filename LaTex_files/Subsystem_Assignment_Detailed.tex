@@ -1,0 +1,1486 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Essential Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Colors
+\definecolor{nlcblue}{RGB}{0,51,102}
+\definecolor{alertred}{RGB}{204,0,0}
+\definecolor{safgreen}{RGB}{0,128,0}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{NLC STEM Club UAV Project}}
+\fancyhead[R]{\textbf{Subsystem Assignments}}
+\fancyfoot[C]{\thepage}
+
+% Title
+\title{\Huge\textbf{Subsystem Assignments}\\
+\Large Team Organization and Responsibilities\\
+\large NLC STEM Club - Electrical Systems Team}
+\author{February 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+\section{SUBSYSTEM ASSIGNMENT \& TRACKING DOCUMENT}
+
+\begin{itemize}
+  \item Fixed-Wing Environmental Monitoring UAV
+  \item NLC STEM Club - Electrical Systems Team
+\end{itemize}
+
+\section{SUBSYSTEM 1: POWER TEAM}
+
+\section{TEAM MEMBERS}
+
+Owner:         \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+Assistant 1:   \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+Assistant 2:   \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+\section{SUBSYSTEM SCOPE}
+
+You are responsible for ALL power generation, distribution, and safety for the aircraft.\par
+
+This includes battery management, voltage regulation, and ensuring stable power to all\par
+
+flight-critical and research payload systems.\par
+
+\section{MISSION-CRITICAL IMPORTANCE:}
+
+Without stable, properly distributed power, nothing else works. You are the foundation.\par
+
+\section{COMPONENTS ASSIGNED TO YOU}
+
+\begin{itemize}
+  \item OVONIC 4S LiPo Battery (14.8V, 2200mAh)
+  \item B6 Battery Charger (80W)
+  \item LiPo Safety Bag
+  \item 40A ESC (includes 5V 3A BEC)
+  \item External 5V UBEC (5-6A rating) [TO BE ORDERED]
+  \item XT60 Connectors (Y-harness or splitter)
+  \item Wire (12-14 AWG for high current, 18-20 AWG for BEC outputs)
+  \item Heat shrink tubing (various sizes)
+  \item Multimeter
+\end{itemize}
+
+WEEK 1 DELIVERABLES (Days 1-7)\par
+
+\begin{itemize}
+  \item Battery Management Setup
+  \item Charge battery to full (16.8V or 4.2V per cell) using B6 charger
+  \item Verify balance: All 4 cells within 0.05V of each other
+  \item Document battery voltage after full charge: \_\_\_\_\_\_V
+  \item Label battery with charge date and voltage
+  \item Create battery log sheet (date, voltage before use, voltage after use, flight time)
+\end{itemize}
+
+\begin{itemize}
+  \item ESC BEC Validation
+  \item Connect battery to ESC (XT60)
+  \item Measure ESC BEC output with multimeter
+  \item Expected: 5.0V $\pm$ 0.1V    Actual: \_\_\_\_\_\_V    Status: PASS / FAIL
+  \item Photograph ESC BEC output measurement
+\end{itemize}
+
+\begin{itemize}
+  \item External UBEC Setup (when arrives)
+  \item Verify UBEC received and undamaged
+  \item Solder input wires (14.8V from battery) - use 16-18 AWG wire
+  \item Solder output wires (5V output) - use 18-20 AWG wire
+  \item Apply heat shrink to all solder joints
+  \item Connect UBEC input to battery (via test leads, not permanent yet)
+  \item Measure UBEC output with multimeter
+  \item Expected: 5.0V $\pm$ 0.1V    Actual: \_\_\_\_\_\_V    Status: PASS / FAIL
+  \item Photograph UBEC and voltage measurement
+\end{itemize}
+
+\begin{itemize}
+  \item Power Distribution Planning
+  \item Design XT60 Y-harness or splitter:
+  \item Battery (+) $\rightarrow$ ESC (+) AND External UBEC (+)
+  \item Battery (-) $\rightarrow$ ESC (-) AND External UBEC (-)
+  \item Calculate wire lengths needed (measure from battery compartment to components)
+  \item Sketch wiring layout on paper (including wire routing)
+  \item Order/purchase any missing connectors or wire
+\end{itemize}
+
+WEEK 2 DELIVERABLES (Days 8-14)\par
+
+\begin{itemize}
+  \item Power Distribution Assembly
+  \item Build XT60 Y-harness (or install splitter)
+  \item Solder all connections, apply heat shrink
+  \item Label wires clearly: "Battery Main", "To ESC", "To UBEC"
+  \item Test continuity with multimeter (0$\Omega$ from battery + to ESC + and UBEC +)
+\end{itemize}
+
+\begin{itemize}
+  \item Rail 1 (Flight-Critical) Assembly
+  \item Create power distribution harness for Rail 1:
+  \item ESC BEC (+5V) $\rightarrow$ FC, GPS, Receiver, Arduino
+  \item Use 20-22 AWG wire, red for +5V, black for GND
+  \item Create common ground bus (all grounds connected)
+  \item Heat shrink all connections
+  \item Label: "RAIL 1 - Flight-Critical"
+\end{itemize}
+
+\begin{itemize}
+  \item Rail 2 (Servo Power) Assembly
+  \item Create power distribution harness for Rail 2:
+  \item External UBEC (+5V) $\rightarrow$ All 4 servo red wires
+  \item Use 18-20 AWG wire (servos draw more current)
+  \item Create servo power bus (all 4 servo red wires to one +5V source)
+  \item Create servo ground bus (all 4 servo brown wires to one GND)
+  \item Heat shrink all connections
+  \item Label: "RAIL 2 - Servo Power"
+\end{itemize}
+
+\begin{itemize}
+  \item Full System Power Test
+  \item Connect full power system:
+  \item Battery $\rightarrow$ Y-harness $\rightarrow$ ESC + UBEC
+  \item ESC BEC $\rightarrow$ Rail 1
+  \item External UBEC $\rightarrow$ Rail 2
+  \item Power on system (no motor/servos connected yet)
+  \item Measure voltages:
+  \item Battery voltage: \_\_\_\_\_\_V (expect 14-16.8V)
+  \item Rail 1 voltage: \_\_\_\_\_\_V (expect 5.0 $\pm$ 0.1V)
+  \item Rail 2 voltage: \_\_\_\_\_\_V (expect 5.0 $\pm$ 0.1V)
+  \item Verify common ground: Measure resistance from battery (-) to Rail 1 GND and
+  \item Rail 2 GND. Should be 0$\Omega$ (continuity beep).
+  \item Photograph entire power distribution setup
+\end{itemize}
+
+\begin{itemize}
+  \item Current Measurements (coordinate with Integration Team)
+  \item Measure Rail 1 idle current (only FC + GPS + RX powered): \_\_\_\_\_\_mA
+  \item Expected: \textasciitilde{}320-400mA
+  \item Measure Rail 1 with Arduino active: \_\_\_\_\_\_mA
+  \item Expected: \textasciitilde{}660mA
+  \item Measure Rail 2 idle current (servos idle): \_\_\_\_\_\_mA
+  \item Expected: \textasciitilde{}40mA
+  \item Measure Rail 2 with 2 servos moving: \_\_\_\_\_\_mA
+  \item Expected: \textasciitilde{}400-500mA
+  \item Measure Rail 2 with all 4 servos moving: \_\_\_\_\_\_mA
+  \item Expected: \textasciitilde{}720-1200mA
+\end{itemize}
+
+\begin{itemize}
+  \item Voltage Sag Test (CRITICAL)
+  \item Connect multimeter probes to Flight Controller 5V input (leave connected)
+  \item Power system, note idle voltage: \_\_\_\_\_\_V
+  \item Command all 4 servos to move simultaneously (full deflection)
+  \item Note voltage during servo movement: \_\_\_\_\_\_V
+  \item PASS CRITERIA: Voltage must stay >4.8V, ideally >4.9V
+  \item If voltage drops below 4.8V $\rightarrow$ FAILURE $\rightarrow$ Increase BEC capacity or fix wiring
+  \item Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item Documentation
+  \item Create power system diagram with actual wire colors and lengths
+  \item Take photos of all major connections
+  \item Write 1-page summary: "Power System Integration Report"
+  \item What you built
+  \item Test results
+  \item Issues encountered and how you solved them
+  \item Lessons learned
+\end{itemize}
+
+\section{SKILLS YOU WILL DEVELOP}
+
+\begin{itemize}
+  \item LiPo battery management and charging
+  \item Soldering high-current connectors (XT60)
+  \item Voltage regulation and power distribution
+  \item Multimeter proficiency (voltage, current, continuity)
+  \item Wire gauge selection for different current loads
+  \item Heat shrink application for professional finish
+  \item Systematic testing and validation procedures
+\end{itemize}
+
+\section{POTENTIAL ISSUES \& TROUBLESHOOTING}
+
+Problem: Battery won't charge or charger shows error\par
+
+\begin{itemize}
+  \item $\rightarrow$ Check balance connector (all 5 pins connected)
+  \item $\rightarrow$ Verify cell voltages (all cells >3.0V, <4.3V)
+  \item $\rightarrow$ Ensure charger set to LiPo mode, 4S
+\end{itemize}
+
+Problem: BEC output voltage is wrong (not 5.0V)\par
+
+\begin{itemize}
+  \item $\rightarrow$ Verify battery voltage is adequate (>13.5V)
+  \item $\rightarrow$ Check BEC solder connections (cold joint?)
+  \item $\rightarrow$ Test BEC with minimal load (just multimeter, no components)
+  \item $\rightarrow$ If still wrong, BEC may be defective
+\end{itemize}
+
+Problem: Voltage sag test fails (voltage drops below 4.8V)\par
+
+\begin{itemize}
+  \item $\rightarrow$ Check wire gauge (may be too thin, causing voltage drop)
+  \item $\rightarrow$ Check solder joints (high resistance = voltage drop)
+  \item $\rightarrow$ Verify External UBEC is providing power to servos (not ESC BEC)
+  \item $\rightarrow$ Measure current draw during test (may exceed BEC capacity)
+\end{itemize}
+
+\section{NOTES \& QUESTIONS}
+
+[Space for team to write notes during work]\par
+
+\section{SUBSYSTEM 2: FLIGHT ELECTRONICS TEAM}
+
+\section{TEAM MEMBERS}
+
+Owner:         \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+Assistant 1:   \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+Assistant 2:   \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+\section{SUBSYSTEM SCOPE}
+
+You are responsible for the BRAIN and CONTROL of the aircraft. This includes flight\par
+
+controller configuration, GPS navigation, radio control, and servo actuation.\par
+
+\section{MISSION-CRITICAL IMPORTANCE:}
+
+You control the aircraft's behavior. If you configure incorrectly, we crash.\par
+
+Precision and attention to detail are essential.\par
+
+\section{COMPONENTS ASSIGNED TO YOU}
+
+\begin{itemize}
+  \item MATEK F405-WMN Flight Controller
+  \item BN-220 GPS Module (with compass)
+  \item HAPPYMODEL ELRS EP2 Receiver
+  \item Jumper Smart ELRS Transmitter (ground station)
+  \item 4$\times$ RGBZONE ES08MA II Metal Gear Servos
+  \item 40A ESC (for motor control signal)
+  \item FLASH HOBBY D2830EVO Motor (1000KV)
+  \item Folding Propeller (1060 or 1160) - DO NOT INSTALL YET
+  \item Laptop with USB cable (for FC configuration)
+\end{itemize}
+
+WEEK 1 DELIVERABLES (Days 1-7)\par
+
+\begin{itemize}
+  \item Flight Controller Setup
+  \item Install flight controller configuration software on laptop:
+  \item Option A: iNav Configurator (recommended for fixed-wing)
+  \item Option B: ArduPilot Mission Planner
+  \item Team Decision: We will use: \underline{\hspace{2.25cm}}
+  \item Connect FC to laptop via USB
+  \item Verify FC powers on (LED should light up)
+  \item Connect to FC in configuration software
+  \item Check current firmware version: \underline{\hspace{2.25cm}}
+  \item Flash latest stable firmware if needed
+  \item iNav: Version 7.0 or later
+  \item ArduPilot: Plane version 4.5 or later
+  \item Screenshot of FC connected in software
+\end{itemize}
+
+\begin{itemize}
+  \item GPS Module Setup
+  \item Inspect GPS module and antenna
+  \item Identify GPS connector type on FC (likely JST-SH 4-pin)
+  \item Wire GPS to FC UART1:
+  \item GPS VCC (red) $\rightarrow$ FC 5V or dedicated GPS 5V pad
+  \item GPS TX (yellow) $\rightarrow$ FC RX1
+  \item GPS RX (green) $\rightarrow$ FC TX1
+  \item GPS GND (black) $\rightarrow$ FC GND
+  \item In FC software, enable GPS on UART1
+  \item Set GPS protocol: AUTO or UBX
+  \item Set baud rate: 9600 or 115200 (try both if one doesn't work)
+  \item Power FC via USB, take GPS module OUTDOORS
+  \item Wait 5 minutes for GPS lock
+  \item Verify GPS working:
+  \item Satellite count: \_\_\_\_\_\_ (expect >8 for good lock)
+  \item Latitude: \underline{\hspace{2.1cm}}  Longitude: \underline{\hspace{2.1cm}}
+  \item GPS coordinates match your location? YES / NO
+  \item Screenshot of GPS locked in software
+\end{itemize}
+
+\begin{itemize}
+  \item Receiver Binding \& Configuration
+  \item Read ELRS EP2 receiver binding instructions
+  \item Power receiver (5V + GND from bench power supply or FC)
+  \item Put receiver in bind mode (press bind button during power-up OR use WiFi method)
+  \item Put transmitter in bind mode (follow Jumper TX instructions)
+  \item Verify bind successful (receiver LED behavior changes)
+  \item Wire receiver to FC:
+  \item RX VCC (red) $\rightarrow$ FC 5V
+  \item RX GND (black) $\rightarrow$ FC GND
+  \item RX TX (white/yellow) $\rightarrow$ FC RX2 (or dedicated SBUS pad)
+  \item In FC software, enable CRSF or SBUS protocol on UART2 (check which receiver uses)
+  \item Set baud rate: 420000 (CRSF) or 100000 (SBUS)
+  \item Verify receiver channels active:
+  \item Move TX sticks, observe channel values in FC software
+  \item Roll stick (right stick L/R): Channel 1 should move 1000-2000
+  \item Pitch stick (right stick U/D): Channel 2 should move 1000-2000
+  \item Throttle stick (left stick U/D): Channel 3 should move 1000-2000
+  \item Yaw stick (left stick L/R): Channel 4 should move 1000-2000
+  \item Screenshot of receiver channels responding
+\end{itemize}
+
+WEEK 2 DELIVERABLES (Days 8-14)\par
+
+\begin{itemize}
+  \item ESC Configuration \& Motor Test
+  \item [WARNING] CRITICAL SAFETY: Remove propeller for ALL indoor testing
+  \item Verify propeller is REMOVED
+  \item Wire ESC signal cable to FC Motor 1 output:
+  \item ESC Signal (yellow/white) $\rightarrow$ FC M1 signal pad
+  \item ESC Ground (brown/black) $\rightarrow$ FC GND
+  \item ESC +5V (red) $\rightarrow$ DO NOT CONNECT (clip this wire)
+  \item In FC software, configure Motor 1 output for motor
+  \item Calibrate ESC (follow ESC calibration procedure):
+  \item 1. Disconnect battery
+  \item 2. Set TX throttle to MAXIMUM
+  \item 3. Connect battery (ESC beeps)
+  \item 4. Wait for confirmation beeps
+  \item 5. Set TX throttle to MINIMUM
+  \item 6. ESC beeps to confirm calibration complete
+  \item Arm FC (throttle low, arm switch or stick command)
+  \item SLOWLY increase throttle to 10-20\%
+  \item Motor should spin (NO PROP ATTACHED)
+  \item Observe motor direction:
+  \item Looking at motor from FRONT of aircraft, motor should spin CLOCKWISE
+  \item If COUNTER-CLOCKWISE, swap any two motor wires (ESC to motor connection)
+  \item Test throttle response through full range (0-100\%)
+  \item Disarm, disconnect battery
+  \item Video of motor spin test (upload to shared drive)
+\end{itemize}
+
+\begin{itemize}
+  \item Servo Wiring \& Configuration
+  \item Identify servo outputs on FC: S1, S2, S3, S4 (or PWM1-4)
+  \item Wire servos to FC (signal only, power comes from Rail 2):
+  \item Servo 1 (Left Aileron):  Signal (orange) $\rightarrow$ FC S1,  Power from Rail 2
+  \item Servo 2 (Right Aileron): Signal (orange) $\rightarrow$ FC S2,  Power from Rail 2
+  \item Servo 3 (Elevator):      Signal (orange) $\rightarrow$ FC S3,  Power from Rail 2
+  \item Servo 4 (Rudder):        Signal (orange) $\rightarrow$ FC S4,  Power from Rail 2
+  \item In FC software, configure servo outputs:
+  \item Output 1 (S1): Type = Servo, Function = Aileron (or Left Aileron if separate)
+  \item Output 2 (S2): Type = Servo, Function = Aileron (or Right Aileron if separate)
+  \item Output 3 (S3): Type = Servo, Function = Elevator
+  \item Output 4 (S4): Type = Servo, Function = Rudder
+  \item For each servo, set:
+  \item Min value: 1000µs (may adjust later)
+  \item Max value: 2000µs (may adjust later)
+  \item Center: 1500µs
+  \item Rate: 100\% (adjust in TX if needed)
+\end{itemize}
+
+\begin{itemize}
+  \item Servo Direction \& Endpoint Configuration
+  \item Power system (battery connected, FC + Servos powered)
+  \item Verify all 4 servos center when FC armed
+  \item Test each control input and verify CORRECT direction:
+\end{itemize}
+
+\begin{itemize}
+  \item RIGHT STICK LEFT (Roll Left - want left wing down, right wing up):
+  \item Servo 1 (Left Aileron): Should move DOWN (trailing edge down)
+  \item Servo 2 (Right Aileron): Should move UP (trailing edge up)
+  \item If wrong direction, enable REVERSE in FC for that servo
+\end{itemize}
+
+\begin{itemize}
+  \item RIGHT STICK RIGHT (Roll Right - want right wing down, left wing up):
+  \item Servo 1 (Left Aileron): Should move UP
+  \item Servo 2 (Right Aileron): Should move DOWN
+  \item If wrong direction, enable REVERSE in FC for that servo
+\end{itemize}
+
+\begin{itemize}
+  \item RIGHT STICK DOWN (Pitch Up - want nose to rise):
+  \item Servo 3 (Elevator): Should move UP (trailing edge up)
+  \item If wrong direction, enable REVERSE in FC for elevator
+\end{itemize}
+
+\begin{itemize}
+  \item RIGHT STICK UP (Pitch Down - want nose to lower):
+  \item Servo 3 (Elevator): Should move DOWN (trailing edge down)
+  \item If wrong direction, enable REVERSE in FC for elevator
+\end{itemize}
+
+\begin{itemize}
+  \item LEFT STICK LEFT (Yaw Left - want nose to turn left):
+  \item Servo 4 (Rudder): Should move LEFT (trailing edge left)
+  \item If wrong direction, enable REVERSE in FC for rudder
+\end{itemize}
+
+\begin{itemize}
+  \item LEFT STICK RIGHT (Yaw Right - want nose to turn right):
+  \item Servo 4 (Rudder): Should move RIGHT (trailing edge right)
+  \item If wrong direction, enable REVERSE in FC for rudder
+\end{itemize}
+
+\begin{itemize}
+  \item Document servo directions:
+  \item Servo 1: NORMAL / REVERSED
+  \item Servo 2: NORMAL / REVERSED
+  \item Servo 3: NORMAL / REVERSED
+  \item Servo 4: NORMAL / REVERSED
+\end{itemize}
+
+\begin{itemize}
+  \item Adjust servo endpoints if needed (limit travel to prevent binding):
+  \item Manually move control surfaces to check for binding
+  \item If binding at full deflection, reduce endpoints in FC (e.g., 1100-1900 instead of 1000-2000)
+\end{itemize}
+
+\begin{itemize}
+  \item Failsafe Configuration
+  \item In FC software, configure failsafe:
+  \item Trigger: Loss of radio signal (RX\_LOSS)
+\end{itemize}
+
+\subsection{Action}
+
+\begin{itemize}
+  \item Throttle $\rightarrow$ 0\% (motor off)
+  \item Servos $\rightarrow$ Hold last position OR Center (team decision)
+  \item Recommended: Hold position (allows glide)
+  \item Duration: Activate after 2 seconds of signal loss
+  \item Test failsafe:
+  \item 1. Power system, arm FC
+  \item 2. Set throttle to 50\%
+  \item 3. Turn OFF transmitter
+  \item 4. Verify motor cuts within 2 seconds
+  \item 5. Verify servos hold position or center
+  \item 6. Turn ON transmitter, verify control restored
+  \item Failsafe Status: WORKING / NEEDS ADJUSTMENT
+\end{itemize}
+
+\begin{itemize}
+  \item Documentation
+  \item Create wiring diagram showing FC connections (FC $\rightarrow$ GPS, RX, ESC, Servos)
+  \item Screenshot of all FC configuration pages (save as PDF)
+  \item Write 1-page summary: "Flight Electronics Integration Report"
+  \item Firmware version and settings
+  \item GPS, receiver, motor, servo configuration
+  \item Issues encountered and solutions
+  \item Lessons learned
+\end{itemize}
+
+\section{SKILLS YOU WILL DEVELOP}
+
+\begin{itemize}
+  \item Flight controller firmware configuration (iNav or ArduPilot)
+  \item GPS module interfacing and troubleshooting
+  \item Radio control system binding and configuration (ELRS)
+  \item Servo calibration and direction tuning
+  \item ESC calibration and motor direction verification
+  \item Failsafe programming for safe flight operations
+  \item Systematic testing of control surfaces
+\end{itemize}
+
+\section{POTENTIAL ISSUES \& TROUBLESHOOTING}
+
+Problem: GPS won't lock (satellite count = 0)\par
+
+\begin{itemize}
+  \item $\rightarrow$ Ensure testing OUTDOORS (GPS signals blocked indoors)
+  \item $\rightarrow$ Check GPS wiring (TX/RX may be swapped)
+  \item $\rightarrow$ Verify GPS enabled on correct UART in FC software
+  \item $\rightarrow$ Try different baud rates (9600, 38400, 115200)
+  \item $\rightarrow$ Wait longer (initial lock can take 5-10 minutes)
+\end{itemize}
+
+Problem: Receiver not binding to transmitter\par
+
+\begin{itemize}
+  \item $\rightarrow$ Ensure RX and TX have same ELRS firmware version (update if mismatch)
+  \item $\rightarrow$ Try WiFi binding method instead of button method (or vice versa)
+  \item $\rightarrow$ Verify receiver is powered (5V + GND connected)
+\end{itemize}
+
+Problem: Receiver channels not showing in FC software\par
+
+\begin{itemize}
+  \item $\rightarrow$ Check protocol setting (CRSF vs SBUS)
+  \item $\rightarrow$ Verify baud rate matches protocol (420000 for CRSF, 100000 for SBUS)
+  \item $\rightarrow$ Check wiring (RX TX $\rightarrow$ FC RX)
+  \item $\rightarrow$ Try different UART port on FC
+\end{itemize}
+
+Problem: Motor won't spin or spins erratically\par
+
+\begin{itemize}
+  \item $\rightarrow$ Verify ESC calibrated correctly
+  \item $\rightarrow$ Check throttle channel mapping (usually Channel 3)
+  \item $\rightarrow$ Ensure FC armed (check arming flags in software)
+  \item $\rightarrow$ Verify motor output configured correctly in FC
+\end{itemize}
+
+Problem: Servo moving wrong direction\par
+
+\begin{itemize}
+  \item $\rightarrow$ Enable REVERSE in FC for that servo channel
+  \item $\rightarrow$ Double-check control surface should move in which direction
+\end{itemize}
+
+Problem: Servo jittering or twitching\par
+
+\begin{itemize}
+  \item $\rightarrow$ Check power supply (voltage sag? Servos should be on Rail 2)
+  \item $\rightarrow$ Reduce servo update rate in FC (try 50Hz instead of 200Hz)
+  \item $\rightarrow$ Check for electrical noise (separate signal wires from motor wires)
+\end{itemize}
+
+\section{NOTES \& QUESTIONS}
+
+[Space for team to write notes during work]\par
+
+\section{SUBSYSTEM 3: RESEARCH PAYLOAD TEAM}
+
+\section{TEAM MEMBERS}
+
+Owner:         \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+Assistant 1:   \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+Assistant 2:   \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+\section{SUBSYSTEM SCOPE}
+
+You are responsible for the RESEARCH MISSION of the aircraft: collecting environmental\par
+
+data (temperature, humidity, pressure, air quality) and logging it to a MicroSD card.\par
+
+\section{MISSION-CRITICAL IMPORTANCE:}
+
+This is the PURPOSE of the entire project. Without functioning data logging, we have\par
+
+built a drone but accomplished no research. Your work defines success.\par
+
+\section{COMPONENTS ASSIGNED TO YOU}
+
+\begin{itemize}
+  \item Arduino Nano (ATmega328P)
+  \item HiLetgo BME280 Sensor Module (Temperature, Humidity, Pressure)
+  \item Ximimark MQ135 Air Quality Sensor (VOC, CO₂, NH₃)
+  \item HiLetgo MicroSD Card Module (SPI interface)
+  \item SanDisk 32GB MicroSD Card
+  \item Taiss SPST Toggle Switch (2-pin, logging control)
+  \item Laptop with Arduino IDE
+  \item USB Mini cable (for Arduino programming)
+  \item Jumper wires (Dupont M-F or F-F for prototyping)
+\end{itemize}
+
+WEEK 1 DELIVERABLES (Days 1-7)\par
+
+\begin{itemize}
+  \item Arduino Setup
+  \item Install Arduino IDE on laptop (version 1.8.19 or 2.x)
+  \item Connect Arduino Nano via USB
+  \item Install CH340 drivers if needed (for Nano clones)
+  \item Select board: Tools $\rightarrow$ Board $\rightarrow$ Arduino Nano
+  \item Select processor: Tools $\rightarrow$ Processor $\rightarrow$ ATmega328P (Old Bootloader if clone)
+  \item Select port: Tools $\rightarrow$ Port $\rightarrow$ (select COM port with Nano)
+  \item Upload "Blink" example sketch (File $\rightarrow$ Examples $\rightarrow$ 01.Basics $\rightarrow$ Blink)
+  \item Verify LED blinks (confirms Arduino functional)
+\end{itemize}
+
+\begin{itemize}
+  \item BME280 Sensor Setup
+  \item Install Adafruit BME280 library:
+  \item Sketch $\rightarrow$ Include Library $\rightarrow$ Manage Libraries $\rightarrow$ Search "Adafruit BME280"
+  \item Install "Adafruit BME280" library + dependencies
+  \item Wire BME280 to Arduino:
+  \item BME280 VCC $\rightarrow$ Arduino 5V or 3.3V (check if module is 5V tolerant)
+  \item BME280 GND $\rightarrow$ Arduino GND
+  \item BME280 SDA $\rightarrow$ Arduino A4 (SDA)
+  \item BME280 SCL $\rightarrow$ Arduino A5 (SCL)
+  \item Upload I2C Scanner sketch to find BME280 address:
+  \item Expected address: 0x76 or 0x77
+  \item Actual address found: 0x\_\_\_\_\_\_
+  \item Upload BME280 test sketch (from Adafruit library examples)
+  \item Open Serial Monitor (9600 baud)
+  \item Verify readings:
+  \item Temperature: \_\_\_\_\_\_$^\circ$C (should be room temp, \textasciitilde{}20-25$^\circ$C)
+  \item Humidity: \_\_\_\_\_\_\% (should be 30-70\% indoors)
+  \item Pressure: \_\_\_\_\_\_hPa (should be 980-1020 hPa depending on altitude)
+  \item Test repeatability: Readings should be stable, not erratic
+  \item Screenshot of Serial Monitor with BME280 readings
+\end{itemize}
+
+\begin{itemize}
+  \item MQ135 Sensor Setup
+  \item Wire MQ135 to Arduino:
+  \item MQ135 VCC $\rightarrow$ Arduino 5V (MQ135 requires 5V for heater)
+  \item MQ135 GND $\rightarrow$ Arduino GND
+  \item MQ135 AOUT (Analog Out) $\rightarrow$ Arduino A0
+  \item (DOUT not used in this project)
+  \item Upload simple analog read sketch:
+  \item int gasValue = analogRead(A0);
+  \item Serial.println(gasValue);
+  \item Open Serial Monitor (9600 baud)
+  \item Verify analog readings:
+  \item Initial readings: \_\_\_\_\_\_ (0-1023 range)
+  \item Note: MQ135 requires 24-48 hour burn-in for accurate readings
+  \item During first test, readings will be unstable - this is normal
+  \item Test sensitivity: Blow on sensor, value should change
+  \item Document baseline value: \_\_\_\_\_\_ (this is "clean air" reference)
+\end{itemize}
+
+\begin{itemize}
+  \item MicroSD Card Module Setup
+  \item Install SD library (included with Arduino IDE, no need to install separately)
+  \item Format MicroSD card as FAT32 (use computer)
+  \item Card size <32GB recommended (larger may have compatibility issues)
+  \item Insert card into MicroSD module
+  \item Wire MicroSD module to Arduino:
+  \item SD VCC $\rightarrow$ Arduino 5V
+  \item SD GND $\rightarrow$ Arduino GND
+  \item SD MISO (DO) $\rightarrow$ Arduino D12 (MISO)
+  \item SD MOSI (DI) $\rightarrow$ Arduino D11 (MOSI)
+  \item SD SCK (CLK) $\rightarrow$ Arduino D13 (SCK)
+  \item SD CS $\rightarrow$ Arduino D10 (or any digital pin, define in code)
+  \item Upload SD CardInfo example sketch (File $\rightarrow$ Examples $\rightarrow$ SD $\rightarrow$ CardInfo)
+  \item Open Serial Monitor (9600 baud)
+  \item Verify SD card detected:
+  \item Card type: \underline{\hspace{1.5cm}} (SD, SDHC, or SDXC)
+  \item Volume type: \underline{\hspace{1.5cm}} (should be FAT16 or FAT32)
+  \item Volume size: \underline{\hspace{1.5cm}} MB
+  \item Upload SD ReadWrite example (File $\rightarrow$ Examples $\rightarrow$ SD $\rightarrow$ ReadWrite)
+  \item Verify file creation:
+  \item Remove SD card, insert into computer
+  \item Check for "test.txt" file
+  \item Open file, verify text written correctly
+  \item File creation Status: SUCCESS / FAILED
+\end{itemize}
+
+\begin{itemize}
+  \item Toggle Switch Setup
+  \item Wire toggle switch to Arduino:
+  \item Switch Pin 1 $\rightarrow$ Arduino D2
+  \item Switch Pin 2 $\rightarrow$ Arduino GND
+  \item Upload sketch to read switch state:
+  \item pinMode(2, INPUT\_PULLUP);
+  \item int switchState = digitalRead(2);
+  \item Serial.println(switchState);
+  \item Open Serial Monitor
+  \item Test switch:
+  \item Switch OPEN: Serial Monitor shows 1 (HIGH)
+  \item Switch CLOSED: Serial Monitor shows 0 (LOW)
+  \item Switch Status: WORKING / NOT WORKING
+\end{itemize}
+
+WEEK 2 DELIVERABLES (Days 8-14)\par
+
+\begin{itemize}
+  \item Integrated Data Logging Code Development
+  \item Write Arduino sketch that combines all sensors + SD logging:
+\end{itemize}
+
+\subsection{Required functionality}
+
+\begin{itemize}
+  \item 1. Initialize BME280, MQ135, SD card, toggle switch
+  \item 2. Check if SD card is present and writable
+  \item 3. Create CSV file with headers:
+  \item "timestamp,temp\_C,humidity\_\%,pressure\_hPa,gas\_level"
+  \item 4. Read toggle switch state (D2)
+  \item 5. If switch CLOSED (LOW):
+  \item Read BME280 (temp, humidity, pressure)
+  \item Read MQ135 (analog value from A0)
+  \item Create timestamp (milliseconds since startup)
+  \item Write CSV line to SD card
+  \item Flush SD buffer (ensure data written immediately)
+  \item Optional: Blink LED to indicate logging
+  \item 6. If switch OPEN (HIGH):
+  \item Do not log (or log at reduced rate)
+  \item 7. Repeat every 1-5 seconds (team decision on logging rate)
+\end{itemize}
+
+\begin{itemize}
+  \item Code structure:
+  \item Use functions for readability:
+  \item void readBME280() \{ ... \}
+  \item void readMQ135() \{ ... \}
+  \item void logToSD() \{ ... \}
+  \item Add comments explaining each section
+  \item Include error handling (SD card removed, sensor fail, etc.)
+\end{itemize}
+
+\begin{itemize}
+  \item Upload code to Arduino
+  \item Open Serial Monitor to verify readings printing correctly
+\end{itemize}
+
+\begin{itemize}
+  \item Bench Testing \& Validation
+  \item Test 1: SD Card Detection
+  \item Power Arduino with SD card inserted
+  \item Verify Serial Monitor shows "SD card initialized"
+  \item If fails, check wiring and card format
+\end{itemize}
+
+\begin{itemize}
+  \item Test 2: Sensor Data Validity
+  \item Let MQ135 warm up for 5 minutes
+  \item Verify BME280 readings reasonable:
+  \item Temp: 15-30$^\circ$C (room temp)
+  \item Humidity: 20-80\% (typical indoor range)
+  \item Pressure: 980-1020 hPa (varies by altitude and weather)
+  \item Verify MQ135 analog value: 0-1023 (any value in range is okay for now)
+\end{itemize}
+
+\begin{itemize}
+  \item Test 3: Toggle Switch Control
+  \item Set switch to CLOSED (logging enabled)
+  \item Verify Serial Monitor shows logging messages every 1-5 seconds
+  \item Set switch to OPEN (logging disabled)
+  \item Verify logging stops (or reduced rate)
+  \item Set switch CLOSED again
+  \item Verify logging resumes
+\end{itemize}
+
+\begin{itemize}
+  \item Test 4: CSV File Creation
+  \item Run logging for 1 minute with switch CLOSED
+  \item Power off Arduino
+  \item Remove SD card, insert into computer
+  \item Verify CSV file exists:
+  \item File name: \underline{\hspace{1.5cm}} (e.g., "datalog.csv" or timestamped name)
+  \item File size: \underline{\hspace{1.5cm}} bytes (should be >0)
+  \item Open CSV file in Excel or text editor
+  \item Verify columns:
+  \item timestamp | temp\_C | humidity\_\% | pressure\_hPa | gas\_level
+  \item \_\_\_\_\_\_\_\_|\_\_\_\_\_\_\_\_|\underline{\hspace{1.7999999999999998cm}}|\underline{\hspace{2.1cm}}|\underline{\hspace{1.5cm}}
+  \item \_\_\_\_\_\_\_\_|\_\_\_\_\_\_\_\_|\underline{\hspace{1.7999999999999998cm}}|\underline{\hspace{2.1cm}}|\underline{\hspace{1.5cm}}
+  \item \_\_\_\_\_\_\_\_|\_\_\_\_\_\_\_\_|\underline{\hspace{1.7999999999999998cm}}|\underline{\hspace{2.1cm}}|\underline{\hspace{1.5cm}}
+  \item Check data is reasonable (no NaN, no -999 errors)
+  \item File Status: VALID / ERRORS FOUND
+\end{itemize}
+
+\begin{itemize}
+  \item MQ135 Burn-In Procedure (CRITICAL)
+  \item [WARNING] WARNING: MQ135 requires 24-48 hours of continuous power before accurate readings
+\end{itemize}
+
+\begin{itemize}
+  \item Plan burn-in procedure:
+  \item Option A: Power Arduino + MQ135 continuously for 48 hours before first flight
+  \item Connect Arduino to USB power (not battery yet)
+  \item Let run for 48 hours in ventilated area
+  \item Option B: Power MQ135 separately from bench power supply
+  \item 5V to VCC, GND to GND
+  \item Leave powered for 48 hours
+\end{itemize}
+
+\begin{itemize}
+  \item Burn-in start date/time: \underline{\hspace{4.05cm}}
+  \item Expected completion: \underline{\hspace{4.05cm}}
+  \item During burn-in, monitor sensor readings every 6-12 hours:
+  \item Hour 0: Gas value = \_\_\_\_\_\_
+  \item Hour 6: Gas value = \_\_\_\_\_\_
+  \item Hour 12: Gas value = \_\_\_\_\_\_
+  \item Hour 24: Gas value = \_\_\_\_\_\_
+  \item Hour 48: Gas value = \_\_\_\_\_\_ (should stabilize by now)
+  \item Burn-in Status: COMPLETE / IN PROGRESS / NOT STARTED
+\end{itemize}
+
+\begin{itemize}
+  \item Arduino Power Integration
+  \item Determine Arduino power source:
+  \item Option A: Power from Rail 1 (Flight-Critical) via 5V + GND
+  \item Option B: Power from Rail 2 (Servo Power) via 5V + GND
+  \item Team Decision: Arduino powered from RAIL \_\_\_
+\end{itemize}
+
+\begin{itemize}
+  \item Disconnect Arduino from USB (will power from 5V rail now)
+  \item Connect Arduino 5V pin to chosen rail
+  \item Connect Arduino GND to common ground bus
+  \item Power system (battery connected)
+  \item Verify Arduino powers on (LED should light)
+  \item Verify logging works (check SD card after test)
+\end{itemize}
+
+\begin{itemize}
+  \item Final Integration Test (5-Minute Flight Simulation)
+  \item Full system powered (battery, FC, servos, Arduino)
+  \item Insert fresh SD card (formatted, empty)
+  \item Set toggle switch to CLOSED (logging enabled)
+  \item Power on, let system run for 5 minutes
+  \item Optional: Move sensors around, blow on MQ135, heat BME280 to create data variation
+  \item Set toggle switch to OPEN (logging disabled)
+  \item Power off
+  \item Remove SD card, check CSV file:
+  \item Number of data points: \_\_\_\_\_\_ (expect \textasciitilde{}60-300 depending on logging rate)
+  \item File size: \_\_\_\_\_\_ bytes
+  \item Data looks reasonable? YES / NO
+  \item Plot data in Excel (time vs temp, time vs humidity, time vs gas level)
+  \item Screenshot of data plot
+\end{itemize}
+
+\begin{itemize}
+  \item Documentation
+  \item Upload Arduino code to shared drive (with comments!)
+  \item Create wiring diagram for Arduino + sensors
+  \item Write CSV file format specification (column definitions)
+  \item Write 1-page summary: "Research Payload Integration Report"
+  \item Sensor specifications and ranges
+  \item Data logging format
+  \item Calibration procedure (if any)
+  \item Known limitations (MQ135 not quantitatively calibrated, etc.)
+  \item Lessons learned
+\end{itemize}
+
+\section{SKILLS YOU WILL DEVELOP}
+
+\begin{itemize}
+  \item Arduino programming (C/C++)
+  \item I2C communication protocol (BME280)
+  \item Analog-to-digital conversion (ADC) reading (MQ135)
+  \item SPI communication protocol (MicroSD)
+  \item File I/O and CSV formatting
+  \item Sensor interfacing and troubleshooting
+  \item Data validation and quality control
+\end{itemize}
+
+\section{POTENTIAL ISSUES \& TROUBLESHOOTING}
+
+Problem: BME280 not detected (I2C scan shows no device)\par
+
+\begin{itemize}
+  \item $\rightarrow$ Check wiring (SDA $\rightarrow$ A4, SCL $\rightarrow$ A5)
+  \item $\rightarrow$ Verify power (VCC $\rightarrow$ 5V or 3.3V, check module specs)
+  \item $\rightarrow$ Try both I2C addresses (0x76 and 0x77)
+  \item $\rightarrow$ Ensure I2C pullup resistors present (usually on breakout module)
+\end{itemize}
+
+Problem: MQ135 readings always 0 or always 1023\par
+
+\begin{itemize}
+  \item $\rightarrow$ Check wiring (AOUT $\rightarrow$ A0)
+  \item $\rightarrow$ Verify 5V power (MQ135 heater requires 5V)
+  \item $\rightarrow$ Sensor may be defective (test with multimeter: should read 0-5V on AOUT)
+\end{itemize}
+
+Problem: SD card not detected\par
+
+\begin{itemize}
+  \item $\rightarrow$ Verify card formatted as FAT32 (not exFAT or NTFS)
+  \item $\rightarrow$ Try different SD card (<32GB recommended)
+  \item $\rightarrow$ Check wiring (MISO, MOSI, SCK, CS pins)
+  \item $\rightarrow$ Ensure VCC connected to 5V (some modules have onboard regulator)
+  \item $\rightarrow$ Try different CS pin (change in code: const int chipSelect = 10;)
+\end{itemize}
+
+Problem: CSV file empty or corrupted\par
+
+\begin{itemize}
+  \item $\rightarrow$ Add SD flush after each write: file.flush();
+  \item $\rightarrow$ Ensure file.close() called before power off
+  \item $\rightarrow$ Check SD card not full
+  \item $\rightarrow$ Verify file opened successfully: if (!file) \{ Serial.println("Error"); \}
+\end{itemize}
+
+Problem: Data looks unrealistic (e.g., temp = -999)\par
+
+\begin{itemize}
+  \item $\rightarrow$ Sensor not initializing properly (check begin() function return value)
+  \item $\rightarrow$ Check sensor wiring and power
+  \item $\rightarrow$ Add error handling in code:
+  \item if (isnan(temp)) \{ temp = -999; \} // Flag as error
+\end{itemize}
+
+\section{NOTES \& QUESTIONS}
+
+[Space for team to write notes during work]\par
+
+\section{SUBSYSTEM 4: INTEGRATION \& TESTING TEAM}
+
+\section{TEAM MEMBERS}
+
+Owner:         \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+Assistant 1:   \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+Assistant 2:   \underline{\hspace{4.8cm}}  Phone: \underline{\hspace{1.7999999999999998cm}}  Email: \underline{\hspace{1.95cm}}\par
+
+\section{SUBSYSTEM SCOPE}
+
+You are responsible for SYSTEMS INTEGRATION and VALIDATION. Your job is to ensure all\par
+
+subsystems work together, identify issues before flight, and verify the aircraft is\par
+
+electrically ready for operation.\par
+
+\section{MISSION-CRITICAL IMPORTANCE:}
+
+You are the last line of defense before flight. If you miss a faulty connection or\par
+
+electrical issue, we risk losing the aircraft. Attention to detail is everything.\par
+
+\section{COMPONENTS ASSIGNED TO YOU}
+
+\begin{itemize}
+  \item Multimeter (voltage, current, continuity, resistance)
+  \item Clamp meter (for measuring high currents) [if available]
+  \item Inline current sensor (if available)
+  \item Wire strippers, cutters, crimpers
+  \item Zip ties, foam tape, velcro straps
+  \item Heat shrink tubing (various sizes)
+  \item Electrical tape
+  \item Labels / label maker
+  \item Notebook for recording measurements
+\end{itemize}
+
+WEEK 1 DELIVERABLES (Days 1-7)\par
+
+\begin{itemize}
+  \item Multimeter Training \& Practice
+  \item Learn multimeter functions:
+  \item DC Voltage (DCV): For measuring battery, BEC outputs (0-20V range)
+  \item DC Current (DCA): For measuring current draw (200mA, 2A, 10A ranges)
+  \item Continuity (⏚): For checking ground connections (beeps when 0$\Omega$)
+  \item Resistance ($\Omega$): For checking short circuits or open connections
+\end{itemize}
+
+\begin{itemize}
+  \item Practice measurements on bench:
+  \item Test 1: Measure AA battery voltage (expect \textasciitilde{}1.5V)
+  \item Measured: \_\_\_\_\_\_V
+  \item Test 2: Measure 9V battery voltage (expect \textasciitilde{}9V)
+  \item Measured: \_\_\_\_\_\_V
+  \item Test 3: Check continuity of wire (should beep)
+  \item Status: PASS / FAIL
+  \item Test 4: Measure resistance of wire (expect <1$\Omega$)
+  \item Measured: \_\_\_\_\_\_$\Omega$
+\end{itemize}
+
+\begin{itemize}
+  \item Create multimeter quick reference guide (printout for team):
+  \item How to measure voltage (red to +, black to -)
+  \item How to measure current (in series with circuit)
+  \item How to check continuity (across connection)
+  \item Safety: Never measure current in voltage mode (blows fuse!)
+\end{itemize}
+
+\begin{itemize}
+  \item Component Inventory \& Condition Check
+  \item Work with all subsystem teams to verify component condition
+  \item For each major component, check:
+  \item Physical damage (cracks, bent pins, damaged wires)
+  \item Connector condition (secure, not loose or damaged)
+  \item Wire insulation (no exposed copper, no fraying)
+\end{itemize}
+
+\begin{itemize}
+  \item Document issues found:
+  \item Component: \underline{\hspace{2.4cm}}  Issue: \underline{\hspace{2.4cm}}  Resolution: \underline{\hspace{2.4cm}}
+  \item Component: \underline{\hspace{2.4cm}}  Issue: \underline{\hspace{2.4cm}}  Resolution: \underline{\hspace{2.4cm}}
+\end{itemize}
+
+\begin{itemize}
+  \item Common Ground Topology Planning
+  \item Study system architecture (refer to Block Diagram document)
+  \item Identify all ground connections needed:
+  \item Battery negative (master ground)
+  \item ESC ground
+  \item External UBEC ground
+  \item Flight Controller ground
+  \item Arduino ground
+  \item Servo grounds (4$\times$)
+  \item Sensor grounds (BME280, MQ135, MicroSD)
+\end{itemize}
+
+\begin{itemize}
+  \item Create ground wiring plan:
+\end{itemize}
+
+\subsection{Use STAR TOPOLOGY from battery negative}
+
+\begin{itemize}
+  \item Battery (-) $\rightarrow$ Main GND bus $\rightarrow$ ESC, UBEC, FC, Arduino, Servos, Sensors
+\end{itemize}
+
+\begin{itemize}
+  \item Calculate total wire length needed for ground bus: \_\_\_\_\_\_ meters
+  \item Recommended wire gauge for ground: 18-20 AWG (thick enough for current return)
+\end{itemize}
+
+\begin{itemize}
+  \item Wire Routing \& Management Planning
+  \item Study airframe layout (coordinate with Mechanical team)
+  \item Plan wire routing:
+  \item High-current wires (motor, battery): Shortest path, away from sensitive electronics
+  \item Signal wires (servo signals, GPS, RX): Away from motor wires (noise reduction)
+  \item Sensor wires: Away from motor/ESC, accessible for troubleshooting
+\end{itemize}
+
+\begin{itemize}
+  \item Create wire routing diagram (sketch on paper or CAD):
+  \item Mark wire paths in airframe
+  \item Identify zip tie attachment points
+  \item Plan for strain relief at connectors
+  \item Allow slack for vibration (don't pull wires tight)
+\end{itemize}
+
+\begin{itemize}
+  \item Estimate wire lengths needed:
+  \item Battery to ESC: \_\_\_\_\_\_ cm
+  \item Battery to UBEC: \_\_\_\_\_\_ cm
+  \item ESC to Motor: \_\_\_\_\_\_ cm
+  \item ESC BEC to FC: \_\_\_\_\_\_ cm
+  \item UBEC to Servo Rail: \_\_\_\_\_\_ cm
+  \item FC to GPS: \_\_\_\_\_\_ cm
+  \item FC to RX: \_\_\_\_\_\_ cm
+  \item FC to Servos (4$\times$): \_\_\_\_\_\_ cm each
+  \item Arduino to Sensors: \_\_\_\_\_\_ cm
+\end{itemize}
+
+WEEK 2 DELIVERABLES (Days 8-14)\par
+
+\begin{itemize}
+  \item Continuity Testing (CRITICAL - Do this before first power-on)
+  \item Set multimeter to continuity mode (⏚ symbol)
+  \item Verify all grounds connected (should beep for 0$\Omega$ connections):
+\end{itemize}
+
+\begin{itemize}
+  \item Test 1: Battery (-) to ESC ground
+  \item Measured: \_\_\_\_\_\_$\Omega$    Status: PASS (<1$\Omega$) / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item Test 2: Battery (-) to External UBEC ground
+  \item Measured: \_\_\_\_\_\_$\Omega$    Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item Test 3: Battery (-) to Flight Controller GND pad
+  \item Measured: \_\_\_\_\_\_$\Omega$    Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item Test 4: Battery (-) to Arduino GND pin
+  \item Measured: \_\_\_\_\_\_$\Omega$    Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item Test 5: Battery (-) to Servo 1 brown wire (ground)
+  \item Measured: \_\_\_\_\_\_$\Omega$    Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item Test 6: Battery (-) to BME280 GND
+  \item Measured: \_\_\_\_\_\_$\Omega$    Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item If ANY test fails (no beep, high resistance):
+  \item $\rightarrow$ STOP and trace wiring
+  \item $\rightarrow$ Fix ground connection before proceeding
+  \item $\rightarrow$ Re-test until all grounds show continuity
+\end{itemize}
+
+\begin{itemize}
+  \item Voltage Measurements (Validate Power Distribution)
+  \item Power system with battery (no motor/servos connected initially)
+  \item Measure voltages at key points:
+\end{itemize}
+
+\subsection{Battery voltage (XT60 terminals)}
+
+\begin{itemize}
+  \item Expected: 14.0-16.8V    Measured: \_\_\_\_\_\_V    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Rail 1 voltage (ESC BEC output, measure at FC 5V pad)}
+
+\begin{itemize}
+  \item Expected: 5.0 $\pm$ 0.1V    Measured: \_\_\_\_\_\_V    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Rail 2 voltage (External UBEC output, measure at servo power rail)}
+
+\begin{itemize}
+  \item Expected: 5.0 $\pm$ 0.1V    Measured: \_\_\_\_\_\_V    Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item GPS module VCC (at GPS connector):
+  \item Expected: 5.0 $\pm$ 0.1V    Measured: \_\_\_\_\_\_V    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Receiver VCC}
+
+\begin{itemize}
+  \item Expected: 5.0 $\pm$ 0.1V    Measured: \_\_\_\_\_\_V    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Arduino 5V pin}
+
+\begin{itemize}
+  \item Expected: 5.0 $\pm$ 0.1V    Measured: \_\_\_\_\_\_V    Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item If any voltage out of range:
+  \item $\rightarrow$ Check connections (cold solder joint? Loose connector?)
+  \item $\rightarrow$ Measure voltage at BEC output vs at component (voltage drop indicates bad connection)
+\end{itemize}
+
+\begin{itemize}
+  \item Current Measurements (Validate Power Budget)
+  \item Measure current draw for each subsystem:
+\end{itemize}
+
+\begin{itemize}
+  \item Method: Use clamp meter (around wire) or inline current sensor
+\end{itemize}
+
+\subsection{Rail 1 idle (only FC + GPS + RX powered, no Arduino yet)}
+
+\begin{itemize}
+  \item Expected: \textasciitilde{}320-400mA    Measured: \_\_\_\_\_\_mA    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Rail 1 with Arduino active (logging)}
+
+\begin{itemize}
+  \item Expected: \textasciitilde{}660mA    Measured: \_\_\_\_\_\_mA    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Rail 2 idle (servos idle, no movement)}
+
+\begin{itemize}
+  \item Expected: \textasciitilde{}40mA    Measured: \_\_\_\_\_\_mA    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Rail 2 with 2 servos moving}
+
+\begin{itemize}
+  \item Expected: \textasciitilde{}400-500mA    Measured: \_\_\_\_\_\_mA    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Rail 2 with all 4 servos moving}
+
+\begin{itemize}
+  \item Expected: \textasciitilde{}720-1200mA    Measured: \_\_\_\_\_\_mA    Status: PASS / FAIL
+\end{itemize}
+
+\subsection{Battery total current (motor at 50\% throttle, NO PROP)}
+
+\begin{itemize}
+  \item Expected: \textasciitilde{}10-12A    Measured: \_\_\_\_\_\_A    Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item Compare measured currents to Power Budget document predictions
+  \item If currents significantly higher than expected (>20\% over):
+  \item $\rightarrow$ Investigate (component drawing excessive current? Short circuit?)
+\end{itemize}
+
+\begin{itemize}
+  \item Voltage Sag Test (MOST CRITICAL TEST)
+  \item [WARNING] This test verifies FC won't brown out during servo load
+\end{itemize}
+
+\begin{itemize}
+  \item Setup:
+  \item Connect multimeter probes to Flight Controller 5V input (leave connected)
+  \item Power full system (battery connected, all subsystems active)
+  \item Set multimeter to DC voltage, 20V range
+\end{itemize}
+
+\begin{itemize}
+  \item Baseline voltage (idle, no servo movement):
+  \item Measured: \_\_\_\_\_\_V    (should be \textasciitilde{}5.0V)
+\end{itemize}
+
+\begin{itemize}
+  \item Voltage under load (move all 4 servos simultaneously, full deflection):
+  \item Measured: \_\_\_\_\_\_V    (MUST stay >4.8V, ideally >4.9V)
+\end{itemize}
+
+\begin{itemize}
+  \item PASS CRITERIA: Voltage must stay >4.8V during aggressive servo movement
+  \item Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item If FAIL (voltage drops below 4.8V):
+\end{itemize}
+
+\subsection{Possible causes}
+
+\begin{itemize}
+  \item Servos powered from Rail 1 instead of Rail 2 (check wiring!)
+  \item Excessive current draw (measure with clamp meter)
+  \item Insufficient BEC capacity (need larger UBEC?)
+  \item High-resistance connection (voltage drop in wiring)
+\end{itemize}
+
+\begin{itemize}
+  \item Resolution: \underline{\hspace{8.85cm}}
+\end{itemize}
+
+\begin{itemize}
+  \item GPS Lock Test with Motor Running (Electrical Noise Test)
+  \item [WARNING] This test verifies motor/ESC noise doesn't interfere with GPS
+\end{itemize}
+
+\begin{itemize}
+  \item Setup:
+  \item Power full system
+  \item Wait for GPS lock (satellite count >8)
+  \item Open FC configuration software, monitor GPS satellite count
+\end{itemize}
+
+\begin{itemize}
+  \item Baseline GPS lock (motor off):
+  \item Satellite count: \_\_\_\_\_\_    (should be >8)
+\end{itemize}
+
+\begin{itemize}
+  \item GPS lock with motor running (50\% throttle, NO PROP, outdoors):
+  \item Satellite count: \_\_\_\_\_\_    (should NOT drop significantly)
+\end{itemize}
+
+\begin{itemize}
+  \item PASS CRITERIA: GPS maintains lock, satellite count drops by <3
+  \item Status: PASS / FAIL
+\end{itemize}
+
+\begin{itemize}
+  \item If FAIL (GPS loses lock or satellite count drops significantly):
+\end{itemize}
+
+\subsection{Possible causes}
+
+\begin{itemize}
+  \item Motor wires too close to GPS antenna
+  \item Motor wires not twisted (increases EMI)
+  \item GPS not shielded from motor/ESC
+\end{itemize}
+
+\subsection{Mitigation}
+
+\begin{itemize}
+  \item Twist motor wires together (reduces electromagnetic interference)
+  \item Increase separation between motor/ESC and GPS (>10cm minimum)
+  \item Add ferrite bead to motor wires (reduces high-frequency noise)
+  \item Shield GPS module with aluminum foil or copper tape (if desperate)
+\end{itemize}
+
+\begin{itemize}
+  \item Resolution: \underline{\hspace{8.85cm}}
+\end{itemize}
+
+\begin{itemize}
+  \item Wire Management \& Vibration Isolation
+  \item Secure all wires with zip ties (every 10-15cm)
+  \item Ensure no wires rub against:
+  \item Control surfaces (ailerons, elevator, rudder)
+  \item Sharp edges (can cut through insulation)
+  \item Moving parts (servo arms, linkages)
+  \item Add strain relief at connectors:
+  \item Loop wire before connector, secure with zip tie
+  \item Prevents connector pull-out during vibration
+  \item Mount vibration-sensitive components on foam:
+  \item Flight Controller (double-sided foam tape)
+  \item GPS module (foam pad)
+  \item Arduino + sensors (foam pad or rubber standoffs)
+  \item Label all major wires:
+  \item Battery + / Battery -
+  \item Rail 1 +5V / Rail 1 GND
+  \item Rail 2 +5V / Rail 2 GND
+  \item Motor wires (Phase A, B, C)
+  \item Servo signals (S1, S2, S3, S4)
+\end{itemize}
+
+\begin{itemize}
+  \item Pre-Flight Electrical Checklist Creation
+  \item Create laminated checklist for pre-flight verification:
+\end{itemize}
+
+\section{PRE-FLIGHT ELECTRICAL CHECKLIST:}
+
+\begin{itemize}
+  \item Battery voltage >14.0V (measure with multimeter)
+  \item Battery balance: All cells within 0.05V (check via balance connector)
+  \item All connectors secure (XT60, servo connectors, FC connections)
+  \item No loose wires or exposed metal
+  \item Propeller secure (spinner nut tight) [only when ready for flight]
+  \item GPS module LED blinking (indicates searching for lock)
+  \item FC status LED normal pattern (not rapid blinking = error)
+  \item Receiver LED solid (indicates bound to TX)
+  \item Arduino logging active (if switch ON, LED indicates activity)
+  \item Battery charged within last 24 hours (LiPo self-discharge)
+  \item Fire extinguisher and first aid kit present
+  \item LiPo safety bag available (for post-flight storage)
+\end{itemize}
+
+\begin{itemize}
+  \item Print 5 copies of checklist (use for each flight/test)
+\end{itemize}
+
+\begin{itemize}
+  \item Full System Integration Test
+  \item [WARNING] This is the final validation before airframe installation
+\end{itemize}
+
+\begin{itemize}
+  \item Setup: All electrical systems on bench, fully wired, battery connected
+  \item Power on sequence:
+  \item 1. Verify all connections secure
+  \item 2. Turn ON transmitter (throttle at zero)
+  \item 3. Connect battery
+  \item 4. Wait 30 seconds for system initialization
+  \item 5. Verify GPS lock (wait 2-5 minutes outdoors if needed)
+\end{itemize}
+
+\begin{itemize}
+  \item Functional tests:
+  \item Flight Controller status LED: Normal pattern? YES / NO
+  \item GPS lock: Satellite count >8? \_\_\_\_\_\_ satellites
+  \item Receiver control: Move TX sticks, servos respond? YES / NO
+  \item Motor response: Arm FC, increase throttle (NO PROP), motor spins? YES / NO
+  \item Servo directions: All 4 servos move correct direction? YES / NO
+  \item Failsafe: Turn OFF TX, motor cuts within 2 sec? YES / NO
+  \item Arduino logging: Toggle switch ON, data logging to SD card? YES / NO
+\end{itemize}
+
+\begin{itemize}
+  \item Power measurements under full load:
+  \item Battery voltage (under load): \_\_\_\_\_\_V (should stay >14.0V)
+  \item Battery current draw: \_\_\_\_\_\_A (motor at 50\% throttle)
+  \item Flight time estimate: Battery capacity (2.2Ah) / Avg current (A) = \_\_\_\_\_\_ hours
+  \item (Multiply by 60 for minutes, expect \textasciitilde{}9-13 minutes)
+\end{itemize}
+
+\begin{itemize}
+  \item Integration Status: READY FOR AIRFRAME INSTALL / ISSUES FOUND
+\end{itemize}
+
+\begin{itemize}
+  \item If issues found, document and resolve before proceeding:
+  \item Issue 1: \underline{\hspace{9.45cm}}
+  \item Issue 2: \underline{\hspace{9.45cm}}
+\end{itemize}
+
+\begin{itemize}
+  \item Documentation
+  \item Take photos of final wiring setup (all angles)
+  \item Create "as-built" wiring diagram (showing actual wire colors and routing)
+  \item Record all voltage and current measurements in spreadsheet
+  \item Write 2-page summary: "System Integration Test Report"
+  \item Test procedures and results
+  \item Pass/fail status for each test
+  \item Issues found and resolutions
+  \item Readiness assessment for airframe integration
+  \item Recommendations for flight testing
+\end{itemize}
+
+\section{SKILLS YOU WILL DEVELOP}
+
+\begin{itemize}
+  \item Multimeter proficiency (voltage, current, continuity, resistance)
+  \item System-level thinking (understanding interactions between subsystems)
+  \item Electrical troubleshooting methodology
+  \item Wire management and professional routing
+  \item Vibration isolation for electronics
+  \item Test procedure development and execution
+  \item Documentation and reporting
+\end{itemize}
+
+\section{POTENTIAL ISSUES \& TROUBLESHOOTING}
+
+Problem: No continuity between grounds (multimeter doesn't beep)\par
+
+\begin{itemize}
+  \item $\rightarrow$ Trace ground wiring, find break or missing connection
+  \item $\rightarrow$ Check solder joints (cold joint may have high resistance)
+  \item $\rightarrow$ Verify all components share common ground bus
+\end{itemize}
+
+Problem: Voltage correct at BEC output but low at component\par
+
+\begin{itemize}
+  \item $\rightarrow$ Voltage drop indicates high resistance in wiring
+  \item $\rightarrow$ Check wire gauge (may be too thin for current draw)
+  \item $\rightarrow$ Check connectors (loose or dirty contacts)
+  \item $\rightarrow$ Improve connection (thicker wire, better solder joint)
+\end{itemize}
+
+Problem: Current draw much higher than predicted\par
+
+\begin{itemize}
+  \item $\rightarrow$ Check for short circuit (measure resistance, should be high when powered off)
+  \item $\rightarrow$ Identify which component drawing excessive current (disconnect one at a time)
+  \item $\rightarrow$ Component may be defective
+\end{itemize}
+
+Problem: Voltage sag test fails (FC voltage drops below 4.8V)\par
+
+\begin{itemize}
+  \item $\rightarrow$ CRITICAL ISSUE - Do not fly!
+  \item $\rightarrow$ Verify servos powered from Rail 2 (not Rail 1)
+  \item $\rightarrow$ Check External UBEC output capacity (may need higher current rating)
+  \item $\rightarrow$ Reduce servo load (limit travel in FC to reduce peak current)
+\end{itemize}
+
+Problem: GPS loses lock during motor test\par
+
+\begin{itemize}
+  \item $\rightarrow$ Electrical noise from motor/ESC interfering with GPS
+  \item $\rightarrow$ Twist motor wires together (reduces EMI)
+  \item $\rightarrow$ Increase physical separation (>10cm)
+  \item $\rightarrow$ Add ferrite bead to motor power wires
+  \item $\rightarrow$ Shield GPS module (aluminum foil, copper tape)
+\end{itemize}
+
+\section{NOTES \& QUESTIONS}
+
+[Space for team to write notes during work]\par
+
+\section{FINAL REMINDERS FOR ALL TEAMS}
+
+\begin{itemize}
+  \item Safety first, always. If you're unsure, ask.
+  \item Document everything. Photos, measurements, notes. This is your portfolio.
+  \item Test early and often. Don't wait until integration to discover issues.
+  \item Communicate with other teams. Your subsystems must work together.
+  \item Ask questions. No question is stupid. Confusion now prevents crashes later.
+  \item Meet deadlines. Other teams depend on your deliverables.
+  \item Take pride in your work. This is aerospace engineering, not a hobby project.
+\end{itemize}
+
+You have the knowledge, the tools, and the team. Now execute.\par
+
+Build something great.\par
+
+\end{document}

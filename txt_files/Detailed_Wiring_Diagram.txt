@@ -1,0 +1,1091 @@
+═══════════════════════════════════════════════════════════════════════════════════════════
+   DETAILED WIRING DIAGRAM & PINOUT REFERENCE
+   Fixed-Wing Environmental Monitoring UAV
+   NLC STEM Club - Electrical Systems Team
+   Dual-BEC Configuration (Option B)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+DOCUMENT PURPOSE:
+  This document provides component-level wiring instructions for building the
+  electrical system. Use this as a reference during assembly and troubleshooting.
+
+COLOR CODE:
+  ═══  14.8V High Current (Motor Power) - RED/BLACK 12-14AWG
+  ━━━  5V Power Rails - RED/BLACK 18-22AWG
+  ───  Signal/Data Lines - YELLOW/WHITE/ORANGE 26-28AWG
+  
+POWER RAIL KEY:
+  [R1] = Rail 1: Flight-Critical 5V@3A from ESC BEC
+  [R2] = Rail 2: Servo Power 5V@6A from External UBEC
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 1: MASTER WIRING DIAGRAM (SIMPLIFIED)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+                         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+                         ┃  OVONIC 4S LiPo BATTERY     ┃
+                         ┃  14.8V @ 2200mAh           ┃
+                         ┃  XT60 Male Connector        ┃
+                         ┗━━━━━━━━━━━┯━━━━━━━━━━━━━━━━━┛
+                                     │
+                                     │ 14.8V (XT60)
+                                     │
+                          [XT60 Y-Harness Splitter]
+                                     │
+                 ┌───────────────────┴───────────────────┐
+                 │ 14.8V                                 │ 14.8V
+                 ═══                                     ═══
+                 
+     ┏━━━━━━━━━━━▼━━━━━━━━━━┓             ┏━━━━━━━━━━━▼━━━━━━━━━━━┓
+     ┃  40A ESC             ┃             ┃  External 5V UBEC      ┃
+     ┃  w/ Integrated BEC   ┃             ┃  (Hobbywing 6A Model)  ┃
+     ┗━┯━━━━━━━━━━┯━━━━━━━━━━┛             ┗━━━━━━━━━━━┯━━━━━━━━━━━┛
+       ║          │ +5V @3A [R1]                       │ +5V @6A [R2]
+       ║          ━━━                                  ━━━
+       ║
+       ║ Motor Power (14.8V)
+       ═══
+       
+     ┏━▼━━━━━━━━━━━━━━━━┓
+     ┃  BRUSHLESS MOTOR   ┃
+     ┃  D2830EVO 1000KV   ┃
+     ┃  3-Phase Wires     ┃
+     ┗━━━━━━━━━━━━━━━━━━━━┛
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                        RAIL 1: FLIGHT-CRITICAL SYSTEMS                                ║
+║                            5V @ 3A from ESC BEC                                       ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+        +5V ────┬────────────┬────────────┬────────────┬──────────────┐
+        [R1]    │            │            │            │              │
+                │            │            │            │              │
+         ┏━━━━━━▼━━━━━━┓ ┏━━━▼━━━━━━┓ ┏━━▼━━━━━━┓ ┏━━▼━━━━━━━━┓ ┏━━▼━━━━━━━━━━┓
+         ┃  MATEK      ┃ ┃ BN-220   ┃ ┃  ELRS   ┃ ┃  Arduino  ┃ ┃  Sensors    ┃
+         ┃  F405-WMN   ┃ ┃ GPS      ┃ ┃  EP2 RX ┃ ┃  Nano     ┃ ┃  (BME/MQ/SD)┃
+         ┃  Flight     ┃ ┃  Module  ┃ ┃         ┃ ┃           ┃ ┃             ┃
+         ┃  Controller ┃ ┃          ┃ ┃         ┃ ┃  Data     ┃ ┃  Research   ┃
+         ┃             ┃ ┃          ┃ ┃         ┃ ┃  Logger   ┃ ┃  Payload    ┃
+         ┃  250mA      ┃ ┃  60mA    ┃ ┃  90mA   ┃ ┃  263mA    ┃ ┃  (Included) ┃
+         ┗━━━┯━━━━━┯━━━┛ ┗━━━┯━━━━━━┛ ┗━━━┯━━━━━┛ ┗━━━┯━━━━━━━┛ ┗━━━━━━━━━━━━━┛
+             │     │         │              │          │
+        UART │     └─────────┴──────────────┴──────────┤
+        GPS  │                                          │
+             │             UART/SBUS                    │ I2C/SPI/Analog
+             │             RX Control                   │ Sensor Bus
+             │                                          │
+             │ PWM Outputs                             │
+             │ (S1, S2, S3, S4)                        │
+             │ Signal Only                              │
+             └──────────────┐                           │
+                            │                           │
+                            │                           │
+                            ▼                           ▼
+                     (To Servos)                  (To Sensors)
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                          RAIL 2: SERVO POWER SYSTEM                                   ║
+║                         5V @ 6A from External UBEC                                    ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+        +5V ────┬───────────────┬───────────────┬───────────────┬──────────────┐
+        [R2]    │               │               │               │              │
+                │               │               │               │              │
+         ┏━━━━━━▼━━━━━━━┓ ┏━━━━━▼━━━━━━━━┓ ┏━━━▼━━━━━━━━┓ ┏━━━▼━━━━━━━━┓
+         ┃  SERVO 1     ┃ ┃  SERVO 2      ┃ ┃  SERVO 3    ┃ ┃  SERVO 4    ┃
+         ┃  ES08MA II   ┃ ┃  ES08MA II    ┃ ┃  ES08MA II  ┃ ┃  ES08MA II  ┃
+         ┃              ┃ ┃               ┃ ┃             ┃ ┃             ┃
+         ┃  Aileron L   ┃ ┃  Aileron R    ┃ ┃  Elevator   ┃ ┃  Rudder     ┃
+         ┃              ┃ ┃               ┃ ┃             ┃ ┃             ┃
+         ┃  180mA typ   ┃ ┃  180mA typ    ┃ ┃  180mA typ  ┃ ┃  180mA typ  ┃
+         ┃  300mA max   ┃ ┃  300mA max    ┃ ┃  300mA max  ┃ ┃  300mA max  ┃
+         ┗━━━━━━┯━━━━━━━┛ ┗━━━━━━┯━━━━━━━━┛ ┗━━━━━┯━━━━━━━┛ ┗━━━━━┯━━━━━━━┛
+                │                 │                │              │
+                │ PWM Signal      │ PWM Signal     │ PWM Signal   │ PWM Signal
+                │ (From FC S1)    │ (From FC S2)   │ (From FC S3) │ (From FC S4)
+                └─────────────────┴────────────────┴──────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║                            COMMON GROUND (STAR TOPOLOGY)                              ║
+║                         ⚠ CRITICAL: All GND must connect here                        ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+                              Battery Negative Terminal (-)
+                                          │
+                                          │ (Main Ground Point)
+                                          │
+         ┌────────┬────────┬──────┬───────┼───────┬──────┬────────┬────────┬──────────┐
+         │        │        │      │       │       │      │        │        │          │
+         │        │        │      │       │       │      │        │        │          │
+       ESC      UBEC      FC    GPS     RX    Arduino  Servo1  Servo2   Servo3    Servo4
+       GND      GND      GND    GND     GND     GND     GND     GND      GND       GND
+       
+       ⚠ Use 18-20 AWG wire for all ground connections
+       ⚠ Connect all grounds to battery negative terminal (star topology)
+       ⚠ DO NOT daisy-chain grounds (creates ground loops)
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 2: COMPONENT PINOUTS & WIRING DETAILS
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                          1. OVONIC 4S LiPo BATTERY                                    ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ╔═══════════════════╗
+  ║  BATTERY SPECS    ║
+  ╠═══════════════════╣
+  ║ Cells:      4S    ║
+  ║ Voltage:    14.8V ║
+  ║ Capacity:   2200mAh
+  ║ C-Rating:   130C  ║
+  ║ Connector:  XT60  ║
+  ╚═══════════════════╝
+
+  MAIN DISCHARGE CONNECTOR (XT60 Male):
+    ┌──────────────────────────┐
+    │   ╔═══╗          ╔═══╗   │
+    │   ║ + ║          ║ - ║   │  XT60 Male Plug
+    │   ╚═══╝          ╚═══╝   │  (on battery)
+    └──────────────────────────┘
+       RED              BLACK
+       +14.8V           GND
+     (13.2V min)    (Battery -)
+     (16.8V max)
+
+  BALANCE CONNECTOR (JST-XH 5-Pin):
+    ┌────┬────┬────┬────┬────┐
+    │ -  │ C1+│ C2+│ C3+│ C4+│  Balance Tap
+    └────┴────┴────┴────┴────┘  (For charging only)
+     GND 3.7V 7.4V 11.1V 14.8V
+
+  SPECIFICATIONS:
+    • Voltage Range: 13.2V (empty) to 16.8V (full charge)
+    • Storage Voltage: 15.2V (3.8V per cell)
+    • Discharge Rate: 130C burst = 286A max (never approach this!)
+    • Weight: ~190g
+
+  ⚠ CRITICAL SAFETY:
+    • NEVER charge unattended
+    • Store in LiPo-safe bag or ammo can
+    • Check for puffing/damage before each use
+    • Do not discharge below 13.2V (damages cells)
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                          2. 40A ESC (Electronic Speed Controller)                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  INPUT (Battery Power):
+    ┌──────────────────────────┐
+    │   ╔═══╗          ╔═══╗   │
+    │   ║ + ║          ║ - ║   │  XT60 Female Socket
+    │   ╚═══╝          ╚═══╝   │  (on ESC)
+    └──────────────────────────┘
+       RED              BLACK
+       14.8V IN          GND IN
+     [12-14 AWG]      [12-14 AWG]
+
+  OUTPUT TO MOTOR (3-Phase):
+    ┌───────┐  ┌───────┐  ┌───────┐
+    │ ╔═╗   │  │ ╔═╗   │  │ ╔═╗   │  3.5mm Bullet Connectors
+    │ ║A║   │  │ ║B║   │  │ ║C║   │  (3-phase motor wires)
+    │ ╚═╝   │  │ ╚═╝   │  │ ╚═╝   │
+    └───────┘  └───────┘  └───────┘
+     YELLOW     BLACK      RED
+    [Phase A]  [Phase B]  [Phase C]
+    [12-14 AWG each]
+
+    ⚠ Swap any TWO wires to reverse motor direction
+
+  BEC OUTPUT (5V Power):
+    ┌─────────────────────┐
+    │  GND   +5V   NC     │  Servo-style 3-pin connector
+    │ ┌───┐ ┌───┐ ┌───┐  │  0.1" (2.54mm) pitch
+    │ │ ■ │ │ ■ │ │ ■ │  │
+    └─┴───┴─┴───┴─┴───┴──┘
+      BLK   RED   YEL
+      GND   5V@3A  Signal(unused)
+            [RAIL 1]
+
+  SIGNAL INPUT (From Flight Controller):
+    ┌─────────────────────┐
+    │  GND   +5V   SIG    │  Servo-style connector
+    │ ┌───┐ ┌───┐ ┌───┐  │  Connect to FC Motor 1 (M1)
+    │ │ ■ │ │ X │ │ ■ │  │
+    └─┴───┴─┴───┴─┴───┴──┘
+      BLK   RED   WHT/YEL
+      GND   [CUT!] PWM Signal → FC M1
+      
+    ⚠ CRITICAL: CUT the middle +5V wire to prevent backfeeding FC!
+
+  SPECIFICATIONS:
+    • Current Rating: 40A continuous, 50A burst (2 sec)
+    • Input Voltage: 2-6S LiPo (7.4-25.2V)
+    • BEC Output: 5.0V @ 3.0A (linear regulator)
+    • PWM Frequency: 50-490Hz (configurable)
+    • Weight: ~35g
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                          3. EXTERNAL 5V UBEC (6A Model)                               ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Recommended: Hobbywing UBEC 5V 6A or Castle Creations BEC 2.0
+
+  INPUT (Battery Power):
+    ┌──────────────────┐
+    │   RED    BLACK   │  XT30 or JST connector
+    │  ┌───┐  ┌───┐   │  (or bare wires with heat shrink)
+    │  │ + │  │ - │   │
+    └──┴───┴──┴───┴───┘
+       14.8V    GND
+     [16-18 AWG]
+
+  OUTPUT (5V Regulated):
+    ┌──────────────────┐
+    │   RED    BLACK   │  JST/XT30 or bare wires
+    │  ┌───┐  ┌───┐   │  
+    │  │ + │  │ - │   │
+    └──┴───┴──┴───┴───┘
+       +5.0V    GND
+       @ 6A     [RAIL 2]
+     [18-20 AWG]
+
+  WIRING INSTRUCTIONS:
+    1. Solder XT30 or XT60 pigtail to INPUT (match battery connector)
+    2. Route OUTPUT wires to servo power distribution
+    3. Use 18-20 AWG wire for output (6A current capacity)
+    4. Add 470µF capacitor across output (reduces voltage ripple)
+    5. Heat shrink all connections
+
+  SPECIFICATIONS:
+    • Input Voltage: 5.5-26V (2-6S LiPo compatible)
+    • Output Voltage: 5.0V ± 0.1V
+    • Output Current: 6A continuous, 8A peak (2 sec)
+    • Efficiency: ~90%
+    • Switching Frequency: ~300kHz (very low noise)
+    • Weight: ~15g
+
+  CONNECTION TO SERVO RAIL:
+    +5V → Connect to RED wires of all 4 servos (parallel)
+    GND → Connect to BROWN wires of all 4 servos + common ground
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                          4. FLASH HOBBY D2830EVO MOTOR (1000KV)                       ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  3-PHASE MOTOR CONNECTIONS:
+    ┌───────┐  ┌───────┐  ┌───────┐
+    │ ╔═╗   │  │ ╔═╗   │  │ ╔═╗   │  Coming from motor
+    │ ║ ║   │  │ ║ ║   │  │ ║ ║   │  (3.5mm bullet female)
+    │ ╚═╝   │  │ ╚═╝   │  │ ╚═╝   │
+    └───────┘  └───────┘  └───────┘
+     YELLOW     BLACK      RED
+       │          │          │
+       ▼          ▼          ▼
+    ┌───────┐  ┌───────┐  ┌───────┐
+    │ ╔═╗   │  │ ╔═╗   │  │ ╔═╗   │  Connect to ESC
+    │ ║A║   │  │ ║B║   │  │ ║C║   │  (3.5mm bullet male)
+    │ ╚═╝   │  │ ╚═╝   │  │ ╚═╝   │
+    └───────┘  └───────┘  └───────┘
+    ESC Phase A  Phase B  Phase C
+
+  MOTOR DIRECTION TEST:
+    1. Remove propeller
+    2. Power on ESC (motor should NOT spin at idle)
+    3. Slowly advance throttle
+    4. Motor should spin CLOCKWISE (viewed from front)
+    5. If wrong direction: Power off, swap ANY TWO motor wires
+
+  SPECIFICATIONS:
+    • KV Rating: 1000 (RPM per volt)
+    • Voltage: 3-4S LiPo (11.1-14.8V)
+    • Max Current: 18A @ 14.8V
+    • Shaft Diameter: 3.17mm (1/8")
+    • Weight: 58g
+    • Propeller: 1060 or 1160 folding prop
+
+  ⚠ SAFETY:
+    • NEVER test motor with propeller indoors
+    • Keep fingers/clothing away from moving parts
+    • Disconnect battery before prop installation
+    • Use Loctite on prop nuts/bolts
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                          5. MATEK F405-WMN FLIGHT CONTROLLER                          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  BOARD LAYOUT (Top View):
+    ┌────────────────────────────────────────────────────┐
+    │  [USB]         MATEK F405-WMN                      │
+    │                                                     │
+    │  M1  M2  M3  M4    S1  S2  S3  S4  S5  S6         │  Servo/Motor Outputs
+    │  ●   ●   ●   ●     ●   ●   ●   ●   ●   ●          │
+    │                                                     │
+    │  5V  GND  VBAT  CURR                               │  Power Pads
+    │   ●   ●    ●      ●                                │
+    │                                                     │
+    │  TX1 RX1   TX2 RX2   TX3 RX3   SBUS               │  Serial Ports
+    │   ●   ●     ●   ●     ●   ●     ●                  │
+    │                                                     │
+    │  SDA SCL   LED   BUZZER                            │  Accessories
+    │   ●   ●     ●      ●                               │
+    └────────────────────────────────────────────────────┘
+
+  POWER INPUT:
+    5V  Pad  ◄─── ESC BEC +5V (Red wire) [RAIL 1]
+    GND Pad  ◄─── Common Ground (Black wire)
+    VBAT Pad ◄─── Optional: Battery voltage sense (via divider)
+
+  MOTOR OUTPUT (M1):
+    ┌─────────────────────┐
+    │  GND   +5V   SIG    │  3-pin servo connector
+    │ ┌───┐ ┌───┐ ┌───┐  │  → To ESC Signal Input
+    │ │ ■ │ │ X │ │ ■ │  │
+    └─┴───┴─┴───┴─┴───┴──┘
+      BLK   [NC]  WHT/YEL
+      GND   (Don't  PWM → ESC
+            connect) Throttle
+
+  SERVO OUTPUTS (S1-S4):
+    S1 ─── Servo 1 Signal (Orange wire) → Aileron Left
+    S2 ─── Servo 2 Signal (Orange wire) → Aileron Right
+    S3 ─── Servo 3 Signal (Orange wire) → Elevator
+    S4 ─── Servo 4 Signal (Orange wire) → Rudder
+    
+    ⚠ Servo POWER (Red/Brown) comes from RAIL 2, NOT from FC!
+
+  GPS CONNECTION (UART1):
+    TX1 ─── GPS RX (Yellow wire)
+    RX1 ─── GPS TX (Green wire)
+    5V  ─── GPS VCC (Red wire)
+    GND ─── GPS GND (Black wire)
+
+  RECEIVER CONNECTION (UART2 or SBUS):
+    RX2    ─── Receiver TX (CRSF protocol)
+    (or SBUS)  Alternative: SBUS pad for SBUS protocol
+    5V     ─── Receiver VCC (Red wire)
+    GND    ─── Receiver GND (Black wire)
+
+  CURRENT/VOLTAGE SENSING:
+    CURR ◄─── ESC current sensor analog output (0-3.3V)
+    VBAT ◄─── Battery voltage via resistor divider
+              (Configure scaling in firmware: typically 11:1 ratio)
+
+  SPECIFICATIONS:
+    • MCU: STM32F405RGT6 (168MHz, 1MB Flash)
+    • IMU: MPU6000 or ICM20689 (6-axis gyro/accel)
+    • Barometer: BMP280 (altitude hold)
+    • OSD: Integrated (AT7456E chip)
+    • Blackbox: MicroSD card slot or onboard flash
+    • Current: 250mA @ 5V
+    • Weight: 8g
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                          6. BN-220 GPS MODULE (with Compass)                          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  CONNECTOR:  JST-SH 1.0mm 4-pin (or individual Dupont wires)
+
+    ┌─────────────────────┐
+    │   1    2    3    4  │  Looking at connector
+    │  VCC  TX   RX  GND  │
+    │  ┌─┐  ┌─┐  ┌─┐  ┌─┐ │
+    └──┴─┴──┴─┴──┴─┴──┴─┴─┘
+       │    │    │    │
+       │    │    │    └──── GND (Black) → Common Ground
+       │    │    └─────────  RX (Green) ← FC TX1
+       │    └──────────────  TX (Yellow) → FC RX1
+       └───────────────────  VCC (Red) ← FC 5V [RAIL 1]
+
+  WIRING TABLE:
+    GPS Pin │ Wire Color │ FC Connection │ Description
+    ────────┼────────────┼───────────────┼─────────────────────
+    1. VCC  │   RED      │  5V Pad       │  Power (3.3-5V OK)
+    2. TX   │   YELLOW   │  RX1 Pad      │  GPS → FC (data out)
+    3. RX   │   GREEN    │  TX1 Pad      │  GPS ← FC (config)
+    4. GND  │   BLACK    │  GND Pad      │  Ground
+
+  MOUNTING:
+    • Arrow on module points FORWARD (aircraft nose)
+    • Antenna side UP (faces sky)
+    • Keep >5cm away from high-current wires (ESC/motor)
+    • Avoid carbon fiber directly above module (blocks signal)
+    • Use foam tape for vibration isolation
+
+  SPECIFICATIONS:
+    • GPS Chipset: U-Blox M8N or M9N
+    • Compass: HMC5883L or QMC5883L
+    • Channels: 72 (GPS+GLONASS)
+    • Update Rate: 5-10Hz
+    • Accuracy: 2.5m CEP
+    • Cold Start: <30 seconds
+    • Current: 60mA @ 5V
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                          7. HAPPYMODEL ELRS EP2 RECEIVER                              ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  CONNECTOR: Usually 4-6 pin JST-SH or individual wires
+
+    ┌──────────────────────────────┐
+    │  GND  5V  TX  RX  (BIND LED) │  Standard ELRS pinout
+    │  ┌─┐  ┌─┐  ┌─┐  ┌─┐          │
+    └──┴─┴──┴─┴──┴─┴──┴─┴──────────┘
+       │    │    │    │
+       │    │    │    └──────  RX (Optional - telemetry in)
+       │    │    └───────────  TX (White) → FC RX2 or SBUS
+       │    └────────────────  5V (Red) ← FC 5V [RAIL 1]
+       └─────────────────────  GND (Black) → Common Ground
+
+  WIRING TABLE:
+    RX Pin  │ Wire Color │ FC Connection │ Description
+    ────────┼────────────┼───────────────┼──────────────────────
+    GND     │   BLACK    │  GND Pad      │  Ground
+    5V      │   RED      │  5V Pad       │  Power (4.5-6V)
+    TX      │   WHITE    │  RX2/SBUS     │  CRSF/SBUS data out
+    RX      │  (Optional)│  TX2          │  Telemetry (optional)
+
+  PROTOCOL SELECTION:
+    • CRSF (recommended): 420000 baud, low latency, telemetry
+    • SBUS (fallback): 100000 baud, standard PWM encoding
+
+  BINDING:
+    Method 1: Button Press
+      1. Power off receiver
+      2. Press and hold BIND button
+      3. Power on receiver (LED flashes rapidly)
+      4. Enter bind mode on transmitter
+      5. Wait for solid LED (bound)
+
+    Method 2: WiFi Binding
+      1. Power on receiver
+      2. Connect to "ExpressLRS RX" WiFi network
+      3. Navigate to 10.0.0.1 in browser
+      4. Click "Bind" button
+
+  ANTENNA MOUNTING:
+    • Keep antenna away from carbon fiber
+    • Mount perpendicular to flight direction
+    • Do not bend antenna sharply (breaks internal wire)
+    • Use zip ties or heat shrink to secure
+
+  SPECIFICATIONS:
+    • Protocol: ExpressLRS 2.4GHz or 900MHz
+    • Latency: 5-20ms (depending on mode)
+    • Range: 10km+ (250mW TX power, clear line of sight)
+    • Update Rate: 50/150/250/500Hz (configurable)
+    • Current: 70-120mA @ 5V
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                          8. ES08MA II SERVOS (4× Units)                               ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  SERVO CONNECTOR (Standard 3-pin, 0.1" pitch):
+    ┌─────────────────────┐
+    │  GND   +5V   SIG    │  Female connector housing
+    │ ┌───┐ ┌───┐ ┌───┐  │  (Connects to FC or servo extension)
+    │ │ ■ │ │ ■ │ │ ■ │  │
+    └─┴───┴─┴───┴─┴───┴──┘
+      BROWN  RED  ORANGE
+       │     │      │
+       │     │      └──────  Signal ← FC PWM Output (S1-S4)
+       │     └─────────────  +5V ← External UBEC [RAIL 2]
+       └───────────────────  GND → Common Ground
+
+  WIRING CONFIGURATION:
+    Servo 1 (Aileron Left):
+      Signal ◄─── FC S1 (PWM1)
+      Power  ◄─── UBEC +5V [RAIL 2]
+      GND    ───► Common Ground
+
+    Servo 2 (Aileron Right):
+      Signal ◄─── FC S2 (PWM2)
+      Power  ◄─── UBEC +5V [RAIL 2]
+      GND    ───► Common Ground
+
+    Servo 3 (Elevator):
+      Signal ◄─── FC S3 (PWM3)
+      Power  ◄─── UBEC +5V [RAIL 2]
+      GND    ───► Common Ground
+
+    Servo 4 (Rudder):
+      Signal ◄─── FC S4 (PWM4)
+      Power  ◄─── UBEC +5V [RAIL 2]
+      GND    ───► Common Ground
+
+  ⚠ CRITICAL: Servo POWER Distribution
+    All 4 servo RED wires must connect to External UBEC +5V output
+    All 4 servo BROWN wires must connect to Common Ground
+    
+    Recommended: Use servo distribution board or solder all power wires together
+
+  SPECIFICATIONS (Per Servo):
+    • Torque: 2.2kg·cm @ 4.8V, 2.5kg·cm @ 6V
+    • Speed: 0.12 sec/60° @ 4.8V
+    • Rotation: 180° (±90° from center)
+    • Current: 
+      - Idle (no load): 10mA
+      - Moving (typical): 180mA
+      - Stall (blocked): 300mA
+    • Operating Voltage: 4.8-6.0V
+    • Weight: 12g
+    • Gears: Metal (hardened steel)
+│                                                                                         │
+│   Pin 1: Brown/Black   Ground        → Connect to Rail 2 Ground (UBEC GND)            │
+│   Pin 2: Red           Power (+5V)   → Connect to Rail 2 +5V (UBEC Output)            │
+│   Pin 3: Orange/Yellow Signal (PWM)  → Connect to FC PWM output (S1-S4)               │
+│                                                                                         │
+│ ELECTRICAL SPECIFICATIONS:                                                              │
+│   Voltage: 4.8-6V (5V nominal)                                                          │
+│   Current: 10mA idle, 180mA moving, 300mA peak, 650mA stall                           │
+│   Torque: 2.5kg-cm @ 4.8V                                                              │
+│   Speed: 0.12 sec/60° @ 4.8V                                                           │
+│                                                                                         │
+│ PWM SIGNAL:                                                                             │
+│   Frequency: 50Hz (20ms period)                                                         │
+│   Pulse Width: 1000-2000µs (1.0-2.0ms)                                                 │
+│     1000µs = Full Left/Down                                                             │
+│     1500µs = Center                                                                     │
+│     2000µs = Full Right/Up                                                              │
+│                                                                                         │
+│ CONTROL SURFACE ASSIGNMENT:                                                             │
+│   Servo 1 (S1/PWM1): Left Aileron    [Typical: reversed in FC config]                 │
+│   Servo 2 (S2/PWM2): Right Aileron   [Typical: normal direction]                      │
+│   Servo 3 (S3/PWM3): Elevator        [Configure in FC for correct pitch]              │
+│   Servo 4 (S4/PWM4): Rudder          [Configure in FC for correct yaw]                │
+│                                                                                         │
+│ ⚠ CRITICAL WIRING:                                                                      │
+│   - All 4 servos MUST be powered from Rail 2 (External UBEC), NOT from FC             │
+│   - Connect all servo brown wires together → Rail 2 GND                                │
+│   - Connect all servo red wires together → Rail 2 +5V                                  │
+│   - Each servo orange wire goes to individual FC PWM output                            │
+│   - DO NOT connect servo red wires to FC 5V (FC BEC insufficient)                     │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│ ARDUINO NANO (ATmega328P, Research Payload Controller)                                 │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│ POWER INPUT:                                                                            │
+│   Option A (Recommended): 5V Pin + GND                                                  │
+│     5V  Pin ← From Rail 1 or Rail 2          [RED, 22-24 AWG]                         │
+│     GND Pin → Common Ground                  [BLACK, 22-24 AWG]                        │
+│   Option B: VIN Pin (7-12V input, uses onboard regulator)                             │
+│     VIN Pin ← From Battery via voltage divider (not recommended for this build)        │
+│                                                                                         │
+│ POWER CONSUMPTION: ~20-50mA depending on sensor load                                   │
+│                                                                                         │
+│ I2C INTERFACE (for BME280):                                                             │
+│   Pin A4 (SDA)  ↔ BME280 SDA    [Data line, needs 4.7kΩ pullup to 3.3V]              │
+│   Pin A5 (SCL)  ↔ BME280 SCL    [Clock line, needs 4.7kΩ pullup to 3.3V]             │
+│   Note: BME280 is 3.3V logic but often 5V tolerant (check module specs)               │
+│                                                                                         │
+│ ANALOG INPUT (for MQ135):                                                               │
+│   Pin A0        ← MQ135 AOUT    [Analog voltage 0-5V proportional to gas conc.]       │
+│                                                                                         │
+│ SPI INTERFACE (for MicroSD Module):                                                     │
+│   Pin D13 (SCK)   → SD Module CLK    [SPI Clock]                                       │
+│   Pin D12 (MISO)  ← SD Module DO     [Data Out from SD]                               │
+│   Pin D11 (MOSI)  → SD Module DI     [Data In to SD]                                  │
+│   Pin D10 (CS)    → SD Module CS     [Chip Select, can use any digital pin]           │
+│                                                                                         │
+│ GPIO (for Toggle Switch):                                                               │
+│   Pin D2        ← Toggle Switch     [Digital input with internal pullup]              │
+│   GND           ← Toggle Switch other terminal                                          │
+│   Function: Start/stop data logging (read LOW when switch closed)                      │
+│                                                                                         │
+│ USB:                                                                                    │
+│   Mini-USB port for programming & serial monitor                                        │
+│                                                                                         │
+│ GROUND:                                                                                 │
+│   ⚠ CRITICAL: Arduino GND must be connected to Common Ground with all other systems   │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│ BME280 Sensor (Temperature, Humidity, Pressure)                                        │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│ CONNECTOR: HiLetgo BME280 module (typically 4-pin header)                              │
+│   VCC  (+)  3.3V Power (some modules 5V tolerant) [RED]    ← Arduino 3.3V or 5V       │
+│   GND  (-)  Ground                                [BLACK]  → Arduino GND                │
+│   SDA  (D)  I2C Data Line                         [BLUE]   ↔ Arduino A4 (SDA)         │
+│   SCL  (C)  I2C Clock Line                        [YELLOW] ↔ Arduino A5 (SCL)         │
+│                                                                                         │
+│ I2C ADDRESS: 0x76 or 0x77 (check with I2C scanner if unsure)                          │
+│                                                                                         │
+│ POWER CONSUMPTION: ~3mA active, ~0.1mA sleep                                           │
+│                                                                                         │
+│ MEASUREMENT RANGES:                                                                     │
+│   Temperature: -40°C to +85°C (±1°C accuracy)                                          │
+│   Humidity: 0-100% RH (±3% accuracy)                                                   │
+│   Pressure: 300-1100 hPa (±1 hPa accuracy)                                             │
+│                                                                                         │
+│ LIBRARY: Adafruit_BME280 or BME280 by Tyler Glenn                                      │
+│                                                                                         │
+│ WIRING NOTES:                                                                           │
+│   - I2C pullup resistors (4.7kΩ) typically included on breakout module                │
+│   - If using 3.3V sensor with 5V Arduino, ensure module has level shifter             │
+│   - Keep I2C wires short (<30cm) and away from motor wires (noise immunity)           │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│ MQ135 Air Quality Sensor (VOC, CO₂, NH₃, Smoke)                                        │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│ CONNECTOR: Ximimark MQ135 module (typically 4-pin header)                              │
+│   VCC  (+)  5V Power                 [RED]    ← Arduino 5V                             │
+│   GND  (-)  Ground                   [BLACK]  → Arduino GND                            │
+│   AOUT (A)  Analog Output (0-5V)     [YELLOW] → Arduino A0                            │
+│   DOUT (D)  Digital Output (optional, not used in this build)                          │
+│                                                                                         │
+│ POWER CONSUMPTION: ~150mA (heater element requires significant current)                │
+│                                                                                         │
+│ WARM-UP TIME: 24-48 hours for stable readings (preheat before first flight!)          │
+│                                                                                         │
+│ OUTPUT:                                                                                 │
+│   Analog voltage proportional to gas concentration                                      │
+│   Higher voltage = Higher gas concentration                                             │
+│   Requires calibration for quantitative measurements                                    │
+│                                                                                         │
+│ SENSING RANGE:                                                                          │
+│   CO₂: 10-1000 ppm                                                                     │
+│   NH₃: 10-300 ppm                                                                      │
+│   Alcohol, Benzene, Smoke (qualitative detection)                                      │
+│                                                                                         │
+│ ⚠ CRITICAL NOTES:                                                                       │
+│   - Keep MQ135 away from motor/ESC (electrical noise affects readings)                │
+│   - Sensor requires airflow (mount in ventilated area)                                 │
+│   - Heater generates heat (~0.75W power dissipation)                                   │
+│   - Plan for 48-hour burn-in period before accurate data collection                    │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│ MicroSD Card Module (SPI Interface, Data Logging)                                      │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│ CONNECTOR: HiLetgo MicroSD module (6-pin header typical)                               │
+│   VCC  (+)  5V Power                 [RED]     ← Arduino 5V                            │
+│   GND  (-)  Ground                   [BLACK]   → Arduino GND                           │
+│   MISO (DO) Master In Slave Out      [BLUE]    → Arduino D12 (MISO)                   │
+│   MOSI (DI) Master Out Slave In      [YELLOW]  ← Arduino D11 (MOSI)                   │
+│   SCK  (CLK) SPI Clock               [GREEN]   ← Arduino D13 (SCK)                    │
+│   CS   (CS)  Chip Select             [ORANGE]  ← Arduino D10 (or any digital pin)     │
+│                                                                                         │
+│ POWER CONSUMPTION: 15mA idle, 80mA typical, 200mA peak (during write)                 │
+│                                                                                         │
+│ SUPPORTED CARDS:                                                                        │
+│   MicroSD (up to 2GB), MicroSDHC (2-32GB) - Use FAT16 or FAT32 format                 │
+│   Recommend: 8GB or 16GB Class 10 card for fast write speed                            │
+│                                                                                         │
+│ LIBRARY: SD.h (built-in Arduino library)                                               │
+│                                                                                         │
+│ FILE FORMAT: CSV recommended (easy to parse in Excel/Python)                           │
+│   Example: timestamp,temp,humidity,pressure,gas_level                                  │
+│                                                                                         │
+│ WIRING NOTES:                                                                           │
+│   - Module typically includes 3.3V regulator and level shifters                        │
+│   - Keep SPI wires short (<20cm) for reliable high-speed communication                 │
+│   - Add 100µF capacitor near VCC if experiencing brown-outs during writes             │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│ SPST Toggle Switch (Data Logging Control)                                              │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│ TYPE: Taiss Mini Toggle Switch, 2-pin SPST                                             │
+│   Pin 1: Common        → Arduino D2 (digital input with internal pullup enabled)       │
+│   Pin 2: Switched      → Arduino GND                                                    │
+│                                                                                         │
+│ FUNCTION:                                                                               │
+│   Switch OPEN:  Arduino reads HIGH (pullup resistor), logging disabled                 │
+│   Switch CLOSED: Arduino reads LOW (connected to GND), logging enabled                 │
+│                                                                                         │
+│ ARDUINO CODE:                                                                           │
+│   pinMode(2, INPUT_PULLUP);  // Enable internal pullup on D2                           │
+│   if (digitalRead(2) == LOW) { // Logging active                                       │
+│       // Write data to SD card                                                          │
+│   }                                                                                     │
+│                                                                                         │
+│ MOUNTING:                                                                               │
+│   Mount switch in accessible location on airframe for pre-flight control               │
+│   Use heat shrink or connector housing to prevent shorts                               │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 3: WIRE GAUGE & COLOR CODE REFERENCE
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│ CONNECTION TYPE              WIRE GAUGE    COLOR STANDARD          MAX LENGTH           │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│ Battery → ESC                12-14 AWG     Red (+), Black (-)      15-30 cm            │
+│ Battery → External BEC       16-18 AWG     Red (+), Black (-)      15-25 cm            │
+│ ESC → Motor                  12-14 AWG     Yellow/Red/Black        10-20 cm            │
+│ ESC BEC → Flight Controller  20-22 AWG     Red (+5V), Black (GND)  20-40 cm            │
+│ External BEC → Servo Rail    18-20 AWG     Red (+5V), Black (GND)  20-30 cm            │
+│ FC → Servos (Signal)         26-28 AWG     Orange (Signal only)    30-50 cm            │
+│ FC → GPS                     26-28 AWG     4-wire ribbon cable     15-30 cm            │
+│ FC → Receiver                26-28 AWG     3-wire servo cable      15-25 cm            │
+│ Arduino → Sensors            26-28 AWG     Dupont jumper wires     10-20 cm            │
+│ Ground Wires (Common GND)    18-20 AWG     Black                   Various             │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+COLOR CODE (Standard):
+  Red:          +5V or Battery Positive
+  Black/Brown:  Ground (GND) / Negative
+  Yellow/Orange: Signal (PWM, Analog, or Data)
+  White:        Data TX (Transmit)
+  Green:        Data RX (Receive)
+  Blue:         I2C SDA or SPI MISO
+  Purple:       I2C SCL or SPI MOSI
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 4: GROUNDING TOPOLOGY (CRITICAL)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+⚠ ALL GROUNDS MUST BE CONNECTED TOGETHER (COMMON GROUND)
+
+Use STAR GROUNDING topology from battery negative terminal:
+
+                         Battery Negative (-)
+                                  │
+                                  │ (Heavy 18 AWG ground wire)
+                                  │
+                        ┌─────────┴─────────┐
+                        │  Common Ground    │
+                        │  Junction Point   │
+                        │  (Solder or PCB)  │
+                        └─────────┬─────────┘
+                                  │
+        ┌─────────────────────────┼─────────────────────────┬────────────┬──────────┐
+        │                         │                         │            │          │
+   ESC Ground            External BEC Ground         FC Ground    Arduino GND   Servo GND
+        │                         │                         │            │          │
+        ├─> Motor GND             └─> Servo Power GND       ├─> GPS GND  │          │
+        └─> BEC Output GND                                  └─> RX GND   │          │
+                                                                          │          │
+                                                                          └─> Sensor GND
+                                                                          └─> SD GND
+
+⚠ WARNINGS:
+  - Do NOT create ground loops (multiple parallel ground paths)
+  - Ensure ALL components share the same ground reference
+  - Use thick wire (18-20 AWG) for main ground bus
+  - Poor grounding causes: erratic behavior, resets, noise, GPS dropouts
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 5: CONNECTOR & SOLDERING CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+☐ XT60 Connectors:
+    ☐ Battery XT60 male (pre-installed)
+    ☐ ESC XT60 female (may need to solder)
+    ☐ External BEC XT60 female (solder or use adapter)
+    ☐ XT60 Y-harness or splitter cable (purchase or build)
+
+☐ Servo Connectors:
+    ☐ 4× Servo extension cables (if needed for length)
+    ☐ Servo power rail distribution (solder or use Y-cables)
+
+☐ Flight Controller Connections:
+    ☐ GPS cable (JST-SH 1.0mm or individual wires)
+    ☐ Receiver cable (servo-style 3-pin)
+    ☐ ESC signal cable (servo-style, remove +5V wire!)
+    ☐ Power input wires to 5V and GND pads (solder directly)
+
+☐ Arduino Connections:
+    ☐ Dupont jumper wires for sensors (M-F or F-F)
+    ☐ Power wires (22-24 AWG to 5V and GND pins)
+
+☐ Heat Shrink Tubing:
+    ☐ XT60 solder joints (prevent shorts)
+    ☐ Exposed solder joints on power distribution
+    ☐ Motor wire connections (if using bullet connectors)
+
+☐ Labels:
+    ☐ Label all power wires ("Rail 1", "Rail 2", "14.8V")
+    ☐ Label servo wires (S1/Aileron L, S2/Aileron R, S3/Elev, S4/Rudd)
+    ☐ Label Arduino sensor wires (BME280, MQ135, SD)
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 6: TESTING PROCEDURE (STEP-BY-STEP)
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+⚠ ALWAYS TEST SUBSYSTEMS BEFORE FULL INTEGRATION
+
+PHASE 1: Component-Level Testing
+──────────────────────────────────────────────────────────────────────────────────────────
+Step 1.1: Battery Voltage Check
+  ☐ Measure battery voltage with multimeter: Should read 14.8V nominal (±1V)
+  ☐ Check each cell voltage via balance connector: All cells ~3.7V
+  ☐ If any cell <3.5V, charge battery before proceeding
+
+Step 1.2: ESC BEC Output Test
+  ☐ Connect battery to ESC (NO MOTOR connected yet)
+  ☐ Measure BEC output with multimeter: Should read 5.0V ± 0.1V
+  ☐ If voltage incorrect, ESC may be faulty or misconfigured
+
+Step 1.3: External BEC Test
+  ☐ Connect battery to External BEC
+  ☐ Measure output with multimeter: Should read 5.0V ± 0.1V
+  ☐ Load test: Connect 1Ω resistor (5W rated) → Should still read 5.0V
+
+Step 1.4: Servo Movement Test (Individual)
+  ☐ Connect ONE servo to External BEC (power only, no signal)
+  ☐ Manually move servo arm: Should move smoothly, no binding
+  ☐ Repeat for all 4 servos
+
+Step 1.5: Arduino Power Test
+  ☐ Connect Arduino to 5V + GND from Rail 1
+  ☐ Verify onboard LED lights up
+  ☐ Upload simple blink sketch to verify functionality
+
+──────────────────────────────────────────────────────────────────────────────────────────
+PHASE 2: Subsystem Integration Testing
+──────────────────────────────────────────────────────────────────────────────────────────
+Step 2.1: Flight Controller Power-Up
+  ☐ Connect FC to ESC BEC (Rail 1)
+  ☐ Verify FC status LED (should blink)
+  ☐ Connect to FC via USB, access configuration software
+  ☐ Verify firmware version and basic settings
+
+Step 2.2: GPS Connection
+  ☐ Connect GPS to FC (UART1)
+  ☐ Power system, wait 2-5 minutes for GPS lock
+  ☐ In FC software, verify GPS shows satellite count (>8 for good lock)
+  ☐ If no lock, check antenna orientation and wiring
+
+Step 2.3: Receiver Binding
+  ☐ Connect receiver to FC
+  ☐ Bind receiver to transmitter (follow ELRS binding procedure)
+  ☐ In FC software, verify receiver channels responding (move sticks)
+  ☐ Check all 4 channels: Throttle, Aileron, Elevator, Rudder
+
+Step 2.4: ESC Calibration & Motor Test
+  ☐ Connect ESC signal wire to FC motor output (M1)
+  ☐ Calibrate ESC (follow ESC manual procedure)
+  ☐ ⚠ NO PROPELLER: Test motor spin at low throttle
+  ☐ Verify motor direction (clockwise viewed from front)
+  ☐ If reversed, swap any two motor wires
+
+Step 2.5: Servo Signal Test
+  ☐ Connect all 4 servos to FC PWM outputs (S1-S4)
+  ☐ Configure servo outputs in FC software (set to "Servo" mode)
+  ☐ Move TX sticks, verify servo response:
+      - Right stick left/right → Ailerons move (S1 up, S2 down or vice versa)
+      - Right stick up/down → Elevator moves
+      - Left stick left/right → Rudder moves
+  ☐ Adjust servo direction (reverse) in FC if needed
+  ☐ Set servo endpoints (typically 1000-2000µs, may limit to prevent binding)
+
+──────────────────────────────────────────────────────────────────────────────────────────
+PHASE 3: Research Payload Testing
+──────────────────────────────────────────────────────────────────────────────────────────
+Step 3.1: BME280 Sensor Test
+  ☐ Wire BME280 to Arduino (I2C: SDA → A4, SCL → A5)
+  ☐ Upload BME280 test sketch (from Adafruit library examples)
+  ☐ Open Serial Monitor, verify readings:
+      - Temperature: Reasonable room temp (~20-25°C)
+      - Humidity: 30-70% typical indoors
+      - Pressure: 980-1020 hPa (varies by altitude)
+
+Step 3.2: MQ135 Sensor Test
+  ☐ Wire MQ135 to Arduino (AOUT → A0)
+  ☐ Upload sketch to read analog value from A0
+  ☐ Readings will be unstable initially (sensor needs warm-up)
+  ☐ Verify analog value changes when blowing on sensor
+
+Step 3.3: MicroSD Module Test
+  ☐ Wire SD module to Arduino (SPI: MOSI, MISO, SCK, CS)
+  ☐ Insert formatted SD card (FAT32, <32GB)
+  ☐ Upload SD card test sketch (from SD library examples)
+  ☐ Verify file creation and data write to SD card
+  ☐ Remove card, check file on computer
+
+Step 3.4: Toggle Switch Test
+  ☐ Wire toggle switch (D2 with INPUT_PULLUP)
+  ☐ Upload sketch to read D2 state
+  ☐ Verify Serial Monitor shows HIGH (open) and LOW (closed)
+
+Step 3.5: Integrated Data Logging Test
+  ☐ Upload final data logging sketch (reads sensors, writes to SD)
+  ☐ Toggle switch ON, verify data logging starts
+  ☐ Let run for 1 minute
+  ☐ Toggle switch OFF, verify logging stops
+  ☐ Remove SD card, verify CSV file with timestamped data
+
+──────────────────────────────────────────────────────────────────────────────────────────
+PHASE 4: Full System Integration
+──────────────────────────────────────────────────────────────────────────────────────────
+Step 4.1: Current Draw Measurement
+  ☐ Use clamp meter or inline current sensor
+  ☐ Measure Rail 1 current (ESC BEC output):
+      - Idle (no servos moving): ~320-400mA ✓
+      - With servo movement: ~1000-1400mA ✓
+  ☐ Measure Rail 2 current (External BEC):
+      - Idle: ~40mA ✓
+      - With servo movement: ~700-1200mA ✓
+  ☐ If currents exceed estimates, investigate (possible short/malfunction)
+
+Step 4.2: Voltage Sag Test
+  ☐ Connect multimeter to FC 5V input
+  ☐ Move all servos simultaneously (full deflection)
+  ☐ FC voltage must stay >4.8V (preferably >4.9V)
+  ☐ If voltage sags below 4.8V, FC may brown out → Increase BEC capacity
+
+Step 4.3: Electrical Noise Test
+  ☐ Power entire system, achieve GPS lock
+  ☐ Spin motor at 50% throttle (NO PROP)
+  ☐ Monitor GPS satellite count in FC software
+  ☐ GPS should NOT lose lock or show reduced satellite count
+  ☐ If GPS affected: Twist motor wires, add ferrite bead, increase separation
+
+Step 4.4: Ground Continuity Test
+  ☐ Use multimeter in continuity mode (beep test)
+  ☐ Verify 0Ω resistance between:
+      - Battery negative ↔ ESC ground
+      - Battery negative ↔ FC ground
+      - Battery negative ↔ Arduino ground
+      - Battery negative ↔ Servo ground
+  ☐ If no continuity, fix ground connections immediately
+
+Step 4.5: Receiver Range Test
+  ☐ Power system, bind TX/RX
+  ☐ Walk 50m away with transmitter
+  ☐ Verify control inputs still responsive (move servos)
+  ☐ Walk to 100m if safe to do so
+  ☐ ELRS should achieve >1km range in open field (overkill for this project)
+
+──────────────────────────────────────────────────────────────────────────────────────────
+PHASE 5: Pre-Flight Validation
+──────────────────────────────────────────────────────────────────────────────────────────
+Step 5.1: Control Surface Check
+  ☐ With aircraft on bench, verify control surface movement:
+      - Aileron stick right → Right aileron down, Left aileron up
+      - Aileron stick left → Right aileron up, Left aileron down
+      - Elevator stick down → Elevator up (pitch up)
+      - Elevator stick up → Elevator down (pitch down)
+      - Rudder stick right → Rudder right
+      - Rudder stick left → Rudder left
+  ☐ If reversed, fix in FC configuration
+
+Step 5.2: Failsafe Test
+  ☐ Power aircraft, bind TX/RX
+  ☐ Set throttle to mid-stick
+  ☐ Turn OFF transmitter
+  ☐ Verify failsafe activates (servos should hold position or center)
+  ☐ Motor should cut (throttle → 0%)
+  ☐ Configure failsafe in FC if behavior incorrect
+
+Step 5.3: Battery Low Voltage Alarm
+  ☐ Configure low voltage alarm in FC (set to 14.0V or 3.5V/cell)
+  ☐ If FC has buzzer, verify audible alarm
+  ☐ Alternatively, configure telemetry alert on TX display
+
+Step 5.4: Data Logging Pre-Flight Check
+  ☐ Power Arduino, toggle switch ON
+  ☐ Verify logging starts (LED indicator if implemented)
+  ☐ Let log for 30 seconds
+  ☐ Toggle OFF, remove SD card, check file
+  ☐ Plan to power Arduino 24-48 hours before flight (MQ135 warm-up)
+
+Step 5.5: Final Visual Inspection
+  ☐ Check all connectors secure (no loose wires)
+  ☐ Verify no exposed metal (risk of shorts)
+  ☐ Check wire routing (away from control surfaces, no chafing)
+  ☐ Verify all components secured (no loose parts in flight)
+  ☐ Confirm propeller secure (but REMOVE for ground testing!)
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   SECTION 7: COMMON WIRING MISTAKES & TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════════════════════
+
+PROBLEM: Flight controller not powering on
+  Cause 1: No power to FC 5V/GND pads
+    → Check ESC BEC output voltage (should be 5V)
+    → Verify FC 5V pad solder joint (may be cold joint)
+  Cause 2: FC damaged (rare)
+    → Try powering via USB to isolate issue
+
+PROBLEM: Servos jittering or not moving smoothly
+  Cause 1: Insufficient power (voltage sag)
+    → Verify servo power from Rail 2 (External BEC), not FC
+    → Measure voltage at servo power rail under load (must be >4.8V)
+  Cause 2: Noisy PWM signal
+    → Shorten signal wires, route away from motor/ESC wires
+  Cause 3: Mechanical binding
+    → Check control surface linkages for friction
+
+PROBLEM: GPS not getting lock (satellite count = 0)
+  Cause 1: No power to GPS
+    → Verify GPS VCC connected to FC 5V
+  Cause 2: Wrong UART port or baud rate
+    → Check FC configuration (typically UART1, 9600 or 115200 baud)
+  Cause 3: GPS antenna obstructed
+    → Mount GPS with clear view of sky, away from carbon fiber
+  Cause 4: Indoor testing
+    → GPS requires outdoor testing for lock
+
+PROBLEM: Receiver not binding to transmitter
+  Cause 1: Wrong binding procedure
+    → Follow ELRS binding steps (bind button or WiFi method)
+  Cause 2: Receiver not powered
+    → Verify receiver VCC connected to 5V, check current draw (~90mA)
+  Cause 3: Firmware mismatch
+    → Ensure TX and RX have same ELRS firmware version
+
+PROBLEM: Motor not spinning
+  Cause 1: ESC not armed
+    → Throttle must be at zero during power-up to arm ESC
+  Cause 2: No signal to ESC
+    → Verify ESC signal wire connected to FC motor output (M1)
+  Cause 3: ESC not calibrated
+    → Run ESC calibration procedure (throttle range learning)
+
+PROBLEM: Arduino sensors not reading correctly
+  Cause 1: Wrong I2C address (BME280)
+    → Run I2C scanner sketch, check address (0x76 or 0x77)
+  Cause 2: MQ135 unstable readings
+    → Sensor needs 24-48 hour warm-up for stability
+  Cause 3: SD card not detected
+    → Verify card formatted FAT32, check SPI wiring
+    → Try different SD card (some cards incompatible)
+
+PROBLEM: System resets randomly during operation
+  Cause 1: Voltage brownout (power supply insufficient)
+    → Check battery voltage (must be >13.2V)
+    → Measure voltage at FC under load (must be >4.8V)
+  Cause 2: Poor ground connection
+    → Verify common ground continuity across all components
+  Cause 3: Electrical noise from motor/ESC
+    → Add capacitor across motor terminals, twist motor wires
+
+
+═══════════════════════════════════════════════════════════════════════════════════════════
+   DOCUMENT INFORMATION
+═══════════════════════════════════════════════════════════════════════════════════════════
+Version: 1.0
+Date: February 20, 2026
+Author: Electrical Lead, NLC STEM Club
+Status: APPROVED FOR IMPLEMENTATION
+
+Print this document and bring to first meeting!
+═══════════════════════════════════════════════════════════════════════════════════════════
