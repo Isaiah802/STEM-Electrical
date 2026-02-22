@@ -60,7 +60,7 @@ STEM-Electrical/
 - **[Team Lead Action Checklist PDF](PDFs/TEAM_LEAD_ACTION_CHECKLIST.pdf)** - Timeline and task breakdown
 - **[Subsystem Assignment Detailed PDF](PDFs/Subsystem_Assignment_Detailed.pdf)** - Individual team assignments
 - **[Technical Terminology Definitions PDF](PDFs/Technical_Terminology_Definitions.pdf)** - Reference guide
-- **[Circuit Fundamentals Teaching Guide](Circuit_Fundamentals_Teaching_Guide.txt)** - Learning resource
+- **[Circuit Fundamentals Teaching Guide PDF](PDFs/Circuit_Fundamentals_Teaching_Guide.pdf)** - Complete electrical theory tutorial with UAV examples and practice problems
 
 ### For Project Planning
 
@@ -239,7 +239,8 @@ This is a student club project. External contributions are welcome but please op
 - Sensors: BME280, Air Quality sensor specifications
 
 ### Learning Materials
-- [Circuit Fundamentals Teaching Guide](Circuit_Fundamentals_Teaching_Guide.txt)
+- [Circuit Fundamentals Teaching Guide PDF](PDFs/Circuit_Fundamentals_Teaching_Guide.pdf)
+- [Circuit Fundamentals Teaching Guide (Text)](Circuit_Fundamentals_Teaching_Guide.txt)
 - Soldering tutorial videos (links in team Discord)
 - Multimeter usage guide (in Learning Modules)
 
